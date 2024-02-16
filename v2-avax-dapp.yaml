@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: frontend-v2-avax-dapp
+service: frontend-v2-avax
 handlers:
   - url: /.*
     secure: always
