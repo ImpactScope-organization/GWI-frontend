@@ -1,6 +1,11 @@
 export const smartContract = {
-  address: "0x8175960dA79C379bFa864B732613722E86eb6771",
+  address: "0xe7fdD9C569919dcB92568259d676f695953f63Fd",
   abi: [
+    {
+      inputs: [],
+      stateMutability: "nonpayable",
+      type: "constructor",
+    },
     {
       inputs: [
         {
@@ -13,11 +18,6 @@ export const smartContract = {
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
-    },
-    {
-      inputs: [],
-      stateMutability: "nonpayable",
-      type: "constructor",
     },
     {
       inputs: [],
