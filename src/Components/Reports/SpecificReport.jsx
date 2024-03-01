@@ -1213,7 +1213,7 @@ const SpecificReport = () => {
                 )}
                 {etherscanURL && (
                   <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
-                    Etherscan URL
+                    Subscan link
                   </p>
                 )}
                 {etherscanURL && (
