@@ -237,7 +237,7 @@ const SpecificReport = () => {
       );
       const receipt = await tx.wait();
       const txHash = receipt.transactionHash;
-      const etherscanUrl = `https://sepolia.etherscan.io/tx/${txHash}`;
+      const etherscanUrl = `https://shibuya.subscan.io/tx/${txHash}`;
       setEtherscanURL(etherscanUrl);
 
       // Sending to regulators
