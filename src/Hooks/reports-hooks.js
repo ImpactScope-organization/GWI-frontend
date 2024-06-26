@@ -1,27 +1,26 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ReportService from "../Services/reports-services";
 
-
-
-
 const useGetSpecificReportDetails = (id) => {
   return useQuery({
-    queryKey: ["getSingleReportDetail"], 
+    queryKey: ["getSingleReportDetail"],
     queryFn: () => ReportService.getSpecificReport(id),
   });
 };
 
-
-
-
 const useGetAllPendingReports = () => {
   return useQuery({
-    queryKey: ["getUpdateSendToRegulators"], 
+    queryKey: ["getUpdateSendToRegulators"],
     queryFn: () => ReportService.getAllPendingReports(),
   });
 };
 
-
+const useGetAllReportsSentToRegulators = () => {
+  return useQuery({
+    queryKey: ["getAllReportsSentToRegulators"],
+    queryFn: () => ReportService.getAllReportsSentToRegulators(),
+  });
+};
 
 const useUpdateReportAgePriority = (reportData) => {
   // console.log(reportData)
@@ -38,13 +37,9 @@ const useUpdateReportAgePriority = (reportData) => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-export { useUpdateReportAgePriority, useGetSpecificReportDetails,useGetAllPendingReports};
+export {
+  useUpdateReportAgePriority,
+  useGetSpecificReportDetails,
+  useGetAllPendingReports,
+  useGetAllReportsSentToRegulators,
+};

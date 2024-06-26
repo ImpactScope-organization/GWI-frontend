@@ -23,7 +23,7 @@ export const scoringPagePrompts = {
   sources: {
     role: "system",
     content:
-      "Identify the sources which has done some announcements mentioned and return an array of object containing title title and description",
+      "Identify the sources which has done some announcements mentioned and return an array of object containing title and description",
   },
   // Greenwashing risk
   vagueTerms: {

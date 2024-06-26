@@ -7,15 +7,43 @@ import * as XLSX from "xlsx"; // Import the xlsx library
 import { toast } from "react-toastify";
 import axios from "axios";
 import { transformArrayOfObjects } from "../../utils/helpers";
+import Button from "../button";
+import apiUrl from "../../utils/baseURL";
 
 const Step2 = () => {
   const fileInputRef = useRef(null);
-  const { processing, setProcessing, setStep, rows, setRows, setSheet } =
-    useStepsContext();
+  const { processing, setProcessing, setStep, setSheet } = useStepsContext();
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileProgress, setFileProgress] = useState({});
 
+  const handleCreateCompany = async (sheetData) => {
+    try {
+      const payload = {
+        companyName: sheetData?.Company[0]?.name,
+        jurisdiction: sheetData?.Company[0]?.jurisdiction,
+        sector: sheetData?.Company[0]?.sector,
+        annualRevenue: sheetData?.Company[0]?.["annual revenue"],
+        noOfEmployees: sheetData?.Company[0]?.employees,
+        GHGEmissions: sheetData?.Company[0]?.["ghg emissions"],
+        claims: JSON.stringify(sheetData?.Claims.slice(0, 30)),
+        fileName: sheetData?.file?.name,
+      };
+      const response = await axios.post(
+        `${apiUrl}/api/company/create`,
+        payload
+      );
+      toast.success("Company is created successfully");
+      return response;
+    } catch (error) {
+      const errMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        `something went wrong while creating company "${sheetData?.company?.name}"`;
+      toast.error(errMessage);
+      return errMessage;
+    }
+  };
   const processDataFromFiles = async () => {
     try {
       let allSheetDataArray = [];
@@ -38,10 +66,6 @@ const Step2 = () => {
                 ) {
                   rows = transformArrayOfObjects(rows);
                 }
-                // Process the rows from the sheet (console.log or store the data as needed)
-                // console.log(`File: ${file.name}, Sheet: ${sheetName}`);
-                // console.log("===", rows);
-
                 // Accumulate rows by sheet name
                 allSheetData[sheetName] = allSheetData[sheetName]
                   ? [...allSheetData[sheetName], ...rows]
@@ -53,9 +77,9 @@ const Step2 = () => {
             }
           };
         });
-
         reader.readAsArrayBuffer(file);
         await promise; // Wait for each file to be processed before moving to the next
+        await handleCreateCompany({ ...allSheetData, file });
         allSheetDataArray.push({ ...allSheetData, file });
       }
 
@@ -112,22 +136,18 @@ const Step2 = () => {
     fileInputRef.current.click();
   };
 
-  const handleFileConfirm = () => {
+  const handleFileConfirm = async () => {
     if (selectedFiles.length === 0) {
       return toast.error("Please upload dataset first");
     }
 
     setProcessing(true);
-    processDataFromFiles();
+    await processDataFromFiles();
     setTimeout(() => {
       setStep("all_reports");
       setProcessing(false);
     }, 2000);
   };
-
-  // const showRows = () => {
-  //   console.log("rows: ", sheetData);
-  // };
 
   return (
     <>
@@ -138,11 +158,11 @@ const Step2 = () => {
           <BackButton setStep={() => setStep("step1")} />
           <div className="grid w-full min-h-[75vh] ">
             <div className="w-1/2 mx-auto flex justify-center items-center flex-col">
-              <h1 className="text-[#000] font-bold text-3xl mb-1">
-                Identify potential Greenwashing on the fly
+              <h1 className="text-darkBlack font-bold text-3xl leading-[64px] mb-1">
+                Add new company
               </h1>
-              <p className="text-[#0000007f] text-lg font-semibold mb-7">
-                Upload a data source file to get started
+              <p className="subtitle-text ">
+                Download the data source file to get started
               </p>
               {/* File Upload */}
               <div>
@@ -153,28 +173,31 @@ const Step2 = () => {
                   onChange={handleFileChange}
                   multiple
                 />
-                <img
-                  src="/assets/file_upload.png"
-                  alt="file"
-                  className="cursor-pointer"
+                <div
                   onClick={handleFileClick}
-                />
+                  className="w-[512px] h-[208px] rounded-lg shadow-xl cursor-pointer bg-white p-[12px]"
+                >
+                  <div className="w-full h-full border border-4 border-dashed rounded-lg border-[#DCDEE5] flex flex-col items-center justify-between p-[16px]">
+                    <div className="bg-lightgrey rounded-full p-[22px]">
+                      <img src="/assets/upload-icon.svg" />
+                    </div>
+                    <h1 className="text-darkGrey font-[600] text-[24px] leading-[40px]">
+                      Upload the source file
+                    </h1>
+                    <p className="text-[#8A929D] text-[16px] font-md leading-[24px]">
+                      .xlsx up to 1GB
+                    </p>
+                  </div>
+                </div>
               </div>
               {/* File Progress */}
-              {selectedFiles.map((file) => (
+              {selectedFiles?.map((file) => (
                 <div
                   key={file.name}
-                  className="grid grid-cols-[70px,70%,70px] w-[75%] mx-auto rounded-xl border-[2px] border-[#E8ECEF] mt-10 p-3 justify-center"
+                  className="grid grid-cols-[80%,70px] w-[512px] mx-auto rounded-xl border-[2px] border-[#E8ECEF] mt-10 p-3 justify-center"
                 >
                   <div className="">
-                    <img
-                      src="/assets/file.svg"
-                      alt="logo"
-                      className="mx-auto"
-                    />
-                  </div>
-                  <div className="">
-                    <h1 className="font-semibold mb-0 text-[#000]">
+                    <h1 className="font-semibold mb-0 text-darkBlack">
                       {file.name}
                     </h1>
                     <p className="font-semibold mt-0 text-sm text-[#808080]">
@@ -182,7 +205,7 @@ const Step2 = () => {
                     </p>
                     <div className="bg-gray-200 h-3 rounded-full overflow-hidden w-full mt-2">
                       <div
-                        className="bg-green-500 h-full rounded-full"
+                        className="bg-primary h-full rounded-full"
                         style={{ width: `${fileProgress[file.name] || 0}%` }}
                       ></div>
                     </div>
@@ -200,19 +223,14 @@ const Step2 = () => {
                   </div>
                 </div>
               ))}
-              <button
-                onClick={handleFileConfirm}
-                className="bg-[#3FDD78] text-lg rounded-2xl mt-10 py-3 px-6 border-none outline-none text-[#fff] "
-              >
-                Confirm
-              </button>
 
-              {/* <button
-                onClick={showRows}
-                className="bg-[#3FDD78] text-lg rounded-2xl mt-10 py-3 px-6 border-none outline-none text-[#fff] "
-              >
-                Show
-              </button> */}
+              {selectedFiles?.length > 0 && (
+                <Button
+                  title="Confirm"
+                  onClick={handleFileConfirm}
+                  classes="mt-10"
+                />
+              )}
             </div>
           </div>
         </div>

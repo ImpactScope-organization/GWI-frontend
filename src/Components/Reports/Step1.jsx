@@ -7,17 +7,17 @@ const Step1 = () => {
     <div className="grid w-full min-h-[86vh] ">
       <div className="w-1/2 mx-auto flex justify-center items-center flex-col">
         <img src="/assets/step_1.svg" alt="logo" className="mb-3" />
-        <h1 className="text-[#6C727580] font-bold text-2xl mb-1">
-          Just empty boxes here
+        <h1 className="text-[#8A929D] font-[600] text-[24px] leading-[40px] mb-1">
+          You have no companies
         </h1>
-        <p className="text-[#6c72757f] mb-7">
-          Upload source file to generate greenwashing reports.
+        <p className="text-[#7F93A8] font-[500] text-[14px] leading-[24px] mb-7">
+          Go ahead and add a new one
         </p>
         <button
           onClick={() => setStep("step2")}
-          className="bg-[#3FDD78] text-lg rounded-2xl py-3 px-4 border-none outline-none text-[#fff] "
+          className="bg-darkGreen text-lg rounded-2xl py-3 px-4 border-none outline-none text-[#fff] "
         >
-          Upload data source
+          Add new company
         </button>
       </div>
     </div>

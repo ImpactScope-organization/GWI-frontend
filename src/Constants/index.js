@@ -1,70 +1,35 @@
-export const smartContract= 
-    {
-        address:"0x8175960dA79C379bFa864B732613722E86eb6771",
-        abi:  [
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_imageHash",
-				"type": "string"
-			}
-		],
-		"name": "addImageHash",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [],
-		"name": "getAllHashes",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getDeployerAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_hashValue",
-				"type": "string"
-			}
-		],
-		"name": "getHashByValue",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
-	}
-   
+export const smartContract = {
+	address: "0xe65fe1698b78ec9f608b0036f9d8aedb8cf36e48",
+	abi: [
+	  { type: "constructor", inputs: [], stateMutability: "nonpayable" },
+	  {
+		name: "addImageHash",
+		type: "function",
+		inputs: [{ name: "_imageHash", type: "string", internalType: "string" }],
+		outputs: [],
+		stateMutability: "nonpayable",
+	  },
+	  {
+		name: "getAllHashes",
+		type: "function",
+		inputs: [],
+		outputs: [{ name: "", type: "string[]", internalType: "string[]" }],
+		stateMutability: "view",
+	  },
+	  {
+		name: "getDeployerAddress",
+		type: "function",
+		inputs: [],
+		outputs: [{ name: "", type: "address", internalType: "address" }],
+		stateMutability: "view",
+	  },
+	  {
+		name: "getHashByValue",
+		type: "function",
+		inputs: [{ name: "_hashValue", type: "string", internalType: "string" }],
+		outputs: [{ name: "", type: "string", internalType: "string" }],
+		stateMutability: "view",
+	  },
+	],
+  };
+  

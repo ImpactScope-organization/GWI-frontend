@@ -6,13 +6,13 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <div className="bg-black">
-      <div className="flex justify-between items-center  py-5 w-[90%] mx-auto ">
+    <div className="bg-darkBlack">
+      <div className="flex justify-between items-center py-5 w-[90%] mx-auto ">
         {/* Left */}
         <div className="flex justify-between gap-20 items-center">
           <img src="/assets/logo.png" alt="logo" />
 
-          <div className="space-x-5 ">
+          {/* <div className="space-x-5 ">
             <Link
               to={"/"}
               className={` ${
@@ -31,7 +31,7 @@ const Header = () => {
             >
               Settings
             </Link>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex justify-center items-center gap-10">
@@ -39,7 +39,7 @@ const Header = () => {
             accentColor="#f213a4"
             colorMode="dark"
             width={{ base: "150px", md: "unset" }}
-            style={{ background: "#3FDD78", color: "white" }}
+            style={{ background: "#4DC601", color: "white" }}
           />
         </div>
       </div>

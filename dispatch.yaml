@@ -1,6 +1,55 @@
 dispatch:
-  - url: "gwi-admin.dev.impactscope.com/*"
-    service: frontend
+  - url: "gwi-reg.impactscope.com/*"
+    service: thirdparty-v2
 
   - url: "gwi.dev.impactscope.com/*"
     service: thirdparty
+
+  # the following domain is changed to fronend v2 dev on client's request
+  # - url: "gwi-admin.dev.impactscope.com/*"
+  #   service: frontend
+
+  - url: "gwi-admin.dev.impactscope.com/*"
+    service: frontend-v2-dev
+
+  - url: "gwi-admin.impactscope.com/*"
+    service: frontend-v2
+
+  - url: "gwi-demo.impactscope.com/*"
+    service: gwi-demo
+
+  - url: "gwi-reg.dev.impactscope.com/*"
+    service: thirdparty-dev
+
+  - url: "gwi-demo.dev.impactscope.com/*"
+    service: gwi-demo-dev
+
+  # v2 avax dispatch routes
+  - url: "gwi-admin.avax.impactscope.com/*"
+    service: frontend-v2-avax
+
+  - url: "gwi-reg.avax.impactscope.com/*"
+    service: v2-avax-thirdparty
+
+  - url: "gwi-demo.avax.impactscope.com/*"
+    service: gwi-demo-v2-avax
+
+  # v2 astr dispatch routes
+  - url: "gwi-admin.astr.impactscope.com/*"
+    service: v2-astr-frontend
+
+  - url: "gwi-reg.astr.impactscope.com/*"
+    service: v2-astr-thirdparty
+
+  - url: "gwi-demo.astr.impactscope.com/*"
+    service: gwi-demo-v2-astr
+
+    # v2 cess sepolia dispatch routes
+  - url: "gwi-admin.cess.impactscope.com/*"
+    service: frontend-v2-cess-sepolia
+
+  - url: "gwi-reg.cess.impactscope.com/*"
+    service: thirdparty-v2-cess-sepolia
+
+  - url: "gwi-demo.cess.impactscope.com/*"
+    service: gwi-demo-v2-cess-sepolia

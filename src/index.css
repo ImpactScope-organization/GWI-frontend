@@ -14,6 +14,10 @@ body {
 .font-karla {
   font-family: "Karla", sans-serif;
 }
+
+.subtitle-text {
+  @apply text-[#8A929D] text-[24px] font-normal font-karla leading-[36px] mb-7;
+}
 /* Modify the scrollbar */
 /* For WebKit-based browsers */
 /* Width and height of the scrollbar */

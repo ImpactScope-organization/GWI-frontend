@@ -38,3 +38,25 @@ export const transformArrayOfObjects = (arr) => {
     return transformedObj;
   });
 };
+
+export const isValidData = (data) => {
+  // Check if the data is a parseable JSON string
+  let parsedData;
+  try {
+    parsedData = JSON.parse(data);
+  } catch (error) {
+    return false; // Not parseable
+  }
+
+  // Check if the parsed data is either an array or an object
+  return (
+    Array.isArray(parsedData) ||
+    (typeof parsedData === "object" && parsedData !== null)
+  );
+};
+
+export const toTitleCase = (str) => {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+};

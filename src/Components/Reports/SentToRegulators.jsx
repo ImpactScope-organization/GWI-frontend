@@ -2,6 +2,7 @@ import BackButton from "../Shared/BackButton";
 import { useStepsContext } from "../../Context/StateContext";
 import { useGetSpecificReportDetails } from "../../Hooks/reports-hooks";
 import CustomGaugeChart from "../gauge-chart";
+import { isValidData } from "../../utils/helpers";
 
 // ----------------------------
 const SentToRegulators = () => {
@@ -36,7 +37,7 @@ const SentToRegulators = () => {
                 ? "Loading..."
                 : specificReportDetailsData?.results?.sendToRegulatorsTimeStamp}
             </p>
-            <h1 className="leading-[64px] text-[#000] text-2xl font-bold">
+            <h1 className="leading-[64px] text-darkBlack text-2xl font-bold">
               {specificReportDetailsLoading
                 ? "Loading..."
                 : specificReportDetailsData?.results?.companyName}
@@ -141,10 +142,10 @@ const SentToRegulators = () => {
               Sources
             </h2>
             <div className="grid grid-cols-2 gap-4">
-              {specificReportDetailsData?.results?.sources &&
+              {isValidData(specificReportDetailsData?.results?.sources) &&
               JSON?.parse(specificReportDetailsData?.results?.sources)?.length >
                 0 ? (
-                specificReportDetailsData?.results?.sources &&
+                isValidData(specificReportDetailsData?.results?.sources) &&
                 JSON?.parse(specificReportDetailsData?.results?.sources)?.map(
                   (source, index) => {
                     return (source?.title || source?.Title) &&
