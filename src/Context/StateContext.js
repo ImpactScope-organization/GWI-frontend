@@ -1,77 +1,77 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
-import apiUrl from "../utils/baseURL";
-import { toast } from "react-toastify";
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import axios from 'axios'
+import apiUrl from '../utils/baseURL'
+import { toast } from 'react-toastify'
 
 // Create the context
-const StepsContext = createContext();
+const StepsContext = createContext()
 
 // Create a provider component
 export function StepsProvider({ children }) {
-  const [openLoginModal, setOpenLoginModal] = useState(false);
-  const [requestLoading, setRequestLoading] = useState(false);
-  const [step, setStep] = useState("step1");
+  const [openLoginModal, setOpenLoginModal] = useState(false)
+  const [requestLoading, setRequestLoading] = useState(false)
+  const [step, setStep] = useState('step1')
   // const [step, setStep] = useState("step1");
-  const [specificReportDetailsID, setSpecificReportDetailsID] = useState("");
-  const [processing, setProcessing] = useState(false);
-  const [showAllReports, setShowAllReports] = useState(false);
-  const [rows, setRows] = useState();
+  const [specificReportDetailsID, setSpecificReportDetailsID] = useState('')
+  const [processing, setProcessing] = useState(false)
+  const [showAllReports, setShowAllReports] = useState(false)
+  const [rows, setRows] = useState()
   const [currentCompany, setCurrentCompany] = useState({
-    currentCompanyData: "",
-    claims: "",
-    index: "",
-  });
-  const [currentCountry, setCurrentCountry] = useState();
+    currentCompanyData: '',
+    claims: '',
+    index: ''
+  })
+  const [currentCountry, setCurrentCountry] = useState()
 
-  const [description, setDescription] = useState();
-  const [sheet, setSheet] = useState();
-  const [filteredCompanyData, setFilteredCompanyData] = useState();
-  const [isReportGenerating, setIsReportGenerating] = useState(false);
+  const [description, setDescription] = useState()
+  const [sheet, setSheet] = useState()
+  const [filteredCompanyData, setFilteredCompanyData] = useState()
+  const [isReportGenerating, setIsReportGenerating] = useState(false)
   // All initialized reports
-  const [allInitializedReports, setAllInitializedReports] = useState([]);
+  const [allInitializedReports, setAllInitializedReports] = useState([])
 
   useEffect(() => {
-    (async () => {
-      const results = await fetchAllInititalizedReports();
+    ;(async () => {
+      const results = await fetchAllInititalizedReports()
       if (results?.length > 0) {
-        setStep("all_reports");
+        setStep('all_reports')
       }
-    })();
+    })()
     return () => {
-      setAllInitializedReports([]);
-    };
-  }, []);
+      setAllInitializedReports([])
+    }
+  }, [])
 
   const fetchAllInititalizedReports = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/company/all`);
-      const { data } = response;
-      setAllInitializedReports(data?.results);
-      return data?.results;
+      const response = await axios.get(`${apiUrl}/api/company/all`)
+      const { data } = response
+      setAllInitializedReports(data?.results)
+      return data?.results
     } catch (error) {
-      toast.error("Something went wrong while pulling records of companies");
+      toast.error('Something went wrong while pulling records of companies')
     }
-  };
+  }
 
   const getCurrentCompany = async (companyID) => {
-    const response = await axios.get(`${apiUrl}/api/company/${companyID}`);
-    const { data } = response;
-    setCurrentCompany(data?.result);
-  };
+    const response = await axios.get(`${apiUrl}/api/company/${companyID}`)
+    const { data } = response
+    setCurrentCompany(data?.result)
+  }
 
   const updateSheet = (sheetIndex, values) => {
     const updatedSheet = [...sheet].map((sheetData, index) => {
       if (index === sheetIndex) {
         return {
           ...sheetData,
-          generatedReport: { ...values },
-        };
+          generatedReport: { ...values }
+        }
       } else {
-        return sheetData;
+        return sheetData
       }
-    });
-    setSheet(updatedSheet);
-  };
+    })
+    setSheet(updatedSheet)
+  }
 
   return (
     <StepsContext.Provider
@@ -106,15 +106,15 @@ export function StepsProvider({ children }) {
         allInitializedReports,
         setAllInitializedReports,
         fetchAllInititalizedReports,
-        getCurrentCompany,
+        getCurrentCompany
       }}
     >
       {children}
     </StepsContext.Provider>
-  );
+  )
 }
 
 // Custom hook to access the context
 export function useStepsContext() {
-  return useContext(StepsContext);
+  return useContext(StepsContext)
 }

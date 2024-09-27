@@ -1,25 +1,25 @@
 /* eslint-disable no-loop-func */
-import React, { useRef, useState } from "react";
-import BackButton from "../../Components/Shared/BackButton";
-import { useStepsContext } from "../../Context/StateContext";
-import Loading from "../../Components/Shared/Loading";
-import * as XLSX from "xlsx"; // Import the xlsx library
-import { toast } from "react-toastify";
-import axios from "axios";
-import { transformArrayOfObjects } from "../../utils/helpers";
-import Button from "../../Components/Button/Button";
-import apiUrl from "../../utils/baseURL";
-import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../routes";
-import {BackButtonLink} from "../../Components/BackButtonLink/BackButtonLink";
+import React, { useRef, useState } from 'react'
+import BackButton from '../../Components/Shared/BackButton'
+import { useStepsContext } from '../../Context/StateContext'
+import Loading from '../../Components/Shared/Loading'
+import * as XLSX from 'xlsx' // Import the xlsx library
+import { toast } from 'react-toastify'
+import axios from 'axios'
+import { transformArrayOfObjects } from '../../utils/helpers'
+import Button from '../../Components/Button/Button'
+import apiUrl from '../../utils/baseURL'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../routes'
+import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
 
 const Create = () => {
-  const navigate = useNavigate();
-  const fileInputRef = useRef(null);
-  const { processing, setProcessing, setSheet } = useStepsContext();
+  const navigate = useNavigate()
+  const fileInputRef = useRef(null)
+  const { processing, setProcessing, setSheet } = useStepsContext()
 
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [fileProgress, setFileProgress] = useState({});
+  const [selectedFiles, setSelectedFiles] = useState([])
+  const [fileProgress, setFileProgress] = useState({})
 
   const handleCreateCompany = async (sheetData) => {
     try {
@@ -27,131 +27,123 @@ const Create = () => {
         companyName: sheetData?.Company[0]?.name,
         jurisdiction: sheetData?.Company[0]?.jurisdiction,
         sector: sheetData?.Company[0]?.sector,
-        annualRevenue: sheetData?.Company[0]?.["annual revenue"],
+        annualRevenue: sheetData?.Company[0]?.['annual revenue'],
         noOfEmployees: sheetData?.Company[0]?.employees,
-        GHGEmissions: sheetData?.Company[0]?.["ghg emissions"],
+        GHGEmissions: sheetData?.Company[0]?.['ghg emissions'],
         claims: JSON.stringify(sheetData?.Claims.slice(0, 30)),
-        fileName: sheetData?.file?.name,
-      };
-      const response = await axios.post(
-        `${apiUrl}/api/company/create`,
-        payload
-      );
-      toast.success("Company is created successfully");
-      return response;
+        fileName: sheetData?.file?.name
+      }
+      const response = await axios.post(`${apiUrl}/api/company/create`, payload)
+      toast.success('Company is created successfully')
+      return response
     } catch (error) {
       const errMessage =
         error?.response?.data?.message ||
         error?.message ||
-        `something went wrong while creating company "${sheetData?.company?.name}"`;
-      toast.error(errMessage);
-      return errMessage;
+        `something went wrong while creating company "${sheetData?.company?.name}"`
+      toast.error(errMessage)
+      return errMessage
     }
-  };
+  }
   const processDataFromFiles = async () => {
     try {
-      let allSheetDataArray = [];
+      let allSheetDataArray = []
 
       for (const file of selectedFiles) {
-        let allSheetData = {}; // Initialize an empty object to store all rows from all sheets and files
-        const reader = new FileReader();
+        let allSheetData = {} // Initialize an empty object to store all rows from all sheets and files
+        const reader = new FileReader()
         const promise = new Promise((resolve, reject) => {
           reader.onload = async (e) => {
             try {
-              const data = new Uint8Array(e.target.result);
-              const workbook = XLSX.read(data, { type: "array" });
+              const data = new Uint8Array(e.target.result)
+              const workbook = XLSX.read(data, { type: 'array' })
 
               for (const sheetName of workbook.SheetNames) {
-                const sheet = workbook.Sheets[sheetName];
-                let rows = XLSX.utils.sheet_to_json(sheet);
-                if (
-                  sheetName.toLocaleLowerCase() === "company" &&
-                  rows.length > 0
-                ) {
-                  rows = transformArrayOfObjects(rows);
+                const sheet = workbook.Sheets[sheetName]
+                let rows = XLSX.utils.sheet_to_json(sheet)
+                if (sheetName.toLocaleLowerCase() === 'company' && rows.length > 0) {
+                  rows = transformArrayOfObjects(rows)
                 }
                 // Accumulate rows by sheet name
                 allSheetData[sheetName] = allSheetData[sheetName]
                   ? [...allSheetData[sheetName], ...rows]
-                  : [...rows];
+                  : [...rows]
               }
-              resolve();
+              resolve()
             } catch (error) {
-              reject(error);
+              reject(error)
             }
-          };
-        });
-        reader.readAsArrayBuffer(file);
-        await promise; // Wait for each file to be processed before moving to the next
-        await handleCreateCompany({ ...allSheetData, file });
-        allSheetDataArray.push({ ...allSheetData, file });
+          }
+        })
+        reader.readAsArrayBuffer(file)
+        await promise // Wait for each file to be processed before moving to the next
+        await handleCreateCompany({ ...allSheetData, file })
+        allSheetDataArray.push({ ...allSheetData, file })
       }
 
-      setSheet(allSheetDataArray);
+      setSheet(allSheetDataArray)
       // console.log("setSheetData: ", setSheetData);
     } catch (err) {
-      console.log("err: ", err);
+      console.log('err: ', err)
     }
-  };
+  }
 
   const handleFileChange = (event) => {
-    console.log("Hello");
-    const newSelectedFiles = Array.from(event.target.files);
-    setSelectedFiles([...selectedFiles, ...newSelectedFiles]);
+    console.log('Hello')
+    const newSelectedFiles = Array.from(event.target.files)
+    setSelectedFiles([...selectedFiles, ...newSelectedFiles])
 
     newSelectedFiles.forEach((file) => {
       setFileProgress((prevProgress) => ({
         ...prevProgress,
-        [file.name]: 0,
-      }));
+        [file.name]: 0
+      }))
 
-      simulateFileUploadProgress(file);
-    });
-  };
+      simulateFileUploadProgress(file)
+    })
+  }
 
   const simulateFileUploadProgress = (file) => {
-    let progress = 0;
+    let progress = 0
 
     const interval = setInterval(() => {
       if (progress < 100) {
-        progress += 10;
+        progress += 10
         setFileProgress((prevProgress) => ({
           ...prevProgress,
-          [file.name]: progress,
-        }));
+          [file.name]: progress
+        }))
       } else {
-        clearInterval(interval); // Clear the interval when progress reaches 100%
+        clearInterval(interval) // Clear the interval when progress reaches 100%
       }
-    }, 200);
-  };
+    }, 200)
+  }
 
   const handleDeleteFile = (fileName) => {
-    setSelectedFiles((prevFiles) =>
-      prevFiles.filter((file) => file.name !== fileName)
-    );
+    setSelectedFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName))
     setFileProgress((prevProgress) => {
-      const updatedProgress = { ...prevProgress };
-      delete updatedProgress[fileName];
-      return updatedProgress;
-    });
-  };
+      const updatedProgress = { ...prevProgress }
+      delete updatedProgress[fileName]
+      return updatedProgress
+    })
+  }
 
   const handleFileClick = () => {
-    fileInputRef.current.click();
-  };
+    fileInputRef.current.click()
+  }
 
   const handleFileConfirm = async () => {
     if (selectedFiles.length === 0) {
-      return toast.error("Please upload dataset first");
+      return toast.error('Please upload dataset first')
     }
 
-    setProcessing(true);
-    await processDataFromFiles();
+    setProcessing(true)
+    await processDataFromFiles()
     setTimeout(() => {
       navigate(ROUTES.reports)
-      setProcessing(false);
-    }, 2000);
-  };
+      setProcessing(false)
+    }, 2000)
+  }
 
   return (
     <>
@@ -165,9 +157,7 @@ const Create = () => {
               <h1 className="text-darkBlack font-bold text-3xl leading-[64px] mb-1">
                 Add new company
               </h1>
-              <p className="subtitle-text ">
-                Download the data source file to get started
-              </p>
+              <p className="subtitle-text ">Download the data source file to get started</p>
               {/* File Upload */}
               <div>
                 <input
@@ -201,9 +191,7 @@ const Create = () => {
                   className="grid grid-cols-[80%,70px] w-[512px] mx-auto rounded-xl border-[2px] border-[#E8ECEF] mt-10 p-3 justify-center"
                 >
                   <div className="">
-                    <h1 className="font-semibold mb-0 text-darkBlack">
-                      {file.name}
-                    </h1>
+                    <h1 className="font-semibold mb-0 text-darkBlack">{file.name}</h1>
                     <p className="font-semibold mt-0 text-sm text-[#808080]">
                       {Math.round(file.size / 1024)} KB
                     </p>
@@ -221,26 +209,20 @@ const Create = () => {
                       alt="logo"
                       className="mx-auto cursor-pointer"
                     />
-                    <p className="text-center mt-2 text-base">
-                      {fileProgress[file.name] || 0}%
-                    </p>
+                    <p className="text-center mt-2 text-base">{fileProgress[file.name] || 0}%</p>
                   </div>
                 </div>
               ))}
 
               {selectedFiles?.length > 0 && (
-                <Button
-                  title="Confirm"
-                  onClick={handleFileConfirm}
-                  classes="mt-10"
-                />
+                <Button title="Confirm" onClick={handleFileConfirm} classes="mt-10" />
               )}
             </div>
           </div>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Create;
+export default Create

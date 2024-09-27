@@ -1,23 +1,21 @@
 const PriorityColor = ({ priority }) => {
-  let backgroundColor;
+  let backgroundColor
 
   switch (priority) {
-    case "Low":
-      backgroundColor = "green";
-      break;
-    case "Medium":
-      backgroundColor = "yellow";
-      break;
-    case "High":
-      backgroundColor = "red";
-      break;
+    case 'Low':
+      backgroundColor = 'green'
+      break
+    case 'Medium':
+      backgroundColor = 'yellow'
+      break
+    case 'High':
+      backgroundColor = 'red'
+      break
     default:
-      backgroundColor = "white";
+      backgroundColor = 'white'
   }
 
-  return (
-    <span className="w-4 h-4 rounded-full" style={{ backgroundColor }}></span>
-  );
-};
+  return <span className="w-4 h-4 rounded-full" style={{ backgroundColor }}></span>
+}
 
-export default PriorityColor;
+export default PriorityColor

@@ -2,17 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .font-karla {
-  font-family: "Karla", sans-serif;
+  font-family: 'Karla', sans-serif;
 }
 
 .subtitle-text {
@@ -36,17 +36,18 @@ body {
   border-radius: 5px; /* You can round the corners */
 }
 
-.custom-radio input[type="radio"] {
+.custom-radio input[type='radio'] {
   background-color: #3fdd78 !important;
 }
 
-.custom-radio input[type="radio"]:checked {
+.custom-radio input[type='radio']:checked {
   border-color: #3fdd78 !important;
   background-color: #3fdd78 !important;
 }
 
 .card_shadow {
-  box-shadow: 0px 33px 32px -16px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0px 33px 32px -16px rgba(0, 0, 0, 0.1),
     0px 0px 16px 4px rgba(0, 0, 0, 0.04);
 }
 

@@ -1,45 +1,45 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import ReportService from "../Services/reports-services";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import ReportService from '../Services/reports-services'
 
 const useGetSpecificReportDetails = (id) => {
   return useQuery({
-    queryKey: ["getSingleReportDetail"],
-    queryFn: () => ReportService.getSpecificReport(id),
-  });
-};
+    queryKey: ['getSingleReportDetail'],
+    queryFn: () => ReportService.getSpecificReport(id)
+  })
+}
 
 const useGetAllPendingReports = () => {
   return useQuery({
-    queryKey: ["getUpdateSendToRegulators"],
-    queryFn: () => ReportService.getAllPendingReports(),
-  });
-};
+    queryKey: ['getUpdateSendToRegulators'],
+    queryFn: () => ReportService.getAllPendingReports()
+  })
+}
 
 const useGetAllReportsSentToRegulators = () => {
   return useQuery({
-    queryKey: ["getAllReportsSentToRegulators"],
-    queryFn: () => ReportService.getAllReportsSentToRegulators(),
-  });
-};
+    queryKey: ['getAllReportsSentToRegulators'],
+    queryFn: () => ReportService.getAllReportsSentToRegulators()
+  })
+}
 
 const useUpdateReportAgePriority = (reportData) => {
   // console.log(reportData)
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   return useMutation(
     () => {
-      return ReportService.updateReportAgePriority(reportData);
+      return ReportService.updateReportAgePriority(reportData)
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("updateReportAgePriority");
-      },
+        queryClient.invalidateQueries('updateReportAgePriority')
+      }
     }
-  );
-};
+  )
+}
 
 export {
   useUpdateReportAgePriority,
   useGetSpecificReportDetails,
   useGetAllPendingReports,
-  useGetAllReportsSentToRegulators,
-};
+  useGetAllReportsSentToRegulators
+}

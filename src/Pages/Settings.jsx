@@ -1,52 +1,52 @@
 /* eslint-disable no-template-curly-in-string */
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import apiUrl from "../utils/baseURL";
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import apiUrl from '../utils/baseURL'
 
 const defaultPrompt =
-  "Identify any inconsistencies for ${targetCompanyName} within the data across 'InsigAI,' 'Twitter,' and 'Carbon offsets' sheets. Report conflicting details or misalignments between these sources, if any, in a concise manner. Keep the response within 12 lines.";
+  "Identify any inconsistencies for ${targetCompanyName} within the data across 'InsigAI,' 'Twitter,' and 'Carbon offsets' sheets. Report conflicting details or misalignments between these sources, if any, in a concise manner. Keep the response within 12 lines."
 
 const Settings = () => {
-  const [promptText, setPromptText] = useState(defaultPrompt);
+  const [promptText, setPromptText] = useState(defaultPrompt)
 
   useEffect(() => {
     const loadData = async () => {
-      const gptPrompt = await axios.get(`${apiUrl}/api/prompt`);
-      console.log("--", gptPrompt?.data?.result?.prompt);
-      setPromptText(gptPrompt?.data?.result?.prompt);
-    };
-    loadData();
-  }, []);
+      const gptPrompt = await axios.get(`${apiUrl}/api/prompt`)
+      console.log('--', gptPrompt?.data?.result?.prompt)
+      setPromptText(gptPrompt?.data?.result?.prompt)
+    }
+    loadData()
+  }, [])
 
   const handleSubmit = async () => {
-    console.log("promptText", promptText);
+    console.log('promptText', promptText)
     const res = axios
       .put(`${apiUrl}/api/prompt/updatePrompt`, {
-        prompt: promptText,
+        prompt: promptText
       })
       .then((res) => {
-        console.log("res: ", res);
-        toast.success("Prompt updated successfully");
+        console.log('res: ', res)
+        toast.success('Prompt updated successfully')
       })
       .catch((err) => {
-        console.log("err: ", err);
-        toast.error(err);
-      });
-  };
+        console.log('err: ', err)
+        toast.error(err)
+      })
+  }
 
   const handleDeleteReports = async () => {
     axios
       .delete(`${apiUrl}/api/report/deleteReports`)
       .then(({ data }) => {
-        console.log("res: ", data?.message);
-        toast.success(data?.message);
+        console.log('res: ', data?.message)
+        toast.success(data?.message)
       })
       .catch((err) => {
-        console.log("err: ", err);
-        toast.error(err);
-      });
-  };
+        console.log('err: ', err)
+        toast.error(err)
+      })
+  }
 
   return (
     <div className="w-[90%] mx-auto my-7">
@@ -97,7 +97,7 @@ const Settings = () => {
         </Button>
       </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

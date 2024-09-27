@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useStepsContext } from "../../Context/StateContext";
-import { useGetAllReportsSentToRegulators } from "../../Hooks/reports-hooks";
-import { ROUTES} from "../../routes";
-import {ButtonLink} from "../../Components/ButtonLink/ButtonLink";
-import { ReportList } from "./ReportList"
+import React, { useEffect, useState } from 'react'
+import { useStepsContext } from '../../Context/StateContext'
+import { useGetAllReportsSentToRegulators } from '../../Hooks/reports-hooks'
+import { ROUTES } from '../../routes'
+import { ButtonLink } from '../../Components/ButtonLink/ButtonLink'
+import { ReportList } from './ReportList'
 
 const TABS = {
   internalReports: 1,
-  sendToRegulator: 2,
+  sendToRegulator: 2
 }
 
 const AllReports = () => {
-  const [activeTab, setActiveTab] = useState(TABS.internalReports);
-  const { allInitializedReports, fetchAllInititalizedReports } =
-    useStepsContext();
+  const [activeTab, setActiveTab] = useState(TABS.internalReports)
+  const { allInitializedReports, fetchAllInititalizedReports } = useStepsContext()
 
   const { data: getAllPendingReports, isLoading: pendingReportLoading } =
-    useGetAllReportsSentToRegulators();
+    useGetAllReportsSentToRegulators()
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+    setActiveTab(tab)
+  }
 
   useEffect(() => {
-    (async () => {
-      await fetchAllInititalizedReports();
-    })();
-  }, []);
+    ;(async () => {
+      await fetchAllInititalizedReports()
+    })()
+  }, [])
 
   return (
     <div className="w-[90%] mx-auto my-10">
@@ -47,8 +46,8 @@ const AllReports = () => {
           onClick={() => handleTabClick(1)}
           className={`cursor-pointer ${
             activeTab === TABS.internalReports
-              ? "border-b-[2px] border-primary text-darkBlack font-semibold"
-              : "text-[#5f6264]"
+              ? 'border-b-[2px] border-primary text-darkBlack font-semibold'
+              : 'text-[#5f6264]'
           }  pb-1 `}
         >
           Internal reports
@@ -57,8 +56,8 @@ const AllReports = () => {
           onClick={() => handleTabClick(2)}
           className={`cursor-pointer ${
             activeTab === TABS.sendToRegulator
-              ? "border-b-[2px] border-primary text-darkBlack font-semibold"
-              : "text-[#5a5c5e]"
+              ? 'border-b-[2px] border-primary text-darkBlack font-semibold'
+              : 'text-[#5a5c5e]'
           }  pb-1 `}
         >
           Sent to regulator
@@ -67,11 +66,11 @@ const AllReports = () => {
 
       {/* pages Container */}
       <div className="w-full gap-7 grid grid-cols-3">
-        {activeTab === TABS.internalReports && <ReportList data={allInitializedReports}/> }
-        {activeTab === TABS.sendToRegulator && <ReportList data={getAllPendingReports}/> }
+        {activeTab === TABS.internalReports && <ReportList data={allInitializedReports} />}
+        {activeTab === TABS.sendToRegulator && <ReportList data={getAllPendingReports} />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AllReports;
+export default AllReports
