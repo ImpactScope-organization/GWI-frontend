@@ -29,7 +29,6 @@ const SpecificReport = () => {
     unsubstantiatedClaims,
     sources,
     setModifyData,
-    getCurrentCompany,
     setContradictions,
     setPotentialInconsistencies,
     setunsubstantiatedClaims,

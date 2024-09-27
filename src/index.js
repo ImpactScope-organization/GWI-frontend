@@ -5,6 +5,7 @@ import App from './App'
 import { ChainId, ThirdwebProvider } from '@thirdweb-dev/react'
 import { BrowserRouter } from 'react-router-dom'
 import { StepsProvider } from './Context/StateContext'
+import { CompanyContextProvider } from './Context/CompanyContext'
 
 const activeChainId = ChainId.Sepolia
 
@@ -14,7 +15,9 @@ root.render(
     <BrowserRouter>
       <ThirdwebProvider activeChain={activeChainId}>
         <StepsProvider>
-          <App />
+          <CompanyContextProvider>
+            <App />
+          </CompanyContextProvider>
         </StepsProvider>
       </ThirdwebProvider>
     </BrowserRouter>

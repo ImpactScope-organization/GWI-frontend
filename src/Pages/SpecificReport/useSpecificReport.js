@@ -11,28 +11,28 @@ import { scoringPagePrompts } from '../../utils/system-prompts'
 import { smartContract } from '../../Constants'
 import { ethers } from 'ethers'
 import { domToPng } from 'modern-screenshot'
+import { useCompanyContext } from '../../Context/CompanyContext'
 
 export const useSpecificReport = () => {
   const walletAddress = useAddress()
 
-  const { setStep, currentCompany, getCurrentCompany, filteredCompanyData } = useStepsContext()
+  const { setStep, filteredCompanyData } = useStepsContext()
+  const { currentCompany, getCurrentCompany } = useCompanyContext()
 
   const [isLoading, setIsLoading] = useState(true)
   const [isModifying, setIsModifying] = useState(false)
   const [modifyData, setModifyData] = useState(null)
   const [isDemo, setIsDemo] = useState(() => !!currentCompany?.isDemo ?? false)
-  const [isRegulator, setIsRegulator] = useState(() =>
-    currentCompany?.sentToRegulators == 'true' ? true : false
-  )
+  const [isRegulator, setIsRegulator] = useState(() => currentCompany?.sentToRegulators === 'true')
 
   const { id } = useParams()
   const fetchCompany = useCallback(async () => {
     if (id) {
       setIsLoading(true)
-      await getCurrentCompany(id)
+      getCurrentCompany(id)
       setIsLoading(false)
     }
-  }, [id])
+  }, [getCurrentCompany, id])
 
   useEffect(() => {
     fetchCompany()
@@ -233,7 +233,7 @@ export const useSpecificReport = () => {
           console.log('err: ', err)
           setIsSendingToRegulator(false)
         })
-      await getCurrentCompany(currentCompany?.id)
+      getCurrentCompany(currentCompany?.id)
     } catch (error) {
       toast.error(error.message)
       setIsSendingToRegulator(false)
@@ -287,7 +287,7 @@ export const useSpecificReport = () => {
         console.log('===============Saved generated report=====================')
         console.log(data)
         console.log('====================================')
-        await getCurrentCompany(currentCompany?.id)
+        getCurrentCompany(currentCompany?.id)
       }
     })()
   }, [
@@ -296,7 +296,14 @@ export const useSpecificReport = () => {
     unsubstantiatedClaims,
     sources,
     greenwashRiskPercentage,
-    reportingRiskPercentage
+    reportingRiskPercentage,
+    currentCompany?.contradiction,
+    currentCompany?.potentialInconsistencies,
+    currentCompany?.unsubstantiatedClaims,
+    currentCompany?.greenwashRiskPercentage,
+    currentCompany?.reportingRiskPercentage,
+    currentCompany?.id,
+    getCurrentCompany
   ])
 
   const loadData = async () => {
@@ -573,7 +580,6 @@ export const useSpecificReport = () => {
     unsubstantiatedClaims,
     sources,
     setModifyData,
-    getCurrentCompany,
     setContradictions,
     setPotentialInconsistencies,
     setunsubstantiatedClaims,
