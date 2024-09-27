@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import BackButton from "../../Components/Shared/BackButton";
 import { useStepsContext } from "../../Context/StateContext";
 import { create } from "ipfs-http-client";
@@ -20,6 +20,7 @@ import { captureScreen, isValidData, toTitleCase } from "../../utils/helpers";
 import { RefBerklayDB } from "../../Constants/RefBerklayDB";
 import Switch from "react-switch";
 import { Input } from "antd";
+import {useParams} from "react-router-dom";
 
 const { TextArea } = Input;
 
@@ -47,7 +48,6 @@ const SpecificReport = () => {
 		setStep,
 		currentCompany,
 		getCurrentCompany,
-		setCurrentCompany,
 		filteredCompanyData,
 	} = useStepsContext();
 
@@ -58,6 +58,21 @@ const SpecificReport = () => {
 	const [isRegulator, setIsRegulator] = useState(() =>
 		currentCompany?.sentToRegulators == "true" ? true : false
 	);
+
+
+
+	const { id } = useParams()
+	const fetchCompany = useCallback(async() => {
+		if (id) {
+			setIsLoading(true)
+			await getCurrentCompany(id)
+			setIsLoading(false)
+		}
+	}, [id])
+
+	useEffect(() => {
+		fetchCompany()
+	}, []);
 
 	// description states
 	const [contradictions, setContradictions] = useState(
@@ -772,7 +787,7 @@ const SpecificReport = () => {
 										?.filter((item) => item !== "\n")
 										?.map((text, index) => (
 											<React.Fragment key={`${index}-contradiction`}>
-												<span dangerouslySetInnerHTML={{ __html: text }} style={{color: 'blue'}} />
+												<span dangerouslySetInnerHTML={{ __html: text }} />
 												<br />
 											</React.Fragment>
 										))}

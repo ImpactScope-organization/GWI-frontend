@@ -5,7 +5,7 @@ import { useGetAllReportsSentToRegulators } from "../Hooks/reports-hooks";
 import { handleDateFormat } from "../utils/date";
 import Button from "../Components/Button/Button";
 import {Link} from "react-router-dom";
-import {ROUTES} from "../routes";
+import {getRouteWithId, ROUTES} from "../routes";
 import {ButtonLink} from "../Components/ButtonLink/ButtonLink";
 
 const AllReports = () => {
@@ -93,17 +93,13 @@ const AllReports = () => {
 export default AllReports;
 
 const Report = ({ data, activeTab, pendingReportLoading }) => {
-  const { setStep, sheet, setFilteredCompanyData, getCurrentCompany } =
+  const { setStep, getCurrentCompany } =
     useStepsContext();
 
-  const handleNavigate = async (companyID, tab, sheetData = {}) => {
+  const handleNavigate = async (companyID, tab) => {
     if (tab === 1) {
-      setFilteredCompanyData(sheetData);
       await getCurrentCompany(companyID);
       setStep("specific_report");
-
-      // Return sheetData to use it in other parts of your code
-      return sheetData;
     } else if (tab === 2) {
       await getCurrentCompany(companyID);
       setStep("specific_report");
@@ -116,11 +112,11 @@ const Report = ({ data, activeTab, pendingReportLoading }) => {
     <>
       {activeTab === 1 &&
         data?.map((report, sheetIndex) => (
-          <div
+          <Link to={getRouteWithId(ROUTES.specificReport, report?.id)}
             key={sheetIndex}
-            onClick={() =>
-              handleNavigate(report?.id, activeTab, sheet, sheetIndex)
-            }
+            // onClick={() =>
+            //   handleNavigate(report?.id, activeTab, sheet, sheetIndex)
+            // }
             style={{
               boxShadow:
                 " 0px 13px 12px -16px rgba(0, 0, 0, 0.05), 0px 0px 12px 0px rgba(0, 0, 0, 0.1)",
@@ -139,7 +135,7 @@ const Report = ({ data, activeTab, pendingReportLoading }) => {
                 {report?.jurisdiction}
               </span>
             </p>
-          </div>
+          </Link>
         ))}
 
       {activeTab === 2 ? (
