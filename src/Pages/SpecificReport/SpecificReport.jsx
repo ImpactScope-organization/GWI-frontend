@@ -44,7 +44,8 @@ const SpecificReport = () => {
     setIsDemo,
     isDemo,
     setIsRegulator,
-    isRegulator
+    isRegulator,
+    getCurrentCompany
   } = useSpecificReport()
 
   if (isLoading) {
@@ -499,7 +500,7 @@ const SpecificReport = () => {
                       if (data) {
                         toast.success('Successfully updated the report.')
                       }
-                      await getCurrentCompany(currentCompany?.id)
+                      getCurrentCompany(currentCompany?.id)
                       setContradictions(modifyData?.contradiction)
                       setPotentialInconsistencies(modifyData?.potentialInconsistencies)
                       setunsubstantiatedClaims(modifyData?.unsubstantiatedClaims)

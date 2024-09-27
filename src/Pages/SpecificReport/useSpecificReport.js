@@ -1,7 +1,6 @@
 import { useAddress } from '@thirdweb-dev/react'
-import { useStepsContext } from '../../Context/StateContext'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { isValidData } from '../../utils/helpers'
 import { toast } from 'react-toastify'
 import axios from 'axios'
@@ -12,11 +11,13 @@ import { smartContract } from '../../Constants'
 import { ethers } from 'ethers'
 import { domToPng } from 'modern-screenshot'
 import { useCompanyContext } from '../../Context/CompanyContext'
+import { ROUTES } from '../../routes'
 
 export const useSpecificReport = () => {
+  const navigate = useNavigate()
+
   const walletAddress = useAddress()
 
-  const { setStep, filteredCompanyData } = useStepsContext()
   const { currentCompany, getCurrentCompany } = useCompanyContext()
 
   const [isLoading, setIsLoading] = useState(true)
@@ -217,17 +218,12 @@ export const useSpecificReport = () => {
           priority: reportDataUpdate.priority,
           IPFSHash: deShareLink,
           etherscanURL: etherscanUrl,
-          dataSources: filteredCompanyData
-            ? Object?.keys(filteredCompanyData)
-                ?.filter((key) => filteredCompanyData[key])
-                ?.join(', ')
-            : ''
+          dataSources: ''
         })
         .then((res) => {
           console.log('res: ', res)
           toast.success('Report is updated successfully')
           setIsSendingToRegulator(false)
-          // setStep("all_reports");
         })
         .catch((err) => {
           console.log('err: ', err)
@@ -560,7 +556,7 @@ export const useSpecificReport = () => {
     const { data } = response
     if (data?.status === 'success') {
       toast.success(data?.message)
-      setStep('all_reports')
+      navigate(ROUTES.reports)
     } else {
       toast.error('something went wrong while deleting the report')
     }
@@ -595,6 +591,7 @@ export const useSpecificReport = () => {
     setIsDemo,
     isDemo,
     setIsRegulator,
-    isRegulator
+    isRegulator,
+    getCurrentCompany
   }
 }

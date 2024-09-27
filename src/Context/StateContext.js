@@ -11,7 +11,6 @@ export function StepsProvider({ children }) {
   const [openLoginModal, setOpenLoginModal] = useState(false)
   const [requestLoading, setRequestLoading] = useState(false)
   const [step, setStep] = useState('step1')
-  // const [step, setStep] = useState("step1");
   const [specificReportDetailsID, setSpecificReportDetailsID] = useState('')
   const [processing, setProcessing] = useState(false)
   const [showAllReports, setShowAllReports] = useState(false)
@@ -25,7 +24,6 @@ export function StepsProvider({ children }) {
 
   const [description, setDescription] = useState()
   const [sheet, setSheet] = useState()
-  const [filteredCompanyData, setFilteredCompanyData] = useState()
   const [isReportGenerating, setIsReportGenerating] = useState(false)
   // All initialized reports
   const [allInitializedReports, setAllInitializedReports] = useState([])
@@ -96,8 +94,6 @@ export function StepsProvider({ children }) {
         setDescription,
         sheet,
         setSheet,
-        filteredCompanyData,
-        setFilteredCompanyData,
         currentCountry,
         setCurrentCountry,
         updateSheet,

@@ -7,8 +7,7 @@ import RequestLoader from './RequestLoader'
 import apiUrl from '../../utils/baseURL'
 
 const Login = () => {
-  const { openLoginModal, setOpenLoginModal, requestLoading, setRequestLoading, setStep } =
-    useStepsContext()
+  const { openLoginModal, setOpenLoginModal, requestLoading, setRequestLoading } = useStepsContext()
 
   const initialValues = {
     email: '',
