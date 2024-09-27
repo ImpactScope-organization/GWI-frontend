@@ -313,37 +313,18 @@ export const SpecificReport = () => {
                   disabled={isSendingToRegulator}
                   trigger={['click']}
                   menu={{
-                    onClick: (e) => {
-                      if (e.key == 1) {
-                        captureScreen('report-container', currentCompany?.companyName)
-                      } else if (e.key == 2) {
-                        deleteCompanyHandler()
-                      } else {
-                        const data = {
-                          contradiction: contradictions,
-                          potentialInconsistencies,
-                          unsubstantiatedClaims,
-                          greenwashRiskPercentage: parseInt(greenwashRiskPercentage),
-                          reportingRiskPercentage: parseInt(reportingRiskPercentage),
-                          jurisdiction: currentCompany?.jurisdiction,
-                          sector: currentCompany?.sector,
-                          annualRevenue: currentCompany?.annualRevenue,
-                          noOfEmployees: currentCompany?.noOfEmployees,
-                          GHGEmissions: currentCompany?.GHGEmissions,
-                          sources: sources
-                        }
-                        setModifyData(data)
-                        setIsModifying(true)
-                        navigate(getRouteWithId(ROUTES.specificReport.edit, currentCompany?.id))
-                      }
-                    },
                     items: [
-                      { label: 'Modify Report', key: '0' },
+                      {
+                        label: 'Modify Report',
+                        onClick: () =>
+                          navigate(getRouteWithId(ROUTES.specificReport.edit, currentCompany?.id))
+                      },
                       {
                         label: 'Save as PDF',
-                        key: '1'
+                        onClick: () =>
+                          captureScreen('report-container', currentCompany?.companyName)
                       },
-                      { label: 'Remove from DB', key: '2' }
+                      { label: 'Remove from DB', onClick: () => deleteCompanyHandler() }
                     ]
                   }}
                   placement="bottomRight"
