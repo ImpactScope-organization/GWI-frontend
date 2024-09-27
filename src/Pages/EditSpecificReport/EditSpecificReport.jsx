@@ -1,13 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import apiUrl from '../../../utils/baseURL'
-import { formattedDate } from '../../../utils/date'
-import LoadingPage from '../../../Components/Loading/Loading'
+import apiUrl from '../../utils/baseURL'
+import { formattedDate } from '../../utils/date'
+import LoadingPage from '../../Components/Loading/Loading'
 import { Input } from 'antd'
-import { BackButtonLink } from '../../../Components/BackButtonLink/BackButtonLink'
-import { ROUTES } from '../../../routes'
+import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
+import { getRouteWithId, ROUTES } from '../../routes'
 import { useEditSpecificReport } from './useEditSpecificReport'
+import { Link } from 'react-router-dom'
 
 const { TextArea } = Input
 
@@ -35,7 +36,7 @@ export const EditSpecificReport = () => {
   }
   return (
     <div>
-      <BackButtonLink to={ROUTES.reports} />
+      <BackButtonLink to={getRouteWithId(ROUTES.specificReport.index, currentCompany?.id)} />
 
       {/* Specific Report */}
       <div
@@ -359,20 +360,11 @@ export const EditSpecificReport = () => {
                         sources: JSON.stringify(modifyData?.sources)
                       }
                     )
-                    const { data } = response
-                    if (data) {
+                    if (response?.data) {
                       toast.success('Successfully updated the report.')
                     }
-                    getCurrentCompany(currentCompany?.id)
-                    setContradictions(modifyData?.contradiction)
-                    setPotentialInconsistencies(modifyData?.potentialInconsistencies)
-                    setunsubstantiatedClaims(modifyData?.unsubstantiatedClaims)
-                    setsources(modifyData?.sources)
-
-                    setModifyData(null)
                   } catch (error) {
                     toast.error('Something went wrong while updating the report.')
-                    setModifyData(null)
                   }
                   setIsModifying(false)
                 }}
@@ -380,15 +372,12 @@ export const EditSpecificReport = () => {
               >
                 Update report
               </button>
-              <button
+              <Link
+                to={getRouteWithId(ROUTES.specificReport.index, currentCompany?.id)}
                 className="bg-transparent border border-darkBlack rounded-lg py-[12px] px-[4px] flex w-full justify-center text-darkBlack text-[16px] font-[600] leading-[24px]"
-                onClick={() => {
-                  setModifyData(null)
-                  setIsModifying(false)
-                }}
               >
                 Cancel
-              </button>
+              </Link>
             </div>
           </div>
 

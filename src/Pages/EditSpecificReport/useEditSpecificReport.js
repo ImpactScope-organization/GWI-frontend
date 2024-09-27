@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isValidData } from '../../../utils/helpers'
+import { isValidData } from '../../utils/helpers'
 import axios from 'axios'
-import apiUrl from '../../../utils/baseURL'
-import { RefBerklayDB } from '../../../Constants/RefBerklayDB'
-import { scoringPagePrompts } from '../../../utils/system-prompts'
-import { useCompanyContext } from '../../../Context/CompanyContext'
+import apiUrl from '../../utils/baseURL'
+import { RefBerklayDB } from '../../Constants/RefBerklayDB'
+import { scoringPagePrompts } from '../../utils/system-prompts'
+import { useCompanyContext } from '../../Context/CompanyContext'
 
 export const useEditSpecificReport = () => {
   const { currentCompany, getCurrentCompany } = useCompanyContext()
@@ -460,6 +460,31 @@ export const useEditSpecificReport = () => {
       setIsLoading(false)
     }
   }
+
+  useEffect(() => {
+    const data = {
+      contradiction: contradictions,
+      potentialInconsistencies,
+      unsubstantiatedClaims,
+      greenwashRiskPercentage: parseInt(greenwashRiskPercentage),
+      reportingRiskPercentage: parseInt(reportingRiskPercentage),
+      jurisdiction: currentCompany?.jurisdiction,
+      sector: currentCompany?.sector,
+      annualRevenue: currentCompany?.annualRevenue,
+      noOfEmployees: currentCompany?.noOfEmployees,
+      GHGEmissions: currentCompany?.GHGEmissions,
+      sources: sources
+    }
+    setModifyData(data)
+  }, [
+    contradictions,
+    currentCompany,
+    greenwashRiskPercentage,
+    potentialInconsistencies,
+    reportingRiskPercentage,
+    sources,
+    unsubstantiatedClaims
+  ])
 
   const handleInputUpdates = (name, value) => {
     setModifyData((prev) => ({ ...prev, [name]: value }))

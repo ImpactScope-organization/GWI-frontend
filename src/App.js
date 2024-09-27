@@ -10,7 +10,7 @@ import { ROUTES } from './routes'
 import Create from './Pages/Create/Create'
 import AllReports from './Pages/AllReports/AllReports'
 import { SpecificReport } from './Pages/SpecificReport/SpecificReport'
-import { EditSpecificReport } from './Pages/SpecificReport/EditSpecificReport/EditSpecificReport'
+import { EditSpecificReport } from './Pages/EditSpecificReport/EditSpecificReport'
 
 function App() {
   const { openLoginModal, setOpenLoginModal } = useStepsContext()

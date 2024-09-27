@@ -10,8 +10,9 @@ import { Dropdown } from 'antd'
 import { captureScreen, toTitleCase } from '../../utils/helpers'
 import Switch from 'react-switch'
 import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
-import { ROUTES } from '../../routes'
+import { getRouteWithId, ROUTES } from '../../routes'
 import { useSpecificReport } from './useSpecificReport'
+import { useNavigate } from 'react-router-dom'
 
 // ----------------------------
 export const SpecificReport = () => {
@@ -38,6 +39,8 @@ export const SpecificReport = () => {
     setIsRegulator,
     isRegulator
   } = useSpecificReport()
+
+  const navigate = useNavigate()
 
   if (isLoading) {
     return (
@@ -331,6 +334,7 @@ export const SpecificReport = () => {
                         }
                         setModifyData(data)
                         setIsModifying(true)
+                        navigate(getRouteWithId(ROUTES.specificReport.edit, currentCompany?.id))
                       }
                     },
                     items: [
