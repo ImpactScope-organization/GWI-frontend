@@ -1,10 +1,9 @@
 import { useStepsContext } from '../../Context/StateContext'
 import { useFormik } from 'formik'
 import { loginModalScehma } from '../../validation-schema'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import RequestLoader from './RequestLoader'
-import apiUrl from '../../utils/baseURL'
+import { axiosInstance } from '../../utils/axios'
 
 const Login = () => {
   const { openLoginModal, setOpenLoginModal, requestLoading, setRequestLoading } = useStepsContext()
@@ -21,7 +20,7 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         setRequestLoading(true)
-        await axios.post(`${apiUrl}/api/regulator/login`, values).then(({ data }) => {
+        await axiosInstance.post(`/regulator/login`, values).then(({ data }) => {
           setRequestLoading(false)
           toast.success('Logged in Successfully')
           setOpenLoginModal(!openLoginModal)

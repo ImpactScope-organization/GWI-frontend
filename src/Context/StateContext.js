@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import apiUrl from '../utils/baseURL'
 import { toast } from 'react-toastify'
+import { axiosInstance } from '../utils/axios'
 
 // Create the context
 const StepsContext = createContext()
@@ -42,7 +41,7 @@ export function StepsProvider({ children }) {
 
   const fetchAllInititalizedReports = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/company/all`)
+      const response = await axiosInstance.get(`/company/all`)
       const { data } = response
       setAllInitializedReports(data?.results)
       return data?.results
@@ -52,7 +51,7 @@ export function StepsProvider({ children }) {
   }
 
   const getCurrentCompany = async (companyID) => {
-    const response = await axios.get(`${apiUrl}/api/company/${companyID}`)
+    const response = await axiosInstance.get(`/company/${companyID}`)
     const { data } = response
     setCurrentCompany(data?.result)
   }

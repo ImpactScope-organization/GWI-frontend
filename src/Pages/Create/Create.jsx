@@ -1,17 +1,14 @@
-/* eslint-disable no-loop-func */
 import React, { useRef, useState } from 'react'
-import BackButton from '../../Components/Shared/BackButton'
 import { useStepsContext } from '../../Context/StateContext'
 import Loading from '../../Components/Shared/Loading'
 import * as XLSX from 'xlsx' // Import the xlsx library
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import { transformArrayOfObjects } from '../../utils/helpers'
 import Button from '../../Components/Button/Button'
-import apiUrl from '../../utils/baseURL'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../routes'
 import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
+import { axiosInstance } from '../../utils/axios'
 
 const Create = () => {
   const navigate = useNavigate()
@@ -33,7 +30,7 @@ const Create = () => {
         claims: JSON.stringify(sheetData?.Claims.slice(0, 30)),
         fileName: sheetData?.file?.name
       }
-      const response = await axios.post(`${apiUrl}/api/company/create`, payload)
+      const response = await axiosInstance.post(`/company/create`, payload)
       toast.success('Company is created successfully')
       return response
     } catch (error) {
@@ -171,9 +168,9 @@ const Create = () => {
                   onClick={handleFileClick}
                   className="w-[512px] h-[208px] rounded-lg shadow-xl cursor-pointer bg-white p-[12px]"
                 >
-                  <div className="w-full h-full border border-4 border-dashed rounded-lg border-[#DCDEE5] flex flex-col items-center justify-between p-[16px]">
+                  <div className="w-full h-full border-4 border-dashed rounded-lg border-[#DCDEE5] flex flex-col items-center justify-between p-[16px]">
                     <div className="bg-lightgrey rounded-full p-[22px]">
-                      <img src="/assets/upload-icon.svg" />
+                      <img src="/assets/upload-icon.svg" alt="Upload" />
                     </div>
                     <h1 className="text-darkGrey font-[600] text-[24px] leading-[40px]">
                       Upload the source file

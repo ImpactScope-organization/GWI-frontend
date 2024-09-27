@@ -1,7 +1,5 @@
 import React from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
-import apiUrl from '../../utils/baseURL'
 import { formattedDate } from '../../utils/date'
 import LoadingPage from '../../Components/Loading/Loading'
 import CustomGaugeChart from '../../Components/GaugeChart/GaugeChart'
@@ -13,6 +11,7 @@ import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
 import { getRouteWithId, ROUTES } from '../../routes'
 import { useSpecificReport } from './useSpecificReport'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../../utils/axios'
 
 // ----------------------------
 export const SpecificReport = () => {
@@ -371,8 +370,8 @@ export const SpecificReport = () => {
                     onChange={async (val) => {
                       setIsDemo(val)
                       try {
-                        const response = await axios.put(
-                          `${apiUrl}/api/company/update/${currentCompany?.id}`,
+                        const response = await axiosInstance.put(
+                          `/company/update/${currentCompany?.id}`,
                           {
                             isDemo: val
                           }
@@ -406,8 +405,8 @@ export const SpecificReport = () => {
                     onChange={async (val) => {
                       setIsRegulator(val)
                       try {
-                        const response = await axios.put(
-                          `${apiUrl}/api/company/update/${currentCompany?.id}`,
+                        const response = await axiosInstance().put(
+                          `/company/update/${currentCompany?.id}`,
                           {
                             sentToRegulators: val,
                             sendToRegulatorsTimeStamp: formattedDate,

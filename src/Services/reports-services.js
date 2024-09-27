@@ -1,5 +1,4 @@
-import axios from 'axios'
-import apiUrl from '../utils/baseURL'
+import { axiosInstance } from '../utils/axios'
 
 class ReportService {
   /**
@@ -7,7 +6,7 @@ class ReportService {
    * @returns
    */
   async updateReportAgePriority(reportData) {
-    const res = await axios.put(`${apiUrl}/api/report/updateReportAgePriority`, reportData, {
+    const res = await axiosInstance.put(`/report/updateReportAgePriority`, reportData, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -20,7 +19,7 @@ class ReportService {
    * @returns
    */
   async getAllPendingReports() {
-    const { data } = await axios.get(`${apiUrl}/api/report/getUpdateSendToRegulators`)
+    const { data } = await axiosInstance.get(`/report/getUpdateSendToRegulators`)
     return data
   }
 
@@ -29,7 +28,7 @@ class ReportService {
    * @returns
    */
   async getAllReportsSentToRegulators() {
-    const { data } = await axios.get(`${apiUrl}/api/report/getAllReportsSentToRegulators`)
+    const { data } = await axiosInstance.get(`/report/getAllReportsSentToRegulators`)
     return data?.results
   }
 
@@ -38,7 +37,7 @@ class ReportService {
    * @returns
    */
   async getSpecificReport(id) {
-    const { data } = await axios.get(`${apiUrl}/api/report/getSingleReportDetail/${id}`)
+    const { data } = await axiosInstance.get(`/report/getSingleReportDetail/${id}`)
     return data
   }
 }

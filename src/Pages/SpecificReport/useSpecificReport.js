@@ -3,8 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { isValidData } from '../../utils/helpers'
 import { toast } from 'react-toastify'
-import axios from 'axios'
-import apiUrl from '../../utils/baseURL'
 import { RefBerklayDB } from '../../Constants/RefBerklayDB'
 import { scoringPagePrompts } from '../../utils/system-prompts'
 import { smartContract } from '../../Constants'
@@ -12,6 +10,8 @@ import { ethers } from 'ethers'
 import { domToPng } from 'modern-screenshot'
 import { useCompanyContext } from '../../Context/CompanyContext'
 import { ROUTES } from '../../routes'
+import { axiosInstance } from '../../utils/axios'
+import axios from 'axios'
 
 export const useSpecificReport = () => {
   const navigate = useNavigate()
@@ -209,8 +209,8 @@ export const useSpecificReport = () => {
       setEtherscanURL(etherscanUrl)
 
       // Sending to regulators
-      axios
-        .put(`${apiUrl}/api/company/update/${currentCompany?.id}`, {
+      axiosInstance
+        .put(`/company/update/${currentCompany?.id}`, {
           // new keys
           age: reportDataUpdate.age,
           priority: reportDataUpdate.priority,
@@ -268,7 +268,7 @@ export const useSpecificReport = () => {
           !currentCompany?.greenwashRiskPercentage ||
           !currentCompany?.reportingRiskPercentage)
       ) {
-        const response = await axios.put(`${apiUrl}/api/company/update/${currentCompany?.id}`, {
+        const response = await axiosInstance.put(`/company/update/${currentCompany?.id}`, {
           contradiction: contradictions,
           potentialInconsistencies,
           unsubstantiatedClaims,
@@ -304,7 +304,7 @@ export const useSpecificReport = () => {
     try {
       setIsLoading(true)
 
-      // const gptPrompt = await axios.get(`${apiUrl}/api/prompt`);
+      // const gptPrompt = await axiosInstance.get(`/prompt`);
       const claims = JSON.parse(currentCompany?.claims).slice(0, 7)
       const prompt = `Act as an a sustainablity experts who identifies  potential greenwashing by companies:`
       const concatenatedData = `companyName:${
@@ -312,7 +312,7 @@ export const useSpecificReport = () => {
       }\n statements: \n${JSON.stringify(claims)}`
 
       const group1APIs = [
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -320,7 +320,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.contradictionPrompt?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -328,7 +328,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.potentialInconsistencies?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -336,7 +336,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.unsubstantiatedClaims?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -350,7 +350,7 @@ export const useSpecificReport = () => {
 
       // ===============group2APIs===================
       const group2APIs = [
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -358,7 +358,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.vagueTerms?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -366,7 +366,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.lackOfQuantitativeData?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: `companyName: ${
             currentCompany?.companyName
@@ -376,7 +376,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.scope3Emissions?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: `companyName: ${
             currentCompany?.companyName
@@ -386,7 +386,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.externalOffset?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: `companyName: ${
             currentCompany?.companyName
@@ -409,7 +409,7 @@ export const useSpecificReport = () => {
 
       // ======================group3APIs===========================
       const group3APIs = [
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: `companyName: ${
             currentCompany?.companyName
@@ -419,7 +419,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.targetTimelines?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -427,7 +427,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.stakeholdersEngagement?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: `companyName: ${
             currentCompany?.companyName
@@ -437,7 +437,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.reportsAnnually?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -445,7 +445,7 @@ export const useSpecificReport = () => {
             content: prompt + scoringPagePrompts?.sustainabilityInformationExists?.content
           }
         }),
-        axios.post(`${apiUrl}/api/gpt/prompt`, {
+        axiosInstance.post(`/gpt/prompt`, {
           targetCompanyName: currentCompany?.companyName,
           description: concatenatedData,
           systemPrompts: {
@@ -550,7 +550,7 @@ export const useSpecificReport = () => {
   }
 
   const deleteCompanyHandler = async () => {
-    const response = await axios.delete(`${apiUrl}/api/company/delete/${currentCompany?.id}`)
+    const response = await axiosInstance.delete(`/company/delete/${currentCompany?.id}`)
     const { data } = response
     if (data?.status === 'success') {
       toast.success(data?.message)

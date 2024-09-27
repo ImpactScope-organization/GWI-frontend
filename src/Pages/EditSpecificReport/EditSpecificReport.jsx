@@ -1,7 +1,5 @@
 import React from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
-import apiUrl from '../../utils/baseURL'
 import { formattedDate } from '../../utils/date'
 import LoadingPage from '../../Components/Loading/Loading'
 import { Input } from 'antd'
@@ -9,6 +7,7 @@ import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
 import { getRouteWithId, ROUTES } from '../../routes'
 import { useEditSpecificReport } from './useEditSpecificReport'
 import { Link } from 'react-router-dom'
+import { axiosInstance } from '../../utils/axios'
 
 const { TextArea } = Input
 
@@ -350,8 +349,8 @@ export const EditSpecificReport = () => {
                     return toast.warn('GHG Emissions field cannot be empty.')
                   }
                   try {
-                    const response = await axios.put(
-                      `${apiUrl}/api/company/update/${currentCompany?.id}`,
+                    const response = await axiosInstance.put(
+                      `/company/update/${currentCompany?.id}`,
                       {
                         ...modifyData,
                         sources: JSON.stringify(modifyData?.sources)
