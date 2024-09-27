@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import BackButton from "../Shared/BackButton";
+import BackButton from "../../Components/Shared/BackButton";
 import { useStepsContext } from "../../Context/StateContext";
 import { create } from "ipfs-http-client";
 import axios from "axios";
@@ -11,8 +11,8 @@ import apiUrl from "../../utils/baseURL";
 import { formattedDate } from "../../utils/date";
 import { domToPng } from "modern-screenshot";
 import { useAddress } from "@thirdweb-dev/react";
-import LoadingPage from "../loading";
-import CustomGaugeChart from "../gauge-chart";
+import LoadingPage from "../../Components/loading";
+import CustomGaugeChart from "../../Components/gauge-chart";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { Dropdown } from "antd";
 import { scoringPagePrompts } from "../../utils/system-prompts";
@@ -354,8 +354,8 @@ const SpecificReport = () => {
 
 			// const gptPrompt = await axios.get(`${apiUrl}/api/prompt`);
 			const claims = JSON.parse(currentCompany?.claims).slice(0, 7);
-			let prompt = `Act as an a sustainablity experts who identifies  potential greenwashing by companies:`;
-			let concatenatedData = `companyName:${
+			const prompt = `Act as an a sustainablity experts who identifies  potential greenwashing by companies:`;
+			const concatenatedData = `companyName:${
 				currentCompany?.companyName
 			}\n statements: \n${JSON.stringify(claims)}`;
 
@@ -599,10 +599,9 @@ const SpecificReport = () => {
 					? Number(materialityAssessment?.value?.data?.response)
 					: prev?.score,
 			}));
-			setIsLoading(false);
-
-			setIsLoading(false);
 		} catch (error) {
+			console.log(error)
+		} finally {
 			setIsLoading(false);
 		}
 	};
@@ -773,7 +772,7 @@ const SpecificReport = () => {
 										?.filter((item) => item !== "\n")
 										?.map((text, index) => (
 											<React.Fragment key={`${index}-contradiction`}>
-												{text}
+												<span dangerouslySetInnerHTML={{ __html: text }} style={{color: 'blue'}} />
 												<br />
 											</React.Fragment>
 										))}

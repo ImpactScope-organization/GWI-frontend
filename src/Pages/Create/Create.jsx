@@ -1,16 +1,16 @@
 /* eslint-disable no-loop-func */
 import React, { useRef, useState } from "react";
-import BackButton from "../Shared/BackButton";
+import BackButton from "../../Components/Shared/BackButton";
 import { useStepsContext } from "../../Context/StateContext";
-import Loading from "../Shared/Loading";
+import Loading from "../../Components/Shared/Loading";
 import * as XLSX from "xlsx"; // Import the xlsx library
 import { toast } from "react-toastify";
 import axios from "axios";
 import { transformArrayOfObjects } from "../../utils/helpers";
-import Button from "../button";
+import Button from "../../Components/button";
 import apiUrl from "../../utils/baseURL";
 
-const Step2 = () => {
+const Create = () => {
   const fileInputRef = useRef(null);
   const { processing, setProcessing, setStep, setSheet } = useStepsContext();
 
@@ -239,4 +239,4 @@ const Step2 = () => {
   );
 };
 
-export default Step2;
+export default Create;

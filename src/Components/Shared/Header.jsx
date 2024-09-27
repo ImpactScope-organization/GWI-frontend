@@ -1,6 +1,7 @@
 import { ConnectWallet } from "@thirdweb-dev/react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import {ROUTES} from "../../routes";
 
 const Header = () => {
   const location = useLocation();
@@ -10,7 +11,9 @@ const Header = () => {
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto ">
         {/* Left */}
         <div className="flex justify-between gap-20 items-center">
-          <img src="/assets/logo.png" alt="logo" />
+          <Link to={ROUTES.reports}>
+            <img src="/assets/logo.png" alt="logo" />
+          </Link>
 
           {/* <div className="space-x-5 ">
             <Link
@@ -19,7 +22,7 @@ const Header = () => {
                 location.pathname === "/" ? "text-[#fff]" : "text-[#fefefe7f]"
               } `}
             >
-              Reports
+              pages
             </Link>
             <Link
               to={"/settings"}

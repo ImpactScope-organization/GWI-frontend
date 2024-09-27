@@ -1,8 +1,8 @@
-import BackButton from "../Shared/BackButton";
-import { useStepsContext } from "../../Context/StateContext";
-import { useGetSpecificReportDetails } from "../../Hooks/reports-hooks";
-import CustomGaugeChart from "../gauge-chart";
-import { isValidData } from "../../utils/helpers";
+import BackButton from "../Components/Shared/BackButton";
+import { useStepsContext } from "../Context/StateContext";
+import { useGetSpecificReportDetails } from "../Hooks/reports-hooks";
+import CustomGaugeChart from "../Components/gauge-chart";
+import { isValidData } from "../utils/helpers";
 
 // ----------------------------
 const SentToRegulators = () => {

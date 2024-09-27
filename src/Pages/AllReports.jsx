@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useStepsContext } from "../../Context/StateContext";
-import { useGetAllReportsSentToRegulators } from "../../Hooks/reports-hooks";
+import { useStepsContext } from "../Context/StateContext";
+import { useGetAllReportsSentToRegulators } from "../Hooks/reports-hooks";
 // src\Hooks\reports-hooks.js
-import { handleDateFormat } from "../../utils/date";
-import Button from "../button";
+import { handleDateFormat } from "../utils/date";
+import Button from "../Components/button";
+import {Link} from "react-router-dom";
+import {ROUTES} from "../routes";
+import {ButtonLink} from "../Components/button-link";
 
 const AllReports = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -36,7 +39,7 @@ const AllReports = () => {
           <p className="subtitle-text ">Overview all of companies here</p>
         </div>
         {/* Right */}
-        <Button title="Add new company" onClick={() => setStep("step1")} />
+        <ButtonLink to={ROUTES.create}>Add new company</ButtonLink>
       </div>
 
       {/* Tabs Container */}
@@ -63,7 +66,7 @@ const AllReports = () => {
         </h1>
       </div>
 
-      {/* Reports Container */}
+      {/* pages Container */}
       <div className="w-full gap-7 grid grid-cols-3">
         {activeTab === 1 ? (
           // All reports
