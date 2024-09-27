@@ -21,8 +21,6 @@ export const useSpecificReport = () => {
   const { currentCompany, getCurrentCompany } = useCompanyContext()
 
   const [isLoading, setIsLoading] = useState(true)
-  const [isModifying, setIsModifying] = useState(false)
-  const [modifyData, setModifyData] = useState(null)
   const [isDemo, setIsDemo] = useState(() => !!currentCompany?.isDemo ?? false)
   const [isRegulator, setIsRegulator] = useState(() => currentCompany?.sentToRegulators === 'true')
 
@@ -565,14 +563,10 @@ export const useSpecificReport = () => {
   return {
     isLoading,
     currentCompany,
-    isModifying,
-    modifyData,
     contradictions,
     potentialInconsistencies,
     unsubstantiatedClaims,
     sources,
-    setModifyData,
-    setIsModifying,
     greenwashRiskPercentage,
     reportingRiskPercentage,
     hash,

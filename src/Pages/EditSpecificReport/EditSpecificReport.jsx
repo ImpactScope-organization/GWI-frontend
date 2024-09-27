@@ -17,16 +17,13 @@ export const EditSpecificReport = () => {
   const {
     isLoading,
     currentCompany,
-    isModifying,
     modifyData,
     handleInputUpdates,
     setModifyData,
     setContradictions,
     setPotentialInconsistencies,
     setunsubstantiatedClaims,
-    setsources,
-    setIsModifying,
-    getCurrentCompany
+    setsources
   } = useEditSpecificReport()
 
   if (isLoading) {
@@ -366,7 +363,6 @@ export const EditSpecificReport = () => {
                   } catch (error) {
                     toast.error('Something went wrong while updating the report.')
                   }
-                  setIsModifying(false)
                 }}
                 className="bg-primary rounded-lg py-[12px] flex w-full justify-center text-[#fff] text-[16px] font-[600] leading-[24px]"
               >

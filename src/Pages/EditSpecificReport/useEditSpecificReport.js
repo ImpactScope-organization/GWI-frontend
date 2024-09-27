@@ -11,7 +11,6 @@ export const useEditSpecificReport = () => {
   const { currentCompany, getCurrentCompany } = useCompanyContext()
 
   const [isLoading, setIsLoading] = useState(true)
-  const [isModifying, setIsModifying] = useState(false)
   const [modifyData, setModifyData] = useState(null)
 
   const { id } = useParams()
@@ -493,15 +492,12 @@ export const useEditSpecificReport = () => {
   return {
     isLoading,
     currentCompany,
-    isModifying,
     modifyData,
     handleInputUpdates,
     setModifyData,
     setContradictions,
     setPotentialInconsistencies,
     setunsubstantiatedClaims,
-    setsources,
-    setIsModifying,
-    getCurrentCompany
+    setsources
   }
 }
