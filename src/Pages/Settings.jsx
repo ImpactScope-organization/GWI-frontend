@@ -87,14 +87,14 @@ const Settings = () => {
       {/* <div className="mt-7">
         <h1 className="font-bold text-lg">Database</h1>
         <p className="text-[#6C7275] ">
-          The button bellow will remove all generated reports
+          The Button bellow will remove all generated reports
         </p>
-        <button
+        <Button
           className="py-2 px-6 text-[#E53B3B] border-[#E53B3B] rounded-lg font-semibold mt-3 border-2 outline-none"
           onClick={handleDeleteReports}
         >
           Clean database{" "}
-        </button>
+        </Button>
       </div> */}
     </div>
   );

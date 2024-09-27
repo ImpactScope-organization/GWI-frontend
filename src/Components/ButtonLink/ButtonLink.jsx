@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export function ButtonLink({ to, children, classes = "" }) {
+export const ButtonLink = ({ to, children, classes = "" }) => {
   return (
     <Link
       to={to}

@@ -7,12 +7,16 @@ import * as XLSX from "xlsx"; // Import the xlsx library
 import { toast } from "react-toastify";
 import axios from "axios";
 import { transformArrayOfObjects } from "../../utils/helpers";
-import Button from "../../Components/button";
+import Button from "../../Components/Button/Button";
 import apiUrl from "../../utils/baseURL";
+import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../routes";
+import {BackButtonLink} from "../../Components/BackButtonLink/BackButtonLink";
 
 const Create = () => {
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const { processing, setProcessing, setStep, setSheet } = useStepsContext();
+  const { processing, setProcessing, setSheet } = useStepsContext();
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileProgress, setFileProgress] = useState({});
@@ -144,7 +148,7 @@ const Create = () => {
     setProcessing(true);
     await processDataFromFiles();
     setTimeout(() => {
-      setStep("all_reports");
+      navigate(ROUTES.reports)
       setProcessing(false);
     }, 2000);
   };
@@ -155,7 +159,7 @@ const Create = () => {
         <Loading title="Please wait, data source is being processed" />
       ) : (
         <div className="pb-10">
-          <BackButton setStep={() => setStep("step1")} />
+          <BackButtonLink to={ROUTES.reports} />
           <div className="grid w-full min-h-[75vh] ">
             <div className="w-1/2 mx-auto flex justify-center items-center flex-col">
               <h1 className="text-darkBlack font-bold text-3xl leading-[64px] mb-1">

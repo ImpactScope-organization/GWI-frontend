@@ -3,10 +3,10 @@ import { useStepsContext } from "../Context/StateContext";
 import { useGetAllReportsSentToRegulators } from "../Hooks/reports-hooks";
 // src\Hooks\reports-hooks.js
 import { handleDateFormat } from "../utils/date";
-import Button from "../Components/button";
+import Button from "../Components/Button/Button";
 import {Link} from "react-router-dom";
 import {ROUTES} from "../routes";
-import {ButtonLink} from "../Components/button-link";
+import {ButtonLink} from "../Components/ButtonLink/ButtonLink";
 
 const AllReports = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -155,7 +155,7 @@ const Report = ({ data, activeTab, pendingReportLoading }) => {
           >
             <p className="mb-2 text-sm text-[#6C7275]">
               {pendingReportLoading
-                ? "loading..."
+                ? "Loading..."
                 : report?.sendToRegulatorsTimeStamp &&
                   report?.sendToRegulatorsTimeStamp}
             </p>
@@ -166,7 +166,7 @@ const Report = ({ data, activeTab, pendingReportLoading }) => {
               Jurisdiction :
               <span className="text-darkBlack font-semibold ml-2">
                 {pendingReportLoading
-                  ? "loading..."
+                  ? "Loading..."
                   : report?.jurisdiction && report?.jurisdiction}
               </span>
             </p>

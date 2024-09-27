@@ -149,8 +149,8 @@ const Login = () => {
 								<button
 									type="submit"
 									//   onClick={openToggle === false ? onClick : null}
-									//   disabled={loading}
-									// disabled={loading}
+									//   disabled={Loading}
+									// disabled={Loading}
 									className="bg-primary cursor-pointer w-full relative h-[64px]  text-white text-center  rounded-md  py-3 text-lg font-medium"
 								>
 									{requestLoading ? <RequestLoader /> : "Sign in"}
