@@ -21,24 +21,10 @@ import { RefBerklayDB } from "../../Constants/RefBerklayDB";
 import Switch from "react-switch";
 import { Input } from "antd";
 import {useParams} from "react-router-dom";
+import {BackButtonLink} from "../../Components/BackButtonLink/BackButtonLink";
+import {ROUTES} from "../../routes";
 
 const { TextArea } = Input;
-
-// IPFS
-// const projectId = "2V6620s2FhImATdUuY4dwIAqoI0";
-// const projectSecret = "2dcb0a633ee912e06834a43a3083248e";
-
-// const auth =
-//   "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
-
-// const ipfs = create({
-//   host: "ipfs.infura.io",
-//   port: 5001,
-//   protocol: "https",
-//   headers: {
-//     authorization: auth,
-//   },
-// });
 
 // ----------------------------
 const SpecificReport = () => {
@@ -74,22 +60,23 @@ const SpecificReport = () => {
 		fetchCompany()
 	}, []);
 
+	// todo make this better
+	useEffect(() => {
+		setContradictions(currentCompany?.contradiction)
+		setPotentialInconsistencies(currentCompany?.potentialInconsistencies)
+		setunsubstantiatedClaims(currentCompany?.unsubstantiatedClaims)
+		setsources(isValidData(currentCompany?.sources)? JSON.parse(currentCompany?.sources) : [])
+		setHash(currentCompany?.IPFSHash)
+		setEtherscanURL(currentCompany?.etherscanURL)
+
+	}, [currentCompany]);
+
 	// description states
-	const [contradictions, setContradictions] = useState(
-		() => currentCompany?.contradiction || ""
-	);
-	const [potentialInconsistencies, setPotentialInconsistencies] = useState(
-		() => currentCompany?.potentialInconsistencies || ""
-	);
-	const [unsubstantiatedClaims, setunsubstantiatedClaims] = useState(
-		() => currentCompany?.unsubstantiatedClaims || ""
-	);
+	const [contradictions, setContradictions] = useState("");
+	const [potentialInconsistencies, setPotentialInconsistencies] = useState("");
+	const [unsubstantiatedClaims, setunsubstantiatedClaims] = useState("");
 	// sources states
-	const [sources, setsources] = useState(() =>
-		isValidData(currentCompany?.sources)
-			? JSON.parse(currentCompany?.sources)
-			: []
-	);
+	const [sources, setsources] = useState([]);
 
 	// greenwashing states
 	const [vagueTermsState, setvagueTermsState] = useState(() => ({
@@ -215,10 +202,8 @@ const SpecificReport = () => {
 	]);
 
 	// Print Report
-	const [hash, setHash] = useState(() => currentCompany?.IPFSHash || "");
-	const [etherscanURL, setEtherscanURL] = useState(
-		() => currentCompany?.etherscanURL || ""
-	);
+	const [hash, setHash] = useState("");
+	const [etherscanURL, setEtherscanURL] = useState("");
 	const [isSendingToRegulator, setIsSendingToRegulator] = useState("");
 
 	const handleSendToRegulators = async () => {
@@ -647,7 +632,7 @@ const SpecificReport = () => {
 	}
 	return (
 		<div>
-			<BackButton setStep={() => setStep("all_reports")} />
+			<BackButtonLink to={ROUTES.reports} />
 
 			{/* Specific Report */}
 			<div
