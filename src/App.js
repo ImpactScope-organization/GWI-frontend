@@ -9,7 +9,8 @@ import Login from './Components/Shared/Login'
 import { ROUTES } from './routes'
 import Create from './Pages/Create/Create'
 import AllReports from './Pages/AllReports/AllReports'
-import SpecificReport from './Pages/SpecificReport/SpecificReport'
+import { SpecificReport } from './Pages/SpecificReport/SpecificReport'
+import { EditSpecificReport } from './Pages/SpecificReport/EditSpecificReport/EditSpecificReport'
 
 function App() {
   const { openLoginModal, setOpenLoginModal } = useStepsContext()
@@ -32,7 +33,8 @@ function App() {
         <Route path={ROUTES.reports} element={<AllReports />} />
         <Route path={ROUTES.create} element={<Create />} />
         <Route path={ROUTES.settings} element={<Settings />} />
-        <Route path={ROUTES.specificReport} element={<SpecificReport />} />
+        <Route path={ROUTES.specificReport.index} element={<SpecificReport />} />
+        <Route path={ROUTES.specificReport.edit} element={<EditSpecificReport />} />
       </Routes>
     </div>
   )

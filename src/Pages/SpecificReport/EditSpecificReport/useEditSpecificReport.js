@@ -1,19 +1,19 @@
 import { useAddress } from '@thirdweb-dev/react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { isValidData } from '../../utils/helpers'
+import { isValidData } from '../../../utils/helpers'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-import apiUrl from '../../utils/baseURL'
-import { RefBerklayDB } from '../../Constants/RefBerklayDB'
-import { scoringPagePrompts } from '../../utils/system-prompts'
-import { smartContract } from '../../Constants'
+import apiUrl from '../../../utils/baseURL'
+import { RefBerklayDB } from '../../../Constants/RefBerklayDB'
+import { scoringPagePrompts } from '../../../utils/system-prompts'
+import { smartContract } from '../../../Constants'
 import { ethers } from 'ethers'
 import { domToPng } from 'modern-screenshot'
-import { useCompanyContext } from '../../Context/CompanyContext'
-import { ROUTES } from '../../routes'
+import { useCompanyContext } from '../../../Context/CompanyContext'
+import { ROUTES } from '../../../routes'
 
-export const useSpecificReport = () => {
+export const useEditSpecificReport = () => {
   const navigate = useNavigate()
 
   const walletAddress = useAddress()
@@ -561,17 +561,25 @@ export const useSpecificReport = () => {
       toast.error('something went wrong while deleting the report')
     }
   }
+  const handleInputUpdates = (name, value) => {
+    setModifyData((prev) => ({ ...prev, [name]: value }))
+  }
 
   return {
     isLoading,
     currentCompany,
     isModifying,
     modifyData,
+    handleInputUpdates,
     contradictions,
     potentialInconsistencies,
     unsubstantiatedClaims,
     sources,
     setModifyData,
+    setContradictions,
+    setPotentialInconsistencies,
+    setunsubstantiatedClaims,
+    setsources,
     setIsModifying,
     greenwashRiskPercentage,
     reportingRiskPercentage,
@@ -583,6 +591,7 @@ export const useSpecificReport = () => {
     setIsDemo,
     isDemo,
     setIsRegulator,
-    isRegulator
+    isRegulator,
+    getCurrentCompany
   }
 }
