@@ -27,7 +27,7 @@ const Create = () => {
         annualRevenue: sheetData?.Company[0]?.['annual revenue'],
         noOfEmployees: sheetData?.Company[0]?.employees,
         GHGEmissions: sheetData?.Company[0]?.['ghg emissions'],
-        claims: JSON.stringify(sheetData?.Claims.slice(0, 30)),
+        claims: JSON.stringify(sheetData?.Claims),
         fileName: sheetData?.file?.name
       }
       const response = await axiosInstance.post(`/company/create`, payload)
@@ -137,7 +137,7 @@ const Create = () => {
     setProcessing(true)
     await processDataFromFiles()
     setTimeout(() => {
-      navigate(ROUTES.reports)
+      // navigate(ROUTES.reports)
       setProcessing(false)
     }, 2000)
   }
