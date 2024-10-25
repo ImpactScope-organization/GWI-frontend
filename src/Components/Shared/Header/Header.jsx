@@ -1,14 +1,9 @@
 import { ConnectWallet } from '@thirdweb-dev/react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../../routes'
-import { useCallback } from 'react'
 import { HeaderLink } from './HeaderLink'
 
 const Header = () => {
-  const isRouteActive = useCallback((route) => {
-    return route === window.location.pathname
-  }, [])
-
   return (
     <div className="bg-darkBlack">
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto ">
