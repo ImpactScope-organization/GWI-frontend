@@ -5,7 +5,8 @@ import { PageContainer } from '../../../Components/Page/PageContainer/PageContai
 import { useCreatePrompt } from './useCreatePrompt'
 import { InputText } from '../../../Components/Fields/InputText'
 import { InputTextarea } from '../../../Components/Fields/InputTextarea'
-import { CategorySelect } from './components/CategorySelect/CategorySelect'
+import { CategorySelect } from '../../../Components/Fields/CategorySelect'
+import { FileInput } from '../../../Components/Fields/FileInput'
 
 export const CreatePrompt = () => {
   const { formik } = useCreatePrompt()
@@ -22,21 +23,7 @@ export const CreatePrompt = () => {
           <CategorySelect formik={formik} name="category" />
         </div>
         <InputTextarea formik={formik} name="prompt" label="Prompt" />
-
-        <div>
-          <label htmlFor="file">File</label>
-          <input
-            id="file"
-            name="file"
-            type="file"
-            multiple={false}
-            onChange={(event) => {
-              formik.setFieldValue('file', event.currentTarget.files[0])
-            }}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.file && formik.errors.file ? <div>{formik.errors.file}</div> : null}
-        </div>
+        <FileInput formik={formik} name="file" />
 
         <button type="submit">Submit</button>
       </form>
