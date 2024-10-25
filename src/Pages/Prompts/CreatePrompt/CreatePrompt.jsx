@@ -9,6 +9,8 @@ import { CategorySelect } from '../../../Components/Fields/CategorySelect'
 import { FileInput } from '../../../Components/Fields/FileInput'
 import { CheckSquareFilled, ExperimentOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
+import { InfoButton } from '../../../Components/Buttons/InfoButton'
+import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
 
 export const CreatePrompt = () => {
   const { formik } = useCreatePrompt()
@@ -29,20 +31,8 @@ export const CreatePrompt = () => {
           <FileInput formik={formik} name="file" />
 
           <div className="flex w-full gap-4">
-            <Button
-              type="default"
-              icon={<CheckSquareFilled />}
-              className="w-full text-primary border-primary"
-            >
-              Create prompt
-            </Button>
-            <Button
-              type="default"
-              icon={<ExperimentOutlined />}
-              className="w-full text-blue-600 border-blue-600"
-            >
-              Test prompt
-            </Button>
+            <SuccessButton icon={<CheckSquareFilled />}>Create prompt</SuccessButton>
+            <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
           </div>
         </form>
         <div className="w-full">
