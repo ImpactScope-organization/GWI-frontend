@@ -3,7 +3,11 @@ export const ROUTES = {
   create: '/create',
   settings: '/settings',
   home: '/',
-  prompts: '/prompts',
+  prompts: {
+    index: '/prompts',
+    create: '/prompts/create',
+    edit: '/prompts/:id/edit'
+  },
   reports: {
     internal: '/reports/internal',
     regulator: '/reports/regulator',

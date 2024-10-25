@@ -26,7 +26,7 @@ function App() {
         <Route path={ROUTES.create} element={<CreateReport />} />
         <Route path={ROUTES.specificReport.index} element={<SpecificReport />} />
         <Route path={ROUTES.settings} element={<Settings />} />
-        <Route path={ROUTES.prompts} element={<Prompts />} />
+        <Route path={ROUTES.prompts.index} element={<Prompts />} />
         <Route path={ROUTES.login} element={<Login />} />
         <Route path={ROUTES.notFound} element={<NotFound />} />
       </Routes>
