@@ -3,6 +3,8 @@ import { ROUTES } from '../../../routes'
 import React from 'react'
 import { PageContainer } from '../../../Components/Page/PageContainer/PageContainer'
 import { useCreatePrompt } from './useCreatePrompt'
+import { Input } from 'antd'
+import { InputText } from '../../../Components/Fields/InputText'
 
 export const CreatePrompt = () => {
   const { formik } = useCreatePrompt()
@@ -14,19 +16,7 @@ export const CreatePrompt = () => {
         <h2 className="text-darkBlack font-bold text-3xl">Create new prompt</h2>
       </div>
       <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-          />
-          {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
-        </div>
-
+        <InputText formik={formik} name="name" label="Name" />
         <div>
           <label htmlFor="category">Category</label>
           <select
@@ -63,6 +53,7 @@ export const CreatePrompt = () => {
             id="file"
             name="file"
             type="file"
+            multiple={false}
             onChange={(event) => {
               formik.setFieldValue('file', event.currentTarget.files[0])
             }}
