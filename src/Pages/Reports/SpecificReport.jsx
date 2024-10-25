@@ -23,6 +23,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
 import { ROUTES } from '../../routes'
 import { useGetCompanyReport } from '../../Hooks/reports-hooks'
+import { PageContainer } from '../../Components/Page/PageContainer/PageContainer'
 
 // IPFS
 // const projectId = "2V6620s2FhImATdUuY4dwIAqoI0";
@@ -604,13 +605,13 @@ const SpecificReport = () => {
     )
   }
   return (
-    <div>
+    <PageContainer>
       <BackButtonLink to={ROUTES.reports.internal} />
 
       {/* Specific Report */}
       <div
         id="report-container"
-        className="flex flex-col md:flex-row gap-6 my-10 px-16 lg:px-6 max-w-[1120px] mx-auto"
+        className="flex flex-col md:flex-row gap-6 px-16 lg:px-6 max-w-[1120px] mx-auto"
       >
         <div
           style={{
@@ -1311,7 +1312,7 @@ const SpecificReport = () => {
           )}
         </div>
       </div>
-    </div>
+    </PageContainer>
   )
 }
 

@@ -9,6 +9,7 @@ import apiUrl from '../../utils/baseURL'
 import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
 import { ROUTES } from '../../routes'
 import { useNavigate } from 'react-router-dom'
+import { PageContainer } from '../../Components/Page/PageContainer/PageContainer'
 
 const CreateReport = () => {
   const fileInputRef = useRef(null)
@@ -136,13 +137,13 @@ const CreateReport = () => {
   }
 
   return (
-    <>
+    <PageContainer>
       {processing ? (
         <Loading title="Please wait, data source is being processed" />
       ) : (
         <div className="pb-10">
           <BackButtonLink to={ROUTES.reports.internal} />
-          <div className="grid w-full min-h-[75vh] ">
+          <div className="grid w-full">
             <div className="w-1/2 mx-auto flex justify-center items-center flex-col">
               <h1 className="text-darkBlack font-bold text-3xl leading-[64px] mb-1">
                 Add new company
@@ -211,7 +212,7 @@ const CreateReport = () => {
           </div>
         </div>
       )}
-    </>
+    </PageContainer>
   )
 }
 
