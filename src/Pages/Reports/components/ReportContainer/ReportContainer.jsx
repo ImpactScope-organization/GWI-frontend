@@ -2,29 +2,28 @@ import React, { useCallback } from 'react'
 import { ROUTES } from '../../../../routes'
 import { ButtonLink } from '../../../../Components/ButtonLink/ButtonLink'
 import { Link, useLocation } from 'react-router-dom'
+import { PageContainer } from '../../../../Components/Page/PageContainer/PageContainer'
+import { PageHeader } from '../../../../Components/Page/PageHeader/PageHeader'
+import { PageContentContainer } from '../../../../Components/Page/PageContentContainer/PageContentContainer'
 
 export const ReportContainer = ({ children }) => {
   const location = useLocation()
 
-  const isRouteActive = useCallback((route) => {
-    return route === location.pathname
-  }, [])
+  const isRouteActive = useCallback(
+    (route) => {
+      return route === location.pathname
+    },
+    [location.pathname]
+  )
 
   return (
-    <div className="w-[90%] mx-auto my-10">
-      {/* Top Container */}
-      <div className="flex justify-between items-start mb-6">
-        {/* Left */}
-        <div>
-          <h1 className="text-darkBlack font-bold text-3xl mb-1">Companies</h1>
-          <p className="subtitle-text ">Overview all of companies here</p>
-        </div>
-        {/* Right */}
+    <PageContainer>
+      <PageHeader title="Companies" subTitle="Overview all of companies here">
         <ButtonLink to={ROUTES.create}>Add new company</ButtonLink>
-      </div>
+      </PageHeader>
 
       {/* Tabs Container */}
-      <div className="flex gap-10 w-fit justify-center item-center mb-8">
+      <PageContentContainer>
         <Link
           to={ROUTES.reports.internal}
           className={`cursor-pointer ${
@@ -45,10 +44,10 @@ export const ReportContainer = ({ children }) => {
         >
           Sent to regulator
         </Link>
-      </div>
+      </PageContentContainer>
 
       {/* Reports Container */}
-      <div className="w-full gap-7 grid grid-cols-3">{children}</div>
-    </div>
+      <div className="w-full gap-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{children}</div>
+    </PageContainer>
   )
 }
