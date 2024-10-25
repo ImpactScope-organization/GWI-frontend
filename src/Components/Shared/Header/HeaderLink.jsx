@@ -1,7 +1,7 @@
 import { Link, useMatch } from 'react-router-dom'
 
-export const HeaderLink = ({ to, pathToBeActive, children }) => {
-  const isRouteActive = useMatch({ path: pathToBeActive, end: false })
+export const HeaderLink = ({ to, pathToBeActive = undefined, children }) => {
+  const isRouteActive = useMatch({ path: pathToBeActive ?? to, end: false })
 
   return (
     <Link

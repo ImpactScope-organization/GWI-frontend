@@ -21,9 +21,7 @@ const Header = () => {
           <HeaderLink to={ROUTES.reports.internal} pathToBeActive={ROUTES.reports.index}>
             Reports
           </HeaderLink>
-          <HeaderLink to={ROUTES.prompts} pathToBeActive={ROUTES.prompts}>
-            Prompts
-          </HeaderLink>
+          <HeaderLink to={ROUTES.prompts}>Prompts</HeaderLink>
           <ConnectWallet
             accentColor="#f213a4"
             colorMode="dark"
