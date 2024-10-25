@@ -32,7 +32,7 @@ export const CreatePrompt = () => {
 
           <div className="flex w-full gap-4">
             <SuccessButton onClick={formik.submitForm} icon={<CheckSquareFilled />}>
-              Create prompt
+              Save prompt
             </SuccessButton>
             <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
           </div>
