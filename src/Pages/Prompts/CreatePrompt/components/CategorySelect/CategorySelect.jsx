@@ -47,7 +47,9 @@ export const CategorySelect = ({ formik, name }) => {
             </div>
           </div>
         )}
-        onChange={formik.handleChange}
+        onChange={(value) => {
+          formik.setFieldValue(name, value)
+        }}
         onBlur={formik.handleBlur}
         value={formik.values[category]}
         status={formik.touched[category] && formik.errors[category] ? 'error' : 'success'}
