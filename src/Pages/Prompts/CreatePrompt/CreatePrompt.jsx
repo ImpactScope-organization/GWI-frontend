@@ -17,7 +17,7 @@ export const CreatePrompt = () => {
         <h2 className="text-darkBlack font-bold text-3xl">Create new prompt</h2>
       </div>
       <form onSubmit={formik.handleSubmit}>
-        <div class="flex w-full gap-2">
+        <div className="flex w-full gap-2">
           <InputText formik={formik} name="name" label="Name" />
           <CategorySelect formik={formik} name="category" />
         </div>

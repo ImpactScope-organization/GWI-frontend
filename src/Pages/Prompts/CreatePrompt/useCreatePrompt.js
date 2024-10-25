@@ -5,7 +5,7 @@ export const useCreatePrompt = () => {
   const formik = useFormik({
     initialValues: {
       name: '',
-      category: '',
+      category: 'hello',
       prompt: '',
       file: null
     },
