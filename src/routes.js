@@ -3,9 +3,11 @@ export const ROUTES = {
   create: '/create',
   settings: '/settings',
   home: '/',
+  prompts: '/prompts',
   reports: {
     internal: '/reports/internal',
-    regulator: '/reports/regulator'
+    regulator: '/reports/regulator',
+    index: '/reports'
   },
   specificReport: {
     index: '/specific-report/:id',
