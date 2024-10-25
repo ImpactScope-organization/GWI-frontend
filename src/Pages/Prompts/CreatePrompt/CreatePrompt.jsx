@@ -3,9 +3,9 @@ import { ROUTES } from '../../../routes'
 import React from 'react'
 import { PageContainer } from '../../../Components/Page/PageContainer/PageContainer'
 import { useCreatePrompt } from './useCreatePrompt'
-import { Input } from 'antd'
 import { InputText } from '../../../Components/Fields/InputText'
 import { InputTextarea } from '../../../Components/Fields/InputTextarea'
+import { CategorySelect } from './components/CategorySelect/CategorySelect'
 
 export const CreatePrompt = () => {
   const { formik } = useCreatePrompt()
@@ -18,6 +18,7 @@ export const CreatePrompt = () => {
       </div>
       <form onSubmit={formik.handleSubmit}>
         <InputText formik={formik} name="name" label="Name" />
+        <CategorySelect formik={formik} name="category" />
         <div>
           <label htmlFor="category">Category</label>
           <select

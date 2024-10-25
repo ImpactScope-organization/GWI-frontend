@@ -13,7 +13,7 @@ export const InputTextarea = ({ formik, name, label }) => (
       name={name}
       placeholder={label}
       type="text"
-      className="p-4 bg-[#f5f4f4] rounded-lg border-none focus:outline-none mb-1"
+      rows={12}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       value={formik.values[name]}
