@@ -2,7 +2,7 @@ import { Input } from 'antd'
 import React from 'react'
 
 export const InputText = ({ formik, name, label }) => (
-  <div className="mb-4 w-full">
+  <div className="w-full">
     <label htmlFor="name" className="text-md text-darkBlack mb-1 font-semibold block">
       {label}
     </label>

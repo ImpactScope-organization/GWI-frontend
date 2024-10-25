@@ -206,7 +206,9 @@ const CreateReport = () => {
               ))}
 
               {selectedFiles?.length > 0 && (
-                <Button title="Confirm" onClick={handleFileConfirm} classes="mt-10" />
+                <Button onClick={handleFileConfirm} classes="mt-10">
+                  Confirm
+                </Button>
               )}
             </div>
           </div>

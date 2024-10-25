@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Button({ title, onClick, isDisabled = false, classes = '' }) {
+function Button({ onClick, isDisabled = false, children, classes = '' }) {
   return (
     <button
       disabled={isDisabled}
@@ -10,7 +10,7 @@ function Button({ title, onClick, isDisabled = false, classes = '' }) {
       }}
       className={`bg-darkGreen text-lg rounded-2xl py-3 px-4 border-none outline-none text-[#fff] ${classes}`}
     >
-      {title}
+      {children}
     </button>
   )
 }

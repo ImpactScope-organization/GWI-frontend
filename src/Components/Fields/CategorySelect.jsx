@@ -20,7 +20,7 @@ export const CategorySelect = ({ formik, name }) => {
   }
 
   return (
-    <div className="mb-4 w-full">
+    <div className="w-full">
       <label htmlFor={category} className="text-md text-darkBlack mb-1 font-semibold block">
         Category
       </label>

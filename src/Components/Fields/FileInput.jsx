@@ -22,7 +22,6 @@ export const FileInput = ({ formik, name }) => {
         }}
         beforeUpload={(file) => {
           setFileList([file])
-          console.log(file)
           formik.setFieldValue(name, file)
           return false
         }}

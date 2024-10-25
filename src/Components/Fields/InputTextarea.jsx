@@ -4,7 +4,7 @@ import { Input } from 'antd'
 const { TextArea } = Input
 
 export const InputTextarea = ({ formik, name, label }) => (
-  <div className="mb-4">
+  <div>
     <label htmlFor="name" className="text-md text-darkBlack mb-1 font-semibold block">
       {label}
     </label>
