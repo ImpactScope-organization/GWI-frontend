@@ -2,7 +2,7 @@ import { Input } from 'antd'
 import React from 'react'
 
 export const InputText = ({ formik, name, label }) => (
-  <div className="mb-4">
+  <div className="mb-4 w-full">
     <label htmlFor="name" className="text-md text-darkBlack mb-1 font-semibold block">
       {label}
     </label>
@@ -11,7 +11,6 @@ export const InputText = ({ formik, name, label }) => (
       name={name}
       placeholder={label}
       type="text"
-      className="p-4 bg-[#f5f4f4] rounded-lg border-none focus:outline-none mb-1"
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       value={formik.values[name]}

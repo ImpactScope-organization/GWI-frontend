@@ -20,40 +20,31 @@ export const CategorySelect = ({ formik }) => {
   }
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-full">
       <label htmlFor={name} className="text-md text-darkBlack mb-1 font-semibold block">
         Category
       </label>
       <Select
-        style={{
-          width: '100%'
-        }}
-        placeholder="custom dropdown render"
+        className="w-full"
+        placeholder="Category"
         dropdownRender={(menu) => (
-          <>
+          <div className="w-full p-2">
             {menu}
-            <Divider
-              style={{
-                margin: '8px 0'
-              }}
-            />
-            <Space
-              style={{
-                padding: '0 8px 4px'
-              }}
-            >
+            <Divider className="my-2" />
+            <div className="pb-1 w-full flex gap-2">
               <Input
-                placeholder="Please enter item"
+                placeholder="New category"
                 ref={inputRef}
                 value={name}
                 onChange={onNameChange}
                 onKeyDown={(e) => e.stopPropagation()}
               />
-              <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+
+              <Button type="default" icon={<PlusOutlined />} onClick={addItem}>
                 Add item
               </Button>
-            </Space>
-          </>
+            </div>
+          </div>
         )}
         options={items.map((item) => ({
           label: item,

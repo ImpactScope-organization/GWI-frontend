@@ -18,6 +18,7 @@ root.render(
           theme={{
             token: {
               colorPrimary: '#4DC601',
+              colorPrimaryText: '#4DC601',
               borderRadius: 8,
               controlHeight: 56,
               colorBgContainer: '#f5f4f4'

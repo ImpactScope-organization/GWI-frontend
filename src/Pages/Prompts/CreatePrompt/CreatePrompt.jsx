@@ -17,8 +17,10 @@ export const CreatePrompt = () => {
         <h2 className="text-darkBlack font-bold text-3xl">Create new prompt</h2>
       </div>
       <form onSubmit={formik.handleSubmit}>
-        <InputText formik={formik} name="name" label="Name" />
-        <CategorySelect formik={formik} name="category" />
+        <div class="flex w-full gap-2">
+          <InputText formik={formik} name="name" label="Name" />
+          <CategorySelect formik={formik} name="category" />
+        </div>
         <div>
           <label htmlFor="category">Category</label>
           <select
