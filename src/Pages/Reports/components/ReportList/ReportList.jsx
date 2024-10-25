@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
 import { getRouteWithId, ROUTES } from '../../../../routes'
 import { handleDateFormat } from '../../../../utils/date'
+import { ReportListItemLink } from '../../../../Components/ReportListItemLink/ReportListItemLink'
 
 export const ReportList = ({ data }) => {
   return (
@@ -14,15 +14,10 @@ export const ReportList = ({ data }) => {
         ))}
       {data &&
         data?.length > 0 &&
-        data?.map((report, sheetIndex) => (
-          <Link
+        data?.map((report) => (
+          <ReportListItemLink
             to={getRouteWithId(ROUTES.specificReport.index, report?.id)}
-            key={`report_list_item${report?.id}`}
-            style={{
-              boxShadow:
-                ' 0px 13px 12px -16px rgba(0, 0, 0, 0.05), 0px 0px 12px 0px rgba(0, 0, 0, 0.1)'
-            }}
-            className="min-w-[31%] p-4 cursor-pointer rounded-xl border border-borderLight  hover:border-black  "
+            key={`report_list_item_${report?.id}`}
           >
             <p className="mb-2 text-sm text-[#6C7275]">{handleDateFormat(report?.createdAt)}</p>
             <h1 className="mb-3 text-darkBlack text-2xl font-semibold">{report?.companyName}</h1>
@@ -30,7 +25,7 @@ export const ReportList = ({ data }) => {
               Jurisdiction :
               <span className="text-darkBlack font-semibold ml-2">{report?.jurisdiction}</span>
             </p>
-          </Link>
+          </ReportListItemLink>
         ))}
     </>
   )
