@@ -21,7 +21,7 @@ export const CreatePrompt = () => {
         <BackButtonLink to={ROUTES.reports.internal} />
         <h2 className="text-darkBlack font-bold text-3xl">Create new prompt</h2>
       </div>
-      <div className="flex w-full gap-4">
+      <div className="flex flex-col w-full gap-4 lg:flex-row">
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 w-full">
           <div className="flex w-full gap-4">
             <InputText formik={formik} name="name" label="Name" />
@@ -31,7 +31,9 @@ export const CreatePrompt = () => {
           <FileInput formik={formik} name="file" />
 
           <div className="flex w-full gap-4">
-            <SuccessButton icon={<CheckSquareFilled />}>Create prompt</SuccessButton>
+            <SuccessButton onClick={formik.submitForm} icon={<CheckSquareFilled />}>
+              Create prompt
+            </SuccessButton>
             <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
           </div>
         </form>
