@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Upload } from 'antd'
+import { InboxOutlined } from '@ant-design/icons'
 
 export const FileInput = ({ formik, name }) => {
   const [fileList, setFileList] = useState([])
@@ -28,15 +29,18 @@ export const FileInput = ({ formik, name }) => {
         fileList={fileList}
         showUploadList={false}
       >
-        <div>
-          {fileList.length > 0 ? (
-            <div className="text-center">
-              <div className="text-primary italic">{fileList[0].name}</div>
-              <div>(Drag and drop a file here or click to replace a file)</div>
-            </div>
-          ) : (
-            <div>Drag and drop a file here or click to select a file</div>
-          )}
+        <div className="flex flex-col items-center">
+          <InboxOutlined className="text-3xl mb-2 text-primary" />
+          <div>
+            {fileList.length > 0 ? (
+              <div className="text-center">
+                <div className="text-primary italic">{fileList[0].name}</div>
+                <div>(Drag and drop a file here or click to replace a file)</div>
+              </div>
+            ) : (
+              <div>Drag and drop a file here or click to select a file</div>
+            )}
+          </div>
         </div>
       </Upload>
       {hasError ? <div className="text-[#ff0000]">{formik.errors[name]}</div> : null}
