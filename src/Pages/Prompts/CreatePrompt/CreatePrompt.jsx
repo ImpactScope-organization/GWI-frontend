@@ -21,24 +21,6 @@ export const CreatePrompt = () => {
           <InputText formik={formik} name="name" label="Name" />
           <CategorySelect formik={formik} name="category" />
         </div>
-        <div>
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            name="category"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.category}
-          >
-            <option value="" label="Select category" />
-            <option value="example1@example.com" label="example1@example.com" />
-            <option value="example2@example.com" label="example2@example.com" />
-          </select>
-          {formik.touched.category && formik.errors.category ? (
-            <div>{formik.errors.category}</div>
-          ) : null}
-        </div>
-
         <InputTextarea formik={formik} name="prompt" label="Prompt" />
 
         <div>
