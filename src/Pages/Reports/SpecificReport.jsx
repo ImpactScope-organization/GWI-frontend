@@ -609,10 +609,7 @@ const SpecificReport = () => {
       <BackButtonLink to={ROUTES.reports.internal} />
 
       {/* Specific Report */}
-      <div
-        id="report-container"
-        className="flex flex-col md:flex-row gap-6 px-16 lg:px-6 max-w-[1120px] mx-auto"
-      >
+      <div id="report-container" className="flex flex-col md:flex-row gap-6 max-w-[1120px] mx-auto">
         <div
           style={{
             boxShadow:
