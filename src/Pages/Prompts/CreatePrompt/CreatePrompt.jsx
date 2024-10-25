@@ -5,6 +5,7 @@ import { PageContainer } from '../../../Components/Page/PageContainer/PageContai
 import { useCreatePrompt } from './useCreatePrompt'
 import { Input } from 'antd'
 import { InputText } from '../../../Components/Fields/InputText'
+import { InputTextarea } from '../../../Components/Fields/InputTextarea'
 
 export const CreatePrompt = () => {
   const { formik } = useCreatePrompt()
@@ -35,17 +36,7 @@ export const CreatePrompt = () => {
           ) : null}
         </div>
 
-        <div>
-          <label htmlFor="prompt">Prompt</label>
-          <textarea
-            id="prompt"
-            name="prompt"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.prompt}
-          />
-          {formik.touched.prompt && formik.errors.prompt ? <div>{formik.errors.prompt}</div> : null}
-        </div>
+        <InputTextarea formik={formik} name="prompt" label="Prompt" />
 
         <div>
           <label htmlFor="file">File</label>

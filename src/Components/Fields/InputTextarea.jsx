@@ -1,12 +1,14 @@
-import { Input } from 'antd'
 import React from 'react'
+import { Input } from 'antd'
 
-export const InputText = ({ formik, name, label }) => (
+const { TextArea } = Input
+
+export const InputTextarea = ({ formik, name, label }) => (
   <div className="mb-4">
     <label htmlFor="name" className="text-md text-darkBlack mb-1 font-semibold block">
       {label}
     </label>
-    <Input
+    <TextArea
       id={name}
       name={name}
       placeholder={label}
