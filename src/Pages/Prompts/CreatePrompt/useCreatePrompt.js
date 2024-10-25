@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 export const useCreatePrompt = () => {
   const [isLoading, setIsLoading] = useState(false) // todo loading context
+  const [output, setOutput] = useState(undefined)
 
   const handleUpload = (fileList) => {
     const formData = new FormData()
@@ -49,6 +50,7 @@ export const useCreatePrompt = () => {
   })
 
   return {
-    formik
+    formik,
+    output
   }
 }

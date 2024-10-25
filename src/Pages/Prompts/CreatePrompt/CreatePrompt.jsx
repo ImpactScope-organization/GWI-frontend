@@ -8,12 +8,12 @@ import { InputTextarea } from '../../../Components/Fields/InputTextarea'
 import { CategorySelect } from '../../../Components/Fields/CategorySelect'
 import { FileInput } from '../../../Components/Fields/FileInput'
 import { CheckSquareFilled, ExperimentOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
 import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
+import { PromptOutput } from './PromptOutput'
 
 export const CreatePrompt = () => {
-  const { formik } = useCreatePrompt()
+  const { formik, output } = useCreatePrompt()
 
   return (
     <PageContainer className="pb-10">
@@ -37,12 +37,7 @@ export const CreatePrompt = () => {
             <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
           </div>
         </form>
-        <div className="w-full">
-          <span className="text-md text-darkBlack mb-1 font-semibold block">Output</span>
-          <div className="w-full h-full bg-[#f5f4f4] rounded-md border border-[#d9d9d9] p-4 overflow-y-scroll">
-            Run a test to have output
-          </div>
-        </div>
+        <PromptOutput output={output} />
       </div>
     </PageContainer>
   )
