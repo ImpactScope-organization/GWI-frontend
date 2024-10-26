@@ -5,11 +5,12 @@ import { Formik, useFormikContext } from 'formik'
 import { useCallback, useState } from 'react'
 import { InputText } from '../../../../../../Components/Fields/InputText'
 import { SuccessButton } from '../../../../../../Components/Buttons/SuccessButton'
-const { confirm } = Modal
+import * as Yup from 'yup'
 
 export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDropdownVisible }) => {
   const formik = useFormikContext()
   const [isEdit, setIsEdit] = useState(false)
+  const [{ confirm }, modalContent] = Modal.useModal()
 
   const toggleEditInput = useCallback(() => {
     setIsEdit(!isEdit)
@@ -34,7 +35,7 @@ export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDro
         await refetchCategoryItems()
       }
     })
-  }, [item, refetchCategoryItems])
+  }, [item, confirm, refetchCategoryItems])
 
   const handleClick = useCallback(async () => {
     await formik.setFieldValue('category', item.id)
@@ -58,12 +59,15 @@ export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDro
             await handleUpdate(values.updateName)
             resetForm()
           }}
+          validationSchema={Yup.object({
+            updateName: Yup.string().required('Name is required')
+          })}
         >
-          {({ submitForm }) => (
+          {({ submitForm, errors }) => (
             <div className="w-full flex gap-2 items-end justify-between">
               <InputText name="updateName" label="Category name" />
 
-              <div className="basis-1/3">
+              <div className={`basis-1/3 ${errors.updateName ? 'mb-6' : 'mb-0'}`}>
                 <SuccessButton onClick={submitForm}>Update</SuccessButton>
               </div>
             </div>
@@ -72,6 +76,7 @@ export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDro
       )}
       <EditOutlined className="hover:text-yellow-400" onClick={() => toggleEditInput()} />
       <CloseCircleOutlined className="hover:text-red-400" onClick={() => handleDelete()} />
+      {modalContent}
     </div>
   )
 }

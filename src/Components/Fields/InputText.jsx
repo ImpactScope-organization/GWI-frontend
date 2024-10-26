@@ -6,7 +6,7 @@ export const InputText = ({ name, label }) => {
   const formik = useFormikContext()
   return (
     <div className="w-full">
-      <label htmlFor="name" className="text-md text-darkBlack mb-1 font-semibold block">
+      <label htmlFor={name} className="text-md text-darkBlack mb-1 font-semibold block">
         {label}
       </label>
       <Input
