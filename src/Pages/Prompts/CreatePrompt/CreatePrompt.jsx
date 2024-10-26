@@ -15,7 +15,7 @@ import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
 export const CreatePrompt = () => {
-  const { output, handleSubmit } = useCreatePrompt()
+  const { output, handleSubmit, handleTest } = useCreatePrompt()
 
   return (
     <PageContainer className="pb-10">
@@ -40,7 +40,7 @@ export const CreatePrompt = () => {
           await handleSubmit(values)
         }}
       >
-        {({ submitForm }) => (
+        {({ submitForm, values }) => (
           <div className="flex flex-col w-full gap-4 lg:flex-row">
             <Form className="flex flex-col gap-4 w-full">
               <div className="flex w-full gap-4">
@@ -54,7 +54,14 @@ export const CreatePrompt = () => {
                 <SuccessButton onClick={submitForm} icon={<CheckSquareFilled />}>
                   Save prompt
                 </SuccessButton>
-                <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
+                <InfoButton
+                  icon={<ExperimentOutlined />}
+                  onClick={async () => {
+                    await handleTest(values)
+                  }}
+                >
+                  Test prompt
+                </InfoButton>
               </div>
             </Form>
             <PromptOutput output={output} />

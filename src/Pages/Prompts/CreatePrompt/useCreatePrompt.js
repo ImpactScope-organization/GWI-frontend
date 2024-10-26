@@ -33,28 +33,46 @@ export const useCreatePrompt = () => {
       })
   }
 
-  const handleSubmit = useCallback(async ({ name, category, prompt, file }) => {
-    const formData = new FormData()
+  const handleFileUploadPromptRequest = useCallback(
+    async (url, { name, category, prompt, file }) => {
+      const formData = new FormData()
 
-    formData.append('name', name)
-    formData.append('category', category)
-    formData.append('prompt', prompt)
-    formData.append('file', file)
+      formData.append('name', name)
+      formData.append('category', category)
+      formData.append('prompt', prompt)
+      formData.append('file', file)
 
-    try {
-      const response = await axios.post(`${apiUrl}/api/prompt/create`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      console.log(response)
-    } catch (error) {
-      console.error('Error submitting form:', error)
-    }
-  }, [])
+      try {
+        const response = await axios.post(url, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        console.log(response)
+      } catch (error) {
+        console.error('Error submitting form:', error)
+      }
+    },
+    []
+  )
+
+  const handleSubmit = useCallback(
+    async (values) => {
+      await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/create`, values)
+    },
+    [handleFileUploadPromptRequest]
+  )
+
+  const handleTest = useCallback(
+    async (values) => {
+      await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/test`, values)
+    },
+    [handleFileUploadPromptRequest]
+  )
 
   return {
     output,
-    handleSubmit
+    handleSubmit,
+    handleTest
   }
 }
