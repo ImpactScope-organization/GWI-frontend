@@ -11,6 +11,7 @@ export const FileInput = ({ name }) => {
   return (
     <>
       <Upload
+        accept=".txt,.xlsx,.xls,.csv"
         className={`
         w-full bg-[#f5f4f4] 
         border ${hasError ? 'border-[#ff0000]' : 'border-[#d9d9d9]'} 

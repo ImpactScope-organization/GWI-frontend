@@ -1,7 +1,6 @@
 export const ROUTES = {
   login: '/login',
   create: '/create',
-  settings: '/settings',
   home: '/',
   prompts: {
     index: '/prompts',
