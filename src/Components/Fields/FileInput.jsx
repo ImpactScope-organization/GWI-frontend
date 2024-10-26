@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Upload } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
+import { useFormikContext } from 'formik'
 
-export const FileInput = ({ formik, name }) => {
+export const FileInput = ({ name }) => {
+  const formik = useFormikContext()
   const [fileList, setFileList] = useState([])
   const hasError = formik.touched[name] && formik.errors[name]
 

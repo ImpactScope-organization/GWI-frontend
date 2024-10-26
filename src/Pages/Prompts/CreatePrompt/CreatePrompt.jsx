@@ -11,9 +11,11 @@ import { CheckSquareFilled, ExperimentOutlined } from '@ant-design/icons'
 import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
 import { PromptOutput } from './components/PromptOutput'
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
 
 export const CreatePrompt = () => {
-  const { formik, output } = useCreatePrompt()
+  const { output } = useCreatePrompt()
 
   return (
     <PageContainer className="pb-10">
@@ -21,24 +23,42 @@ export const CreatePrompt = () => {
         <BackButtonLink to={ROUTES.reports.internal} />
         <h2 className="text-darkBlack font-bold text-3xl">Create new prompt</h2>
       </div>
-      <div className="flex flex-col w-full gap-4 lg:flex-row">
-        <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 w-full">
-          <div className="flex w-full gap-4">
-            <InputText formik={formik} name="name" label="Name" />
-            <CategorySelect formik={formik} name="category" />
-          </div>
-          <InputTextarea formik={formik} name="prompt" label="Prompt" />
-          <FileInput formik={formik} name="file" />
+      <Formik
+        initialValues={{
+          name: '',
+          category: '',
+          prompt: '',
+          file: null
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string().required('Name is required'),
+          category: Yup.string().required('Category is required'),
+          prompt: Yup.string().required('Prompt is required'),
+          file: Yup.mixed().required('File is required')
+        })}
+        onSubmit={(values) => {
+          console.log(values)
+        }}
+      >
+        {() => (
+          <div className="flex flex-col w-full gap-4 lg:flex-row">
+            <Form className="flex flex-col gap-4 w-full">
+              <div className="flex w-full gap-4">
+                <InputText name="name" label="Name" />
+                <CategorySelect name="category" />
+              </div>
+              <InputTextarea name="prompt" label="Prompt" />
+              <FileInput name="file" />
 
-          <div className="flex w-full gap-4">
-            <SuccessButton onClick={formik.submitForm} icon={<CheckSquareFilled />}>
-              Save prompt
-            </SuccessButton>
-            <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
+              <div className="flex w-full gap-4">
+                <SuccessButton icon={<CheckSquareFilled />}>Save prompt</SuccessButton>
+                <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
+              </div>
+            </Form>
+            <PromptOutput output={output} />
           </div>
-        </form>
-        <PromptOutput output={output} />
-      </div>
+        )}
+      </Formik>
     </PageContainer>
   )
 }

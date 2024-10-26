@@ -73,3 +73,11 @@ img {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
+.ant-btn-primary:not([disabled]) {
+  background: #1677ff !important;
+}
+
+.ant-btn-primary:not([disabled]):hover {
+  background: #1f4ce0 !important;
+}
