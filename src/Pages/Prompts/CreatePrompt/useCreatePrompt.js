@@ -1,12 +1,8 @@
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import { message } from 'antd'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
 import apiUrl from '../../../utils/baseURL'
 
 export const useCreatePrompt = () => {
-  const [isLoading, setIsLoading] = useState(false) // todo loading context
   const [output, setOutput] = useState(undefined)
 
   const handleFileUploadPromptRequest = useCallback(
@@ -42,8 +38,8 @@ export const useCreatePrompt = () => {
   const handleTest = useCallback(
     async (values) => {
       setOutput('Loading...')
-      const { result } = await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/test`, values)
-      setOutput(result)
+      const data = await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/test`, values)
+      setOutput(data?.result)
     },
     [handleFileUploadPromptRequest]
   )
