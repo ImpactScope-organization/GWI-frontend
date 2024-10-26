@@ -40,7 +40,7 @@ export const CreatePrompt = () => {
           console.log(values)
         }}
       >
-        {() => (
+        {({ submitForm }) => (
           <div className="flex flex-col w-full gap-4 lg:flex-row">
             <Form className="flex flex-col gap-4 w-full">
               <div className="flex w-full gap-4">
@@ -51,7 +51,9 @@ export const CreatePrompt = () => {
               <FileInput name="file" />
 
               <div className="flex w-full gap-4">
-                <SuccessButton icon={<CheckSquareFilled />}>Save prompt</SuccessButton>
+                <SuccessButton onClick={submitForm} icon={<CheckSquareFilled />}>
+                  Save prompt
+                </SuccessButton>
                 <InfoButton icon={<ExperimentOutlined />}>Test prompt</InfoButton>
               </div>
             </Form>
