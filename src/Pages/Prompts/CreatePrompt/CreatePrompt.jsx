@@ -5,12 +5,12 @@ import { PageContainer } from '../../../Components/Page/PageContainer/PageContai
 import { useCreatePrompt } from './useCreatePrompt'
 import { InputText } from '../../../Components/Fields/InputText'
 import { InputTextarea } from '../../../Components/Fields/InputTextarea'
-import { CategorySelect } from '../../../Components/Fields/CategorySelect'
+import { CategorySelect } from './components/CategorySelect/CategorySelect'
 import { FileInput } from '../../../Components/Fields/FileInput'
 import { CheckSquareFilled, ExperimentOutlined } from '@ant-design/icons'
 import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
-import { PromptOutput } from './PromptOutput'
+import { PromptOutput } from './components/PromptOutput'
 
 export const CreatePrompt = () => {
   const { formik, output } = useCreatePrompt()
