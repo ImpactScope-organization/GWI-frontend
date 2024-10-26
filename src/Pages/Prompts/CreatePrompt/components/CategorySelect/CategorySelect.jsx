@@ -41,7 +41,7 @@ export const CategorySelect = ({ name }) => {
   const value = useMemo(() => {
     return formik.values[name]
       ? categoryItems.find(({ id }) => id === formik.values[name])?.name
-      : 'Select a category or create a new one'
+      : 'Select a category'
   }, [categoryItems, formik.values, name])
 
   return (
