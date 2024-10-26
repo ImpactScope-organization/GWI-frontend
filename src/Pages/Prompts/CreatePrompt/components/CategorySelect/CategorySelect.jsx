@@ -89,8 +89,8 @@ export const CategorySelect = ({ name }) => {
         </div>
       </div>
       <div className="ml-1">
-        {formik.touched[newCategoryName] && formik.errors[newCategoryName] ? (
-          <div className="text-[#ff0000]">{formik.errors[newCategoryName]}</div>
+        {formik.touched[name] && formik.errors[name] ? (
+          <div className="text-[#ff0000]">{formik.errors[name]}</div>
         ) : null}
       </div>
     </div>
