@@ -1,17 +1,30 @@
 import { deletePromptCategory, updatePromptCategory } from '../categorySelectApi'
-import { CloseCircleOutlined, ExclamationCircleFilled } from '@ant-design/icons'
+import { CloseCircleOutlined, EditOutlined, ExclamationCircleFilled } from '@ant-design/icons'
 import { Modal } from 'antd'
-import { useFormikContext } from 'formik'
+import { Formik, useFormikContext } from 'formik'
+import { useCallback, useState } from 'react'
+import { InputText } from '../../../../../../Components/Fields/InputText'
+import { SuccessButton } from '../../../../../../Components/Buttons/SuccessButton'
 const { confirm } = Modal
 
-export const CategorySelectOptionItem = ({ item, refetchCategoryItems }) => {
+export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDropdownVisible }) => {
   const formik = useFormikContext()
-  const handleUpdate = async (id, newName) => {
-    const updatedCategory = await updatePromptCategory(id, newName)
-    await refetchCategoryItems()
-  }
+  const [isEdit, setIsEdit] = useState(false)
 
-  const handleDelete = async () => {
+  const toggleEditInput = useCallback(() => {
+    setIsEdit(!isEdit)
+  }, [isEdit])
+
+  const handleUpdate = useCallback(
+    async (newName) => {
+      await updatePromptCategory(item.id, newName)
+      await refetchCategoryItems()
+      toggleEditInput()
+    },
+    [item.id, refetchCategoryItems, toggleEditInput]
+  )
+
+  const handleDelete = useCallback(async () => {
     confirm({
       title: `Do you want to delete "${item.name}" category?`,
       icon: <ExclamationCircleFilled />,
@@ -21,16 +34,43 @@ export const CategorySelectOptionItem = ({ item, refetchCategoryItems }) => {
         await refetchCategoryItems()
       }
     })
-  }
+  }, [item, refetchCategoryItems])
+
+  const handleClick = useCallback(async () => {
+    await formik.setFieldValue('category', item.id)
+    toggleDropdownVisible()
+  }, [formik, item, toggleDropdownVisible])
 
   return (
-    <div className="flex justify-between gap-2">
-      <div
-        className="w-full hover:bg-primary hover:text-white p-2 rounded cursor-pointer"
-        onClick={() => formik.setFieldValue('category', item.id)}
-      >
-        <div>{item.name}</div>
-      </div>
+    <div className={`flex justify-between gap-2 ${isEdit && `bg-amber-100 -mx-4 px-4 -my-2 py-2`}`}>
+      {!isEdit && (
+        <div
+          className="w-full hover:bg-primary hover:text-white p-2 rounded cursor-pointer"
+          onClick={handleClick}
+        >
+          <div>{item.name}</div>
+        </div>
+      )}
+      {isEdit && (
+        <Formik
+          initialValues={{ updateName: item.name }}
+          onSubmit={async (values, { resetForm }) => {
+            await handleUpdate(values.updateName)
+            resetForm()
+          }}
+        >
+          {({ submitForm }) => (
+            <div className="w-full flex gap-2 items-end justify-between">
+              <InputText name="updateName" label="Category name" />
+
+              <div className="basis-1/3">
+                <SuccessButton onClick={submitForm}>Update</SuccessButton>
+              </div>
+            </div>
+          )}
+        </Formik>
+      )}
+      <EditOutlined className="hover:text-yellow-400" onClick={() => toggleEditInput()} />
       <CloseCircleOutlined className="hover:text-red-400" onClick={() => handleDelete()} />
     </div>
   )

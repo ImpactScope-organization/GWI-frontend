@@ -67,7 +67,7 @@ export const CategorySelect = ({ name }) => {
                       key={item.id}
                       item={item}
                       refetchCategoryItems={refetchCategoryItems}
-                      formik={formik}
+                      toggleDropdownVisible={toggleDropdownVisible}
                     />
                   ))}
               </div>
