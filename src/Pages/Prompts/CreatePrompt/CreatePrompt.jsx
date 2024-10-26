@@ -15,7 +15,7 @@ import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
 export const CreatePrompt = () => {
-  const { output } = useCreatePrompt()
+  const { output, handleSubmit } = useCreatePrompt()
 
   return (
     <PageContainer className="pb-10">
@@ -36,8 +36,8 @@ export const CreatePrompt = () => {
           prompt: Yup.string().required('Prompt is required'),
           file: Yup.mixed().required('File is required')
         })}
-        onSubmit={(values) => {
-          console.log(values)
+        onSubmit={async (values) => {
+          await handleSubmit(values)
         }}
       >
         {({ submitForm }) => (
