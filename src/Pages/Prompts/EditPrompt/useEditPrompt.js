@@ -1,47 +1,47 @@
 import { useCallback, useState } from 'react'
-import axios from 'axios'
-import apiUrl from '../../../utils/baseURL'
+import { useNavigate } from 'react-router-dom'
+import { createPrompt, testPrompt } from '../api/PromptApi'
 
 export const useEditPrompt = () => {
+  const navigate = useNavigate()
+
   const [output, setOutput] = useState(undefined)
 
-  const handleFileUploadPromptRequest = useCallback(
-    async (url, { name, category, prompt, file }) => {
-      const formData = new FormData()
+  const getForm = useCallback(({ name, category, prompt, file }) => {
+    const formData = new FormData()
 
-      formData.append('name', name)
-      formData.append('category', category)
-      formData.append('prompt', prompt)
-      formData.append('file', file)
+    formData.append('name', name)
+    formData.append('category', category)
+    formData.append('prompt', prompt)
+    formData.append('file', file)
 
+    return formData
+  }, [])
+
+  const handleSubmit = useCallback(
+    async (values) => {
       try {
-        const response = await axios.post(url, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        return response.data
+        const { result } = await createPrompt(getForm(values))
+
+        navigate(`/prompts/${result.id}/edit`)
       } catch (error) {
         console.error('Error submitting form:', error)
       }
     },
-    []
-  )
-
-  const handleSubmit = useCallback(
-    async (values) => {
-      await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/create`, values)
-    },
-    [handleFileUploadPromptRequest]
+    [getForm, navigate]
   )
 
   const handleTest = useCallback(
     async (values) => {
       setOutput('Loading...')
-      const data = await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/test`, values)
-      setOutput(data?.result)
+      try {
+        const testResult = await testPrompt(getForm(values))
+        setOutput(testResult?.result)
+      } catch (error) {
+        setOutput('Error submitting form: ' + error)
+      }
     },
-    [handleFileUploadPromptRequest]
+    [getForm]
   )
 
   return {

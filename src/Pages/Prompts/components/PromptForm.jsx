@@ -10,7 +10,7 @@ import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { PromptOutput } from './PromptOutput'
 import React from 'react'
 
-export const PromptForm = ({ handleSubmit, handleTest, output, formik }) => (
+export const PromptForm = ({ handleTest, output, formik }) => (
   <Formik {...formik}>
     {({ submitForm, values }) => (
       <div className="flex flex-col w-full gap-4 lg:flex-row">

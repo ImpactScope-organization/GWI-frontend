@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react'
-import axios from 'axios'
-import apiUrl from '../../../utils/baseURL'
 import { useNavigate } from 'react-router-dom'
-import { createPromptCategory, testPromptCategory } from '../api/PromptApi'
+import { createPrompt, testPrompt } from '../api/PromptApi'
 
 export const useCreatePrompt = () => {
   const navigate = useNavigate()
@@ -23,7 +21,7 @@ export const useCreatePrompt = () => {
   const handleSubmit = useCallback(
     async (values) => {
       try {
-        const { result } = await createPromptCategory(getForm(values))
+        const { result } = await createPrompt(getForm(values))
 
         navigate(`/prompts/${result.id}/edit`)
       } catch (error) {
@@ -37,7 +35,7 @@ export const useCreatePrompt = () => {
     async (values) => {
       setOutput('Loading...')
       try {
-        const testResult = await testPromptCategory(getForm(values))
+        const testResult = await testPrompt(getForm(values))
         setOutput(testResult?.result)
       } catch (error) {
         setOutput('Error submitting form: ' + error)
