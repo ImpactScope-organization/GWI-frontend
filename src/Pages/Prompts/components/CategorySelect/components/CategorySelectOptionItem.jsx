@@ -3,8 +3,8 @@ import { CloseCircleOutlined, EditOutlined, ExclamationCircleFilled } from '@ant
 import { Modal } from 'antd'
 import { Formik, useFormikContext } from 'formik'
 import { useCallback, useState } from 'react'
-import { InputText } from '../../../../../../Components/Fields/InputText'
-import { SuccessButton } from '../../../../../../Components/Buttons/SuccessButton'
+import { InputText } from '../../../../../Components/Fields/InputText'
+import { SuccessButton } from '../../../../../Components/Buttons/SuccessButton'
 import * as Yup from 'yup'
 
 export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDropdownVisible }) => {
