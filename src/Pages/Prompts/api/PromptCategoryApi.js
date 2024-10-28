@@ -1,5 +1,5 @@
 import axios from 'axios'
-import apiUrl from '../../../../utils/baseURL'
+import apiUrl from '../../../utils/baseURL'
 
 export const getPromptCategories = async () => {
   const response = await axios.get(`${apiUrl}/api/prompt-category`)

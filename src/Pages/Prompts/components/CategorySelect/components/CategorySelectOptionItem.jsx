@@ -1,4 +1,4 @@
-import { deletePromptCategory, updatePromptCategory } from '../categorySelectApi'
+import { deletePromptCategory, updatePromptCategory } from '../../../api/PromptCategoryApi'
 import { CloseCircleOutlined, EditOutlined, ExclamationCircleFilled } from '@ant-design/icons'
 import { Modal } from 'antd'
 import { Formik, useFormikContext } from 'formik'
