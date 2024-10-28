@@ -12,6 +12,7 @@ import CreateReport from './Pages/Reports/CreateReport'
 import SpecificReport from './Pages/Reports/SpecificReport'
 import { Prompts } from './Pages/Prompts/Prompts'
 import { CreatePrompt } from './Pages/Prompts/CreatePrompt/CreatePrompt'
+import { EditPrompt } from './Pages/Prompts/EditPrompt/EditPrompt'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path={ROUTES.specificReport.index} element={<SpecificReport />} />
         <Route path={ROUTES.prompts.index} element={<Prompts />} />
         <Route path={ROUTES.prompts.create} element={<CreatePrompt />} />
+        <Route path={ROUTES.prompts.edit} element={<EditPrompt />} />
         <Route path={ROUTES.login} element={<Login />} />
         <Route path={ROUTES.notFound} element={<NotFound />} />
       </Routes>

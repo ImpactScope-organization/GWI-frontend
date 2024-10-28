@@ -1,11 +1,8 @@
 import { useCallback, useState } from 'react'
 import axios from 'axios'
 import apiUrl from '../../../utils/baseURL'
-import { useNavigate } from 'react-router-dom'
 
-export const useCreatePrompt = () => {
-  const navigate = useNavigate()
-
+export const useEditPrompt = () => {
   const [output, setOutput] = useState(undefined)
 
   const handleFileUploadPromptRequest = useCallback(
@@ -33,10 +30,9 @@ export const useCreatePrompt = () => {
 
   const handleSubmit = useCallback(
     async (values) => {
-      const { result } = await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/create`, values)
-      navigate(`/prompts/${result.id}/edit`)
+      await handleFileUploadPromptRequest(`${apiUrl}/api/prompt/create`, values)
     },
-    [handleFileUploadPromptRequest, navigate]
+    [handleFileUploadPromptRequest]
   )
 
   const handleTest = useCallback(

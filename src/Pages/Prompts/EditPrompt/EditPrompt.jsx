@@ -1,12 +1,12 @@
 import React from 'react'
-import { useCreatePrompt } from './useCreatePrompt'
+import { useEditPrompt } from './useEditPrompt'
 import { PromptContainer } from '../components/PromptContainer'
 import { PromptForm } from '../components/PromptForm'
-
 import { getInitialForm } from '../forms/getInitialForm'
 
-export const CreatePrompt = () => {
-  const { output, handleSubmit, handleTest } = useCreatePrompt()
+export const EditPrompt = () => {
+  const { output, handleSubmit, handleTest } = useEditPrompt()
+
   const { formik } = getInitialForm(handleSubmit)
 
   return (
