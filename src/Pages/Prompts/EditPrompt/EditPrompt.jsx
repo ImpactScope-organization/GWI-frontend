@@ -25,10 +25,7 @@ export const EditPrompt = () => {
 
   useEffect(() => {
     if (prompt && !isInitialLoading && !isFormikFilled) {
-      formik.setFieldValue('name', prompt.name)
-      formik.setFieldValue('category', prompt.category)
-      formik.setFieldValue('prompt', prompt.prompt)
-      formik.setFieldValue('file', prompt.file)
+      formik.setValues(prompt)
 
       setIsFormikFilled(true)
     }
