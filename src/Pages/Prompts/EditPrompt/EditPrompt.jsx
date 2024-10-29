@@ -13,7 +13,7 @@ export const EditPrompt = () => {
         {!isFormikFilled ? (
           'Loading...'
         ) : (
-          <PromptForm output={output} handleTest={handleTest} formik={formik} />
+          <PromptForm output={output} handleTest={handleTest} edit={true} />
         )}
       </PromptContainer>
     </FormikProvider>

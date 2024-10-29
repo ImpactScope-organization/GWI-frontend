@@ -8,8 +8,9 @@ import { CheckSquareFilled, ExperimentOutlined } from '@ant-design/icons'
 import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { PromptOutput } from './PromptOutput'
 import React from 'react'
+import { UnEditableFileInput } from '../../../Components/Fields/UnEditableFileInput'
 
-export const PromptForm = ({ handleTest, output }) => {
+export const PromptForm = ({ handleTest, output, edit = false }) => {
   const { submitForm, values } = useFormikContext()
 
   return (
@@ -20,7 +21,7 @@ export const PromptForm = ({ handleTest, output }) => {
           <CategorySelect name="category" />
         </div>
         <InputTextarea name="prompt" label="Prompt" />
-        <FileInput name="file" />
+        {edit ? <UnEditableFileInput name="file" /> : <FileInput name="file" />}
 
         <div className="flex w-full gap-4">
           <SuccessButton onClick={submitForm} icon={<CheckSquareFilled />}>
