@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createPrompt, testPrompt } from '../api/PromptApi'
+import { useInitFormik } from '../forms/useInitFormik'
 
 export const useEditPrompt = () => {
   const navigate = useNavigate()
@@ -44,9 +45,11 @@ export const useEditPrompt = () => {
     [getForm]
   )
 
+  const { formik } = useInitFormik(handleSubmit)
+
   return {
     output,
-    handleSubmit,
-    handleTest
+    handleTest,
+    formik
   }
 }

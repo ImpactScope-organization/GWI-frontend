@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useEditPrompt } from './useEditPrompt'
 import { PromptContainer } from '../components/PromptContainer'
 import { PromptForm } from '../components/PromptForm'
-import { getInitialForm } from '../forms/getInitialForm'
 import { useQuery } from '@tanstack/react-query'
 import { getPrompt } from '../api/PromptApi'
 import { useParams } from 'react-router-dom'
+import { FormikProvider } from 'formik'
 
 export const EditPrompt = () => {
-  const { output, handleSubmit, handleTest } = useEditPrompt()
-
-  const { formik } = getInitialForm(handleSubmit)
+  const { output, formik, handleTest } = useEditPrompt()
 
   const { id } = useParams()
 
@@ -25,34 +23,26 @@ export const EditPrompt = () => {
     queryFn: () => getPrompt(id)
   })
 
-  console.log(isInitialLoading)
-
   useEffect(() => {
     if (prompt && !isInitialLoading && !isFormikFilled) {
-      formik.initialValues = {
-        name: prompt.name,
-        category: prompt.category,
-        prompt: prompt.prompt,
-        file: prompt.file
-      }
+      formik.setFieldValue('name', prompt.name)
+      formik.setFieldValue('category', prompt.category)
+      formik.setFieldValue('prompt', prompt.prompt)
+      formik.setFieldValue('file', prompt.file)
+
       setIsFormikFilled(true)
     }
   }, [formik, isFormikFilled, isInitialLoading, prompt])
 
-  console.log(formik)
-
   return (
-    <PromptContainer>
-      {!isFormikFilled ? (
-        'Loading...'
-      ) : (
-        <PromptForm
-          output={output}
-          handleSubmit={handleSubmit}
-          handleTest={handleTest}
-          formik={formik}
-        />
-      )}
-    </PromptContainer>
+    <FormikProvider value={formik}>
+      <PromptContainer>
+        {!isFormikFilled ? (
+          'Loading...'
+        ) : (
+          <PromptForm output={output} handleTest={handleTest} formik={formik} />
+        )}
+      </PromptContainer>
+    </FormikProvider>
   )
 }
