@@ -1,7 +1,8 @@
-import { useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { createPrompt, testPrompt } from '../api/PromptApi'
+import { useCallback, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { createPrompt, getPrompt, testPrompt } from '../api/PromptApi'
 import { useInitFormik } from '../forms/useInitFormik'
+import { useQuery } from '@tanstack/react-query'
 
 export const useEditPrompt = () => {
   const navigate = useNavigate()
@@ -47,9 +48,31 @@ export const useEditPrompt = () => {
 
   const { formik } = useInitFormik(handleSubmit)
 
+  const { id } = useParams()
+
+  const [isFormikFilled, setIsFormikFilled] = useState(false)
+
+  const {
+    data: prompt,
+    refetch,
+    isInitialLoading
+  } = useQuery({
+    queryKey: ['getPrompt', id],
+    queryFn: () => getPrompt(id)
+  })
+
+  useEffect(() => {
+    if (prompt && !isInitialLoading && !isFormikFilled) {
+      formik.setValues(prompt)
+
+      setIsFormikFilled(true)
+    }
+  }, [formik, isFormikFilled, isInitialLoading, prompt])
+
   return {
     output,
     handleTest,
-    formik
+    formik,
+    isFormikFilled
   }
 }
