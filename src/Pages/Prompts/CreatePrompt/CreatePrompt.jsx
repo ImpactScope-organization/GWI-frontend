@@ -2,21 +2,16 @@ import React from 'react'
 import { useCreatePrompt } from './useCreatePrompt'
 import { PromptContainer } from '../components/PromptContainer'
 import { PromptForm } from '../components/PromptForm'
-
-import { getInitialForm } from '../forms/getInitialForm'
+import { FormikProvider } from 'formik'
 
 export const CreatePrompt = () => {
-  const { output, handleSubmit, handleTest } = useCreatePrompt()
-  const { formik } = getInitialForm(handleSubmit)
+  const { output, handleTest, formik } = useCreatePrompt()
 
   return (
-    <PromptContainer>
-      <PromptForm
-        output={output}
-        handleSubmit={handleSubmit}
-        handleTest={handleTest}
-        formik={formik}
-      />
-    </PromptContainer>
+    <FormikProvider value={formik}>
+      <PromptContainer>
+        <PromptForm output={output} handleTest={handleTest} />
+      </PromptContainer>
+    </FormikProvider>
   )
 }

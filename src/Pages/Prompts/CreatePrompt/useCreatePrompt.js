@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createPrompt, testPrompt } from '../api/PromptApi'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 export const useCreatePrompt = () => {
   const navigate = useNavigate()
@@ -44,9 +46,27 @@ export const useCreatePrompt = () => {
     [getForm]
   )
 
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      category: '',
+      prompt: '',
+      file: null
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
+      category: Yup.string().required('Category is required'),
+      prompt: Yup.string().required('Prompt is required'),
+      file: Yup.mixed().required('File is required')
+    }),
+    onSubmit: async (values) => {
+      await handleSubmit(values)
+    }
+  })
+
   return {
     output,
-    handleSubmit,
-    handleTest
+    handleTest,
+    formik
   }
 }
