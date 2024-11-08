@@ -4,15 +4,12 @@ import { getPrompt, testExistingPrompt, updatePrompt } from '../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { toast } from 'react-toastify'
 
 export const useEditPrompt = () => {
   const { id } = useParams()
 
-  const {
-    data: prompt,
-    isInitialLoading,
-    refetch
-  } = useQuery({
+  const { data: prompt, refetch } = useQuery({
     queryKey: ['getPrompt', id],
     queryFn: () => getPrompt(id)
   })
@@ -28,6 +25,7 @@ export const useEditPrompt = () => {
           prompt
         })
         await refetch()
+        toast.success('Prompt saved successfully')
       } catch (error) {
         console.error('Error submitting form:', error)
       }
@@ -41,6 +39,7 @@ export const useEditPrompt = () => {
       try {
         const testResult = await testExistingPrompt(id, values)
         setOutput(testResult?.result)
+        toast.success('Test completed successfully')
       } catch (error) {
         setOutput('Error submitting form: ' + error)
       }
