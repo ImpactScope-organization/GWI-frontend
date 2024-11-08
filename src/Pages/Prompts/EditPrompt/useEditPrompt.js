@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getPrompt, testPrompt, updatePrompt } from '../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
 import { useFormik } from 'formik'
@@ -19,17 +19,6 @@ export const useEditPrompt = () => {
 
   const [output, setOutput] = useState(undefined)
 
-  const getForm = useCallback(({ name, category, prompt, file }) => {
-    const formData = new FormData()
-
-    formData.append('name', name)
-    formData.append('category', category)
-    formData.append('prompt', prompt)
-    formData.append('file', file)
-
-    return formData
-  }, [])
-
   const handleSubmit = useCallback(
     async ({ category, name, prompt }) => {
       try {
@@ -46,18 +35,15 @@ export const useEditPrompt = () => {
     [id, refetch]
   )
 
-  const handleTest = useCallback(
-    async (values) => {
-      setOutput('Loading...')
-      try {
-        const testResult = await testPrompt(getForm(values))
-        setOutput(testResult?.result)
-      } catch (error) {
-        setOutput('Error submitting form: ' + error)
-      }
-    },
-    [getForm]
-  )
+  const handleTest = useCallback(async (values) => {
+    setOutput('Loading...')
+    try {
+      const testResult = await testPrompt(values)
+      setOutput(testResult?.result)
+    } catch (error) {
+      setOutput('Error submitting form: ' + error)
+    }
+  }, [])
 
   const formik = useFormik({
     initialValues: {
