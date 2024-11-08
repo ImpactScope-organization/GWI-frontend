@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-export const ReportListItemLink = ({ to, children }) => (
+export const CategorizedListItemLink = ({ to, children }) => (
   <Link
     to={to}
     style={{

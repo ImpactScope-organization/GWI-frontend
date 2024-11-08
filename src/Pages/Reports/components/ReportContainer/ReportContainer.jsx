@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { PageContainer } from '../../../../Components/Page/PageContainer/PageContainer'
 import { PageHeader } from '../../../../Components/Page/PageHeader/PageHeader'
 import { PageContentContainer } from '../../../../Components/Page/PageContentContainer/PageContentContainer'
+import { CategorizedListContainer } from '../../../../Components/CategorizedList/CategorizedListContainer/CategorizedListContainer'
 
 export const ReportContainer = ({ children }) => {
   const location = useLocation()
@@ -47,7 +48,7 @@ export const ReportContainer = ({ children }) => {
       </PageContentContainer>
 
       {/* Reports Container */}
-      <div className="w-full gap-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{children}</div>
+      <CategorizedListContainer>{children}</CategorizedListContainer>
     </PageContainer>
   )
 }
