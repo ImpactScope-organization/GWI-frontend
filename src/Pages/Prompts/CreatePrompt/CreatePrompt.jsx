@@ -9,7 +9,7 @@ export const CreatePrompt = () => {
 
   return (
     <FormikProvider value={formik}>
-      <PromptContainer>
+      <PromptContainer title="Add new prompt">
         <PromptForm output={output} handleTest={handleTest} />
       </PromptContainer>
     </FormikProvider>

@@ -1,21 +1,22 @@
 import React from 'react'
 import { useEditPrompt } from './useEditPrompt'
-import { PromptContainer } from '../components/PromptContainer'
 import { PromptForm } from '../components/PromptForm'
 import { FormikProvider } from 'formik'
+import { EditPromptContainer } from '../components/EditPromptContainer'
 
 export const EditPrompt = () => {
-  const { output, formik, handleTest, isFormikFilled } = useEditPrompt()
+  const { output, formik, handleTest, isFormikFilled, handleDelete, modalContent } = useEditPrompt()
 
   return (
     <FormikProvider value={formik}>
-      <PromptContainer>
+      <EditPromptContainer title={formik.values?.name} onDelete={handleDelete}>
         {!isFormikFilled ? (
           'Loading...'
         ) : (
           <PromptForm output={output} handleTest={handleTest} edit={true} />
         )}
-      </PromptContainer>
+      </EditPromptContainer>
+      {modalContent}
     </FormikProvider>
   )
 }

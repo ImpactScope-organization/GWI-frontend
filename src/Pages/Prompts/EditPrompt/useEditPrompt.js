@@ -1,13 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { getPrompt, testExistingPrompt, updatePrompt } from '../api/PromptApi'
+import { useNavigate, useParams } from 'react-router-dom'
+import { deletePrompt, getPrompt, testExistingPrompt, updatePrompt } from '../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
+import { ROUTES } from '../../../routes'
+import { Modal } from 'antd'
+import { ExclamationCircleFilled } from '@ant-design/icons'
+import { deletePromptCategory } from '../api/PromptCategoryApi'
 
 export const useEditPrompt = () => {
+  const navigate = useNavigate()
   const { id } = useParams()
+  const [{ confirm }, modalContent] = Modal.useModal()
 
   const { data: prompt, refetch } = useQuery({
     queryKey: ['getPrompt', id],
@@ -76,10 +82,30 @@ export const useEditPrompt = () => {
     }
   }, [formikRef, isFormikFilled, prompt])
 
+  const handleDelete = useCallback(async () => {
+    confirm({
+      title: `Do you want to delete "${formik?.values.name}" prompt?`,
+      icon: <ExclamationCircleFilled />,
+      content: 'This action cannot be reverted',
+      async onOk() {
+        try {
+          await deletePrompt(id)
+          toast.success('Deletion successful')
+          navigate(ROUTES.prompts.index)
+        } catch (error) {
+          toast.error('Error deleting prompt')
+          console.error('Error deleting prompt:', error)
+        }
+      }
+    })
+  }, [confirm, formik?.values.name, id, navigate])
+
   return {
     output,
     handleTest,
     formik,
-    isFormikFilled
+    isFormikFilled,
+    handleDelete,
+    modalContent
   }
 }

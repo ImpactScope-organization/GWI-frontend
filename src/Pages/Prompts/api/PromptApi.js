@@ -37,3 +37,8 @@ export const getAllPrompts = async () => {
   const response = await axios.get(`${apiUrl}/api/prompt/all`)
   return response?.data?.result
 }
+
+export const deletePrompt = async (id) => {
+  const response = await axios.delete(`${apiUrl}/api/prompt/delete/${id}`)
+  return response?.data?.result
+}
