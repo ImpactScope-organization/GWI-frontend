@@ -28,3 +28,8 @@ export const getPrompt = async (id) => {
   const response = await axios.get(`${apiUrl}/api/prompt/${id}`)
   return response?.data?.result
 }
+
+export const getAllPrompts = async () => {
+  const response = await axios.get(`${apiUrl}/api/prompt/all`)
+  return response?.data?.result
+}
