@@ -1,4 +1,4 @@
-import { Form, FormikProvider, useFormikContext } from 'formik'
+import { Form, useFormikContext } from 'formik'
 import { InputText } from '../../../Components/Fields/InputText'
 import { CategorySelect } from './CategorySelect/CategorySelect'
 import { InputTextarea } from '../../../Components/Fields/InputTextarea/InputTextarea'
