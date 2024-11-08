@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getPrompt, testPrompt, updatePrompt } from '../api/PromptApi'
+import { getPrompt, testExistingPrompt, updatePrompt } from '../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -35,15 +35,18 @@ export const useEditPrompt = () => {
     [id, refetch]
   )
 
-  const handleTest = useCallback(async (values) => {
-    setOutput('Loading...')
-    try {
-      const testResult = await testPrompt(values)
-      setOutput(testResult?.result)
-    } catch (error) {
-      setOutput('Error submitting form: ' + error)
-    }
-  }, [])
+  const handleTest = useCallback(
+    async (values) => {
+      setOutput('Loading...')
+      try {
+        const testResult = await testExistingPrompt(id, values)
+        setOutput(testResult?.result)
+      } catch (error) {
+        setOutput('Error submitting form: ' + error)
+      }
+    },
+    [id]
+  )
 
   const formik = useFormik({
     initialValues: {
@@ -64,13 +67,15 @@ export const useEditPrompt = () => {
 
   const [isFormikFilled, setIsFormikFilled] = useState(false)
 
+  const formikRef = useRef(formik)
+
   useEffect(() => {
-    if (prompt && !isInitialLoading && !isFormikFilled) {
-      formik.setValues(prompt)
+    if (prompt && !isFormikFilled) {
+      formikRef.current.setValues(prompt)
 
       setIsFormikFilled(true)
     }
-  }, [formik, isFormikFilled, isInitialLoading, prompt])
+  }, [formikRef, isFormikFilled, prompt])
 
   return {
     output,

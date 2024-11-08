@@ -23,6 +23,10 @@ export const testPrompt = async (data) => {
   })
   return response.data
 }
+export const testExistingPrompt = async (id, data) => {
+  const response = await axios.post(`${apiUrl}/api/prompt/test/${id}`, data)
+  return response.data
+}
 
 export const getPrompt = async (id) => {
   const response = await axios.get(`${apiUrl}/api/prompt/${id}`)
