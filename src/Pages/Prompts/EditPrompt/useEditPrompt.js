@@ -8,7 +8,6 @@ import { toast } from 'react-toastify'
 import { ROUTES } from '../../../routes'
 import { Modal } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { deletePromptCategory } from '../api/PromptCategoryApi'
 
 export const useEditPrompt = () => {
   const navigate = useNavigate()
