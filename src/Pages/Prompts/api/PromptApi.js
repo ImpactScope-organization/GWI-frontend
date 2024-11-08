@@ -10,6 +10,11 @@ export const createPrompt = async (data) => {
   return response.data
 }
 
+export const updatePrompt = async (id, data) => {
+  const response = await axios.put(`${apiUrl}/api/prompt/update/${id}`, data)
+  return response.data
+}
+
 export const testPrompt = async (data) => {
   const response = await axios.post(`${apiUrl}/api/prompt/test`, data, {
     headers: {

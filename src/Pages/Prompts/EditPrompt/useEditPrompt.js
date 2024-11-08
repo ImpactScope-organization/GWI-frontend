@@ -1,11 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { createPrompt, getPrompt, testPrompt } from '../api/PromptApi'
-import { useInitFormik } from '../forms/useInitFormik'
+import { getPrompt, testPrompt, updatePrompt } from '../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 export const useEditPrompt = () => {
-  const navigate = useNavigate()
+  const { id } = useParams()
+
+  const {
+    data: prompt,
+    isInitialLoading,
+    refetch
+  } = useQuery({
+    queryKey: ['getPrompt', id],
+    queryFn: () => getPrompt(id)
+  })
 
   const [output, setOutput] = useState(undefined)
 
@@ -21,16 +31,19 @@ export const useEditPrompt = () => {
   }, [])
 
   const handleSubmit = useCallback(
-    async (values) => {
+    async ({ category, name, prompt }) => {
       try {
-        const { result } = await createPrompt(getForm(values))
-
-        navigate(`/prompts/${result.id}/edit`)
+        await updatePrompt(id, {
+          category,
+          name,
+          prompt
+        })
+        await refetch()
       } catch (error) {
         console.error('Error submitting form:', error)
       }
     },
-    [getForm, navigate]
+    [id, refetch]
   )
 
   const handleTest = useCallback(
@@ -46,20 +59,24 @@ export const useEditPrompt = () => {
     [getForm]
   )
 
-  const { formik } = useInitFormik(handleSubmit)
-
-  const { id } = useParams()
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      category: '',
+      prompt: '',
+      file: null
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
+      category: Yup.string().required('Category is required'),
+      prompt: Yup.string().required('Prompt is required')
+    }),
+    onSubmit: async (values) => {
+      await handleSubmit(values)
+    }
+  })
 
   const [isFormikFilled, setIsFormikFilled] = useState(false)
-
-  const {
-    data: prompt,
-    refetch,
-    isInitialLoading
-  } = useQuery({
-    queryKey: ['getPrompt', id],
-    queryFn: () => getPrompt(id)
-  })
 
   useEffect(() => {
     if (prompt && !isInitialLoading && !isFormikFilled) {

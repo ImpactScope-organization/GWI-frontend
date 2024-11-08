@@ -22,7 +22,9 @@ export const UnEditableFileInput = ({ name }) => {
             {file && (
               <div className="text-center">
                 <div className="text-primary italic">{file?.originalname}</div>
-                <div>(Files cannot be replaced, create a new document if you want to add one)</div>
+                <div className="text-xs italic">
+                  (Files cannot be replaced, create a new document if you want to add one)
+                </div>
               </div>
             )}
           </div>
