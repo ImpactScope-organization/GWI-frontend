@@ -208,15 +208,18 @@ const SpecificReport = () => {
   // Print Report
   const [hash, setHash] = useState(() => currentCompany?.IPFSHash || '')
   const [etherscanURL, setEtherscanURL] = useState(() => currentCompany?.etherscanURL || '')
-  const [isSendToBlockchainInProgress, setIsSendToBlockchainInProgress] = useState('')
+  const [isSendToBlockchainInProgress, setIsSendToBlockchainInProgress] = useState(false)
 
   const handleSendToBlockchain = useCallback(async () => {
-    console.log('handleSendToBlockchain')
-    const element = document.querySelector('#report-container')
-    console.log(element)
+    setIsSendToBlockchainInProgress(true)
+    try {
+      console.log('handleSendToBlockchain')
+      const element = document.querySelector('#report-container')
+      console.log(element)
 
-    const canvas = await html2canvas(element)
-    canvas.toBlob(async (blob) => {
+      const canvas = await html2canvas(element)
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg'))
+
       const file = new File([blob], 'fileName.jpg', { type: 'image/jpeg' })
       const formData = new FormData()
       formData.append('file', file)
@@ -230,7 +233,11 @@ const SpecificReport = () => {
       })
 
       console.log(response)
-    }, 'image/jpeg')
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsSendToBlockchainInProgress(false)
+    }
 
     //
     // const dataUrl = await domToJpeg(element)
