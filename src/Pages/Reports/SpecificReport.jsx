@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { smartContract } from '../../Constants'
 import { ethers } from 'ethers'
 import apiUrl from '../../utils/baseURL'
 import { formattedDate } from '../../utils/date'
-import { domToPng } from 'modern-screenshot'
 import { useAddress } from '@thirdweb-dev/react'
 import LoadingPage from '../../Components/loading'
 import CustomGaugeChart from '../../Components/gauge-chart'
@@ -24,6 +23,7 @@ import { BackButtonLink } from '../../Components/BackButtonLink/BackButtonLink'
 import { ROUTES } from '../../routes'
 import { useGetCompanyReport } from '../../Hooks/reports-hooks'
 import { PageContainer } from '../../Components/Page/PageContainer/PageContainer'
+import html2canvas from 'html2canvas'
 
 // IPFS
 // const projectId = "2V6620s2FhImATdUuY4dwIAqoI0";
@@ -204,28 +204,24 @@ const SpecificReport = () => {
     materialityAssessmentState
   ])
 
+  // todo implement more properly
   // Print Report
   const [hash, setHash] = useState(() => currentCompany?.IPFSHash || '')
   const [etherscanURL, setEtherscanURL] = useState(() => currentCompany?.etherscanURL || '')
-  const [isSendingToRegulator, setIsSendingToRegulator] = useState('')
+  const [isSendToBlockchainInProgress, setIsSendToBlockchainInProgress] = useState('')
 
-  const handleSendToRegulators = async () => {
-    if (!walletAddress) {
-      return toast.error('Please connect your wallet first')
-    }
-    setIsSendingToRegulator(true)
-    try {
-      const element = document.querySelector('#report-container')
-      const dataUrl = await domToPng(element)
+  const handleSendToBlockchain = useCallback(async () => {
+    console.log('handleSendToBlockchain')
+    const element = document.querySelector('#report-container')
+    console.log(element)
 
-      const response = await fetch(dataUrl)
-      const blob = await response.blob()
-      const file = await new File([blob], 'file.png', { type: 'image/png' })
-      // const imghash = await ipfs.add(file);
+    const canvas = await html2canvas(element)
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'fileName.jpg', { type: 'image/jpeg' })
       const formData = new FormData()
       formData.append('file', file)
 
-      const fileUploadDeShare = await axios.post('https://d.cess.cloud/file', formData, {
+      const response = await axios.post(`${apiUrl}/api/blockchain/create/${companyId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Accept: '*/*',
@@ -233,46 +229,92 @@ const SpecificReport = () => {
         }
       })
 
-      const { data } = fileUploadDeShare
-      const deShareLink = `https://${data?.data?.url}`
-      setHash(deShareLink)
-      // Making connection to the blockchain, getting signer wallet address and connecting to our smart contract
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-      const contract = new ethers.Contract(smartContract.address, smartContract.abi, signer)
+      console.log(response)
+    }, 'image/jpeg')
 
-      // calling our smart contract function
-      const tx = await contract.addImageHash(`${deShareLink}`)
-      const receipt = await tx.wait()
-      const txHash = receipt.transactionHash
-      const etherscanUrl = `https://shibuya.subscan.io/tx/${txHash}`
-      setEtherscanURL(etherscanUrl)
+    //
+    // const dataUrl = await domToJpeg(element)
+    //
+    // const response = await fetch(dataUrl)
+    // const blob = await response.blob()
+    // const file = await new File([blob], 'file.jpeg', { type: 'image/jpeg' })
+    //
+    // const link = document.createElement('a')
+    // link.href = URL.createObjectURL(file)
+    // link.download = 'report.jpeg'
+    // document.body.appendChild(link)
+    // link.click()
+    // document.body.removeChild(link)
+    // // const imghash = await ipfs.add(file);
+    // const formData = new FormData()
+    // formData.append('file', file)
+  }, [])
 
-      // Sending to regulators
-      axios
-        .put(`${apiUrl}/api/company/update/${currentCompany?.id}`, {
-          // new keys
-          age: reportDataUpdate.age,
-          priority: reportDataUpdate.priority,
-          IPFSHash: deShareLink,
-          etherscanURL: etherscanUrl,
-          dataSources: 0
-        })
-        .then((res) => {
-          console.log('res: ', res)
-          toast.success('Report is updated successfully')
-          setIsSendingToRegulator(false)
-        })
-        .catch((err) => {
-          console.log('err: ', err)
-          setIsSendingToRegulator(false)
-        })
-      await getCurrentCompany()
-    } catch (error) {
-      toast.error(error.message)
-      setIsSendingToRegulator(false)
-    }
-  }
+  // todo remove
+  // const handleSendToRegulators = async () => {
+  //   if (!walletAddress) {
+  //     return toast.error('Please connect your wallet first')
+  //   }
+  //   setIsSendingToRegulator(true)
+  //   try {
+  //     const element = document.querySelector('#report-container')
+  //     const dataUrl = await domToPng(element)
+  //
+  //     const response = await fetch(dataUrl)
+  //     const blob = await response.blob()
+  //     const file = await new File([blob], 'file.png', { type: 'image/png' })
+  //     // const imghash = await ipfs.add(file);
+  //     const formData = new FormData()
+  //     formData.append('file', file)
+  //
+  //     const fileUploadDeShare = await axios.post('https://d.cess.cloud/file', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //         Accept: '*/*',
+  //         'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8'
+  //       }
+  //     })
+  //
+  //     const { data } = fileUploadDeShare
+  //     const deShareLink = `https://${data?.data?.url}`
+  //     setHash(deShareLink)
+  //     // Making connection to the blockchain, getting signer wallet address and connecting to our smart contract
+  //     const provider = new ethers.providers.Web3Provider(window.ethereum)
+  //     const signer = provider.getSigner()
+  //     const contract = new ethers.Contract(smartContract.address, smartContract.abi, signer)
+  //
+  //     // calling our smart contract function
+  //     const tx = await contract.addImageHash(`${deShareLink}`)
+  //     const receipt = await tx.wait()
+  //     const txHash = receipt.transactionHash
+  //     const etherscanUrl = `https://shibuya.subscan.io/tx/${txHash}`
+  //     setEtherscanURL(etherscanUrl)
+  //
+  //     // Sending to regulators
+  //     axios
+  //       .put(`${apiUrl}/api/company/update/${currentCompany?.id}`, {
+  //         // new keys
+  //         age: reportDataUpdate.age,
+  //         priority: reportDataUpdate.priority,
+  //         IPFSHash: deShareLink,
+  //         etherscanURL: etherscanUrl,
+  //         dataSources: 0
+  //       })
+  //       .then((res) => {
+  //         console.log('res: ', res)
+  //         toast.success('Report is updated successfully')
+  //         setIsSendingToRegulator(false)
+  //       })
+  //       .catch((err) => {
+  //         console.log('err: ', err)
+  //         setIsSendingToRegulator(false)
+  //       })
+  //     await getCurrentCompany()
+  //   } catch (error) {
+  //     toast.error(error.message)
+  //     setIsSendingToRegulator(false)
+  //   }
+  // }
 
   // update report age priority
   const reportDataUpdate = {
@@ -1115,16 +1157,16 @@ const SpecificReport = () => {
               {(!hash || !etherscanURL) && (
                 <div className="flex flex-row gap-4 w-full">
                   <button
-                    disabled={isSendingToRegulator}
-                    onClick={handleSendToRegulators}
+                    disabled={isSendToBlockchainInProgress}
+                    onClick={handleSendToBlockchain}
                     className={`${
-                      isSendingToRegulator ? 'bg-greyText' : 'bg-darkGreen'
+                      isSendToBlockchainInProgress ? 'bg-greyText' : 'bg-darkGreen'
                     } flex-1 rounded-lg py-3 px-3 border-none outline-none text-[#fff] text-[16px] font-[600] leading-[24px]`}
                   >
                     Send to blockchain
                   </button>
                   <Dropdown
-                    disabled={isSendingToRegulator}
+                    disabled={isSendToBlockchainInProgress}
                     trigger={['click']}
                     menu={{
                       onClick: (e) => {
