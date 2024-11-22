@@ -43,7 +43,6 @@ import html2canvas from 'html2canvas'
 
 // ----------------------------
 const SpecificReport = () => {
-  const walletAddress = useAddress()
   const navigate = useNavigate()
 
   const { id: companyId } = useParams()
@@ -206,9 +205,10 @@ const SpecificReport = () => {
 
   // todo implement more properly
   // Print Report
-  const [hash, setHash] = useState(() => currentCompany?.IPFSHash || '')
-  const [etherscanURL, setEtherscanURL] = useState(() => currentCompany?.etherscanURL || '')
   const [isSendToBlockchainInProgress, setIsSendToBlockchainInProgress] = useState(false)
+
+  const hash = currentCompany?.blockchainTransactionURL || ''
+  const etherscanURL = currentCompany?.blockchainFileURL || ''
 
   const handleSendToBlockchain = useCallback(async () => {
     setIsSendToBlockchainInProgress(true)
@@ -224,17 +224,20 @@ const SpecificReport = () => {
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = await axios.post(`${apiUrl}/api/blockchain/create/${companyId}`, formData, {
+      await axios.post(`${apiUrl}/api/blockchain/create/${companyId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Accept: '*/*',
           'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8'
         }
       })
-
-      console.log(response)
+      await getCurrentCompany()
     } catch (error) {
-      console.error(error)
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message)
+      } else {
+        toast(error.message)
+      }
     } finally {
       setIsSendToBlockchainInProgress(false)
     }
