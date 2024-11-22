@@ -186,8 +186,8 @@ const SpecificReport = () => {
   // Print Report
   const [isSendToBlockchainInProgress, setIsSendToBlockchainInProgress] = useState(false)
 
-  const blockchainTransactionURL = currentCompanyReport?.blockchainTransactionURL || ''
-  const blockchainFileURL = currentCompanyReport?.blockchainFileURL || ''
+  const blockchainTransactionURL = currentCompanyReport?.blockchainTransactionURL
+  const blockchainFileURL = currentCompanyReport?.blockchainFileURL
 
   const handleSendToBlockchain = useCallback(async () => {
     setIsSendToBlockchainInProgress(true)
@@ -1016,45 +1016,40 @@ const SpecificReport = () => {
                   </span>
                 </p>
                 {blockchainTransactionURL && (
-                  <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
-                    Timestamp
-                  </p>
-                )}
-                {blockchainTransactionURL && (
-                  <a className="col-span-1 text-[1em] text-base mb-1 font-medium">
-                    {formattedDate}
-                  </a>
-                )}
-                {/* Links */}
-                {blockchainTransactionURL && (
-                  <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
-                    Solana Transaction
-                  </p>
-                )}
-                {blockchainTransactionURL && (
-                  <a
-                    href={`${blockchainTransactionURL}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-darkGreen col-span-1 truncate text-[1em]  mb-1 font-medium"
-                  >
-                    {blockchainTransactionURL}
-                  </a>
+                  <>
+                    <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
+                      Timestamp
+                    </p>
+                    <a className="col-span-1 text-[1em] text-base mb-1 font-medium">
+                      {formattedDate}
+                    </a>
+                    <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
+                      Solana Transaction
+                    </p>
+                    <a
+                      href={`${blockchainTransactionURL}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-darkGreen col-span-1 truncate text-[1em]  mb-1 font-medium"
+                    >
+                      {blockchainTransactionURL}
+                    </a>
+                  </>
                 )}
                 {blockchainFileURL && (
-                  <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
-                    File in blockchain
-                  </p>
-                )}
-                {blockchainFileURL && (
-                  <a
-                    href={blockchainFileURL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-darkGreen truncate text-[1em] text-base mb-1 font-medium"
-                  >
-                    {blockchainFileURL}
-                  </a>
+                  <>
+                    <p className="text-reportGrey  text-[1em] text-base mb-1 font-medium">
+                      File in blockchain
+                    </p>
+                    <a
+                      href={blockchainFileURL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-darkGreen truncate text-[1em] text-base mb-1 font-medium"
+                    >
+                      {blockchainFileURL}
+                    </a>
+                  </>
                 )}
               </div>
               {(!blockchainTransactionURL || !blockchainFileURL) && (
