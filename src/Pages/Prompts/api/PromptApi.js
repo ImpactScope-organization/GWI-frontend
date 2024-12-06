@@ -11,7 +11,11 @@ export const createPrompt = async (data) => {
 }
 
 export const updatePrompt = async (id, data) => {
-  const response = await axios.put(`${apiUrl}/api/prompt/update/${id}`, data)
+  const response = await axios.put(`${apiUrl}/api/prompt/update/${id}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
   return response.data
 }
 

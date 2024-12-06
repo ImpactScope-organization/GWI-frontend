@@ -22,16 +22,16 @@ export const useEditPrompt = () => {
   const [output, setOutput] = useState(undefined)
 
   const handleSubmit = useCallback(
-    async (values) => {
-      const { name, category, prompt } = values
-      console.log(values)
+    async ({ name, category, prompt, file_update }) => {
       try {
-        // await updatePrompt(id, {
-        //   category,
-        //   name,
-        //   prompt
-        // })
+        await updatePrompt(id, {
+          category,
+          name,
+          prompt,
+          file_update
+        })
         await refetch()
+        setIsFormikFilled(false)
         toast.success('Prompt saved successfully')
       } catch (error) {
         console.error('Error submitting form:', error)
