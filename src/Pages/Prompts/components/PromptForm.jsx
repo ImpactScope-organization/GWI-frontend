@@ -36,6 +36,7 @@ export const PromptForm = ({ handleTest, output, edit = false }) => {
             onClick={async () => {
               await handleTest(values)
             }}
+            disabled={edit && values?.file_update}
           >
             Test prompt
           </InfoButton>

@@ -64,6 +64,7 @@ export const ExistingFileInput = ({ name, updateName }) => {
           <div className="bg-amber-100 p-4 rounded italic text-sm">
             <div>A new file have been updated, which replaces the old one.</div>
             <div>If you save this prompt the old file will be deleted.</div>
+            <div>You need to save the prompt to run a test on the new file.</div>
           </div>
         )}
       </>
