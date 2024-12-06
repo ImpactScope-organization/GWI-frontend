@@ -22,13 +22,15 @@ export const useEditPrompt = () => {
   const [output, setOutput] = useState(undefined)
 
   const handleSubmit = useCallback(
-    async ({ category, name, prompt }) => {
+    async (values) => {
+      const { name, category, prompt } = values
+      console.log(values)
       try {
-        await updatePrompt(id, {
-          category,
-          name,
-          prompt
-        })
+        // await updatePrompt(id, {
+        //   category,
+        //   name,
+        //   prompt
+        // })
         await refetch()
         toast.success('Prompt saved successfully')
       } catch (error) {
@@ -57,7 +59,8 @@ export const useEditPrompt = () => {
       name: '',
       category: '',
       prompt: '',
-      file: null
+      file: null,
+      file_update: null
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
