@@ -1,7 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { CaretDownOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Divider, Input } from 'antd'
-import { createPromptCategory, getPromptCategories } from '../../api/PromptCategoryApi'
+import {
+  createPromptCategory,
+  getPromptCategories
+} from '../../../PromptCategories/api/PromptCategoryApi'
 import { useQuery } from '@tanstack/react-query'
 import { CategorySelectOptionItem } from './components/CategorySelectOptionItem'
 import { useFormikContext } from 'formik'

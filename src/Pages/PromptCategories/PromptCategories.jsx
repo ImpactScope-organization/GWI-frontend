@@ -12,9 +12,10 @@ import { CategorizedListItemTitle } from '../../Components/CategorizedList/Categ
 import { CategorizedListItemCategoryContainer } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
 import { CategorizedListItemCategory } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
 import { PageTab } from '../../Components/Page/PageTab/PageTab'
+import { usePromptCategories } from './usePromptCategories'
 
 export const PromptCategories = () => {
-  const promptCategories = []
+  const { promptCategories } = usePromptCategories()
 
   return (
     <PageContainer>
@@ -39,10 +40,8 @@ export const PromptCategories = () => {
               </CategorizedListItemDate>
               <CategorizedListItemTitle>{promptCategory?.name}</CategorizedListItemTitle>
               <CategorizedListItemCategoryContainer>
-                Category:
-                <CategorizedListItemCategory>
-                  {promptCategory?.category}
-                </CategorizedListItemCategory>
+                Numeric:
+                <CategorizedListItemCategory>to be implemented</CategorizedListItemCategory>
               </CategorizedListItemCategoryContainer>
             </CategorizedListItemLink>
           ))}
