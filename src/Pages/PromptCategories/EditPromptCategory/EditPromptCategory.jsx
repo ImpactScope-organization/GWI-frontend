@@ -3,6 +3,8 @@ import { ROUTES } from '../../../routes'
 import { TitleWithBackButton } from '../../../Components/TitleWithBackButton/TitleWithBackButton'
 import { EditPromptCategoryForm } from './components/EditPromptCategoryForm/EditPromptCategoryForm'
 import { FormikProvider } from 'formik'
+import { EditPromptCategoriesChildrenForm } from './components/EditPromptCategoriesChildrenForm/EditPromptCategoriesChildrenForm'
+import { Divider } from 'antd'
 
 export const EditPromptCategory = () => {
   const { promptCategory, editPromptCategoryFormik } = useEditPromptCategory()
@@ -13,6 +15,8 @@ export const EditPromptCategory = () => {
         <FormikProvider value={editPromptCategoryFormik}>
           <EditPromptCategoryForm />
         </FormikProvider>
+        <Divider className="my-6" />
+        <EditPromptCategoriesChildrenForm />
       </TitleWithBackButton>
     </div>
   )
