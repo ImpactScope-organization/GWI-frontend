@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { deletePrompt, getPrompt, testExistingPrompt, updatePrompt } from '../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import { ROUTES } from '../../../routes'
 import { Modal } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
+import { useFillFormik } from '../../../Hooks/useFillFormik'
 
 export const useEditPrompt = () => {
   const navigate = useNavigate()
@@ -20,39 +21,6 @@ export const useEditPrompt = () => {
   })
 
   const [output, setOutput] = useState(undefined)
-
-  const handleSubmit = useCallback(
-    async ({ name, category, prompt, file_update }) => {
-      try {
-        await updatePrompt(id, {
-          category,
-          name,
-          prompt,
-          file_update
-        })
-        await refetch()
-        setIsFormikFilled(false)
-        toast.success('Prompt saved successfully')
-      } catch (error) {
-        console.error('Error submitting form:', error)
-      }
-    },
-    [id, refetch]
-  )
-
-  const handleTest = useCallback(
-    async (values) => {
-      setOutput('Loading...')
-      try {
-        const testResult = await testExistingPrompt(id, values)
-        setOutput(testResult?.result)
-        toast.success('Test completed successfully')
-      } catch (error) {
-        setOutput('Error submitting form: ' + error)
-      }
-    },
-    [id]
-  )
 
   const formik = useFormik({
     initialValues: {
@@ -72,17 +40,40 @@ export const useEditPrompt = () => {
     }
   })
 
-  const [isFormikFilled, setIsFormikFilled] = useState(false)
+  const { isFormikFilled, resetFormikFilled } = useFillFormik(formik, prompt)
 
-  const formikRef = useRef(formik)
+  const handleSubmit = useCallback(
+    async ({ name, category, prompt, file_update }) => {
+      try {
+        await updatePrompt(id, {
+          category,
+          name,
+          prompt,
+          file_update
+        })
+        await refetch()
+        resetFormikFilled()
+        toast.success('Prompt saved successfully')
+      } catch (error) {
+        console.error('Error submitting form:', error)
+      }
+    },
+    [id, refetch, resetFormikFilled]
+  )
 
-  useEffect(() => {
-    if (prompt && !isFormikFilled) {
-      formikRef.current.setValues(prompt)
-
-      setIsFormikFilled(true)
-    }
-  }, [formikRef, isFormikFilled, prompt])
+  const handleTest = useCallback(
+    async (values) => {
+      setOutput('Loading...')
+      try {
+        const testResult = await testExistingPrompt(id, values)
+        setOutput(testResult?.result)
+        toast.success('Test completed successfully')
+      } catch (error) {
+        setOutput('Error submitting form: ' + error)
+      }
+    },
+    [id]
+  )
 
   const handleDelete = useCallback(async () => {
     confirm({
