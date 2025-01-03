@@ -1,36 +1,17 @@
-import { useFormikContext } from 'formik'
-import React, { useCallback, useMemo, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { createPromptCategory, getPromptCategories } from '../../../api/PromptCategoryApi'
-import { CaretDownOutlined, PlusOutlined } from '@ant-design/icons'
+import React from 'react'
+import { PlusOutlined } from '@ant-design/icons'
 import { CategorySelectOptionItem } from '../../../../Prompts/components/CategorySelect/components/CategorySelectOptionItem'
 import { Button, Divider, Input } from 'antd'
+import { useEditPromptCategoriesChildrenForm } from './useEditPromptCategoriesChildrenForm'
 
 export const EditPromptCategoriesChildrenForm = () => {
-  const formik = useFormikContext()
-
-  const [newCategoryName, setNewCategoryName] = useState('')
-
-  const { data: categoryItems, refetch: refetchCategoryItems } = useQuery({
-    queryKey: ['getPromptCategories'],
-    queryFn: () => getPromptCategories(),
-    initialData: []
-  })
-
-  const onCategoryNameChange = (event) => {
-    event.preventDefault()
-    setNewCategoryName(event.target.value)
-  }
-
-  const addCategoryItem = useCallback(
-    async (e) => {
-      e.preventDefault()
-      await createPromptCategory(newCategoryName)
-      await refetchCategoryItems()
-      setNewCategoryName('')
-    },
-    [newCategoryName, refetchCategoryItems]
-  )
+  const {
+    newCategoryName,
+    onCategoryNameChange,
+    addCategoryItem,
+    categoryItems,
+    refetchCategoryItems
+  } = useEditPromptCategoriesChildrenForm()
 
   return (
     <div className="w-full">
