@@ -9,7 +9,7 @@ export const EditPromptCategory = () => {
 
   return (
     <div>
-      <TitleWithBackButton title={promptCategory.name} to={ROUTES.promptCategories.index}>
+      <TitleWithBackButton title={promptCategory?.name} to={ROUTES.promptCategories.index}>
         <FormikProvider value={editPromptCategoryFormik}>
           <EditPromptCategoryForm />
         </FormikProvider>

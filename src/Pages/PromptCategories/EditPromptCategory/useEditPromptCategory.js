@@ -14,11 +14,7 @@ export const useEditPromptCategory = () => {
     queryKey: ['getPromptCategory', id],
     queryFn: () => getPromptCategory(id),
     initialData: {
-      result: {
-        name: '',
-        isNumeric: false,
-        children: []
-      }
+      result: undefined
     }
   })
 
@@ -35,7 +31,7 @@ export const useEditPromptCategory = () => {
     }
   })
 
-  const { isFormikFilled, resetFormikFilled } = useFillFormik(
+  const { isFormikFilled, setIsFormikFilled } = useFillFormik(
     editPromptCategoryFormik,
     promptCategory
   )
