@@ -1,15 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
-import { getPromptCategory } from '../api/PromptCategoryApi'
+import { getPromptCategory, updatePromptCategory } from '../api/PromptCategoryApi'
 import { useParams } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useFillFormik } from '../../../Hooks/useFillFormik'
+import { useCallback } from 'react'
+import { updatePrompt } from '../../Prompts/api/PromptApi'
+import { toast } from 'react-toastify'
 
 export const useEditPromptCategory = () => {
   const { id } = useParams()
 
   const {
-    data: { result: promptCategory }
+    data: { result: promptCategory },
+    refetch: refetchPromptCategory
   } = useQuery({
     queryKey: ['getPromptCategory', id],
     queryFn: () => getPromptCategory(id),
@@ -27,18 +31,25 @@ export const useEditPromptCategory = () => {
       name: Yup.string().required('Name is required')
     }),
     onSubmit: async (values) => {
-      await handleSubmit(values)
+      await handleSubmitEditPromptCategory(values)
     }
   })
 
-  const { isFormikFilled, setIsFormikFilled } = useFillFormik(
-    editPromptCategoryFormik,
-    promptCategory
-  )
+  const { resetFormikFilled } = useFillFormik(editPromptCategoryFormik, promptCategory)
 
-  const handleSubmit = async (values) => {
-    console.log(values)
-  }
+  const handleSubmitEditPromptCategory = useCallback(
+    async ({ name }) => {
+      try {
+        await updatePromptCategory(id, name)
+        await refetchPromptCategory()
+        resetFormikFilled()
+        toast.success('Prompt saved successfully')
+      } catch (error) {
+        console.error('Error submitting form:', error)
+      }
+    },
+    [id, refetchPromptCategory, resetFormikFilled]
+  )
 
   return {
     promptCategory,
