@@ -8,9 +8,9 @@ export const EditPromptCategoriesChildrenForm = () => {
   const {
     newCategoryName,
     onCategoryNameChange,
-    addCategoryItem,
-    categoryItems,
-    refetchCategoryItems
+    addSubCategory,
+    subCategories,
+    refetchSubCategories
   } = useEditPromptCategoriesChildrenForm()
 
   return (
@@ -26,18 +26,18 @@ export const EditPromptCategoriesChildrenForm = () => {
                 onChange={onCategoryNameChange}
                 onKeyDown={(e) => e.stopPropagation()}
               />
-              <Button type="default" icon={<PlusOutlined />} onClick={addCategoryItem}>
+              <Button type="default" icon={<PlusOutlined />} onClick={addSubCategory}>
                 Add item
               </Button>
             </div>
             <Divider className="my-2" />
             <div>
-              {categoryItems &&
-                categoryItems.map((item) => (
+              {subCategories &&
+                subCategories.map((item) => (
                   <CategorySelectOptionItem
                     key={item.id}
                     item={item}
-                    refetchCategoryItems={refetchCategoryItems}
+                    refetchCategoryItems={refetchSubCategories}
                     toggleDropdownVisible={() => {}}
                   />
                 ))}

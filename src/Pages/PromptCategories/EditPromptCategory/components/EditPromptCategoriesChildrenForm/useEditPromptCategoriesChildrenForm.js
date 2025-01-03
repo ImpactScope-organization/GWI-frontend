@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 export const useEditPromptCategoriesChildrenForm = () => {
   const [newCategoryName, setNewCategoryName] = useState('')
 
-  const { data: categoryItems, refetch: refetchCategoryItems } = useQuery({
+  const { data: subCategories, refetch: refetchSubCategories } = useQuery({
     queryKey: ['getPromptCategories'],
     queryFn: () => getPromptCategories(),
     initialData: []
@@ -16,21 +16,21 @@ export const useEditPromptCategoriesChildrenForm = () => {
     setNewCategoryName(event.target.value)
   }
 
-  const addCategoryItem = useCallback(
+  const addSubCategory = useCallback(
     async (e) => {
       e.preventDefault()
       await createPromptCategory(newCategoryName)
-      await refetchCategoryItems()
+      await refetchSubCategories()
       setNewCategoryName('')
     },
-    [newCategoryName, refetchCategoryItems]
+    [newCategoryName, refetchSubCategories]
   )
 
   return {
     newCategoryName,
     onCategoryNameChange,
-    addCategoryItem,
-    categoryItems,
-    refetchCategoryItems
+    addSubCategory,
+    subCategories,
+    refetchSubCategories
   }
 }
