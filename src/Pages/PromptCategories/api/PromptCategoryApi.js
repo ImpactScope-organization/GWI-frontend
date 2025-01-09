@@ -21,8 +21,8 @@ export const createPromptCategory = async (category) => {
   return response.data
 }
 
-export const updatePromptCategory = async (id, category) => {
-  const response = await axios.put(`${apiUrl}/api/prompt-category/update/${id}`, { name: category })
+export const updatePromptCategory = async (id, promptCategory) => {
+  const response = await axios.put(`${apiUrl}/api/prompt-category/update/${id}`, promptCategory)
   return response.data
 }
 

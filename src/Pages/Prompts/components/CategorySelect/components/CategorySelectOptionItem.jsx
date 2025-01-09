@@ -21,7 +21,7 @@ export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDro
 
   const handleUpdate = useCallback(
     async (newName) => {
-      await updatePromptCategory(item.id, newName)
+      await updatePromptCategory(item.id, { name: newName })
       await refetchCategoryItems()
       toggleEditInput()
     },

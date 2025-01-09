@@ -5,7 +5,6 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useFillFormik } from '../../../Hooks/useFillFormik'
 import { useCallback } from 'react'
-import { updatePrompt } from '../../Prompts/api/PromptApi'
 import { toast } from 'react-toastify'
 
 export const useEditPromptCategory = () => {
@@ -25,7 +24,7 @@ export const useEditPromptCategory = () => {
   const editPromptCategoryFormik = useFormik({
     initialValues: {
       name: '',
-      isNumeric: false
+      isQuantitative: false
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required')
@@ -38,9 +37,9 @@ export const useEditPromptCategory = () => {
   const { resetFormikFilled } = useFillFormik(editPromptCategoryFormik, promptCategory)
 
   const handleSubmitEditPromptCategory = useCallback(
-    async ({ name }) => {
+    async (promptCategory) => {
       try {
-        await updatePromptCategory(id, name)
+        await updatePromptCategory(id, promptCategory)
         await refetchPromptCategory()
         resetFormikFilled()
         toast.success('Prompt saved successfully')
