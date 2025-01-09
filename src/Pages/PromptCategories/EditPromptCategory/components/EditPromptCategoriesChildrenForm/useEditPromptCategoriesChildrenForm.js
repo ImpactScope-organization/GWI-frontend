@@ -20,6 +20,8 @@ export const useEditPromptCategoriesChildrenForm = () => {
     initialData: []
   })
 
+  console.log(subCategories)
+
   const onCategoryNameChange = (event) => {
     event.preventDefault()
     setNewCategoryName(event.target.value)
