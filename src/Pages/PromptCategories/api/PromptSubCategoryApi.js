@@ -7,6 +7,10 @@ export const getSubCategoriesByParentId = async (parentId) => {
 }
 
 export const createPromptSubCategory = async (name, parentId) => {
-  const response = await axios.post(`${apiUrl}/api/prompt-category/create`, { name, parentId })
+  const response = await axios.post(`${apiUrl}/api/prompt-category/create`, {
+    name,
+    parentId,
+    isQuantitative: true
+  })
   return response.data
 }

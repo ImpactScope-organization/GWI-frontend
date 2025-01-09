@@ -1,17 +1,17 @@
 import React from 'react'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Divider, Input } from 'antd'
-import { useEditPromptCategoriesChildrenForm } from './useEditPromptCategoriesChildrenForm'
+import { useEditPromptSubCategoriesForm } from './useEditPromptSubCategoriesForm'
 import { SubCategoryEditListItem } from './components/SubCategoryEditListItem'
 
-export const EditPromptCategoriesChildrenForm = () => {
+export const EditPromptSubCategoriesForm = () => {
   const {
     newCategoryName,
     onCategoryNameChange,
     addSubCategory,
     subCategories,
     refetchSubCategories
-  } = useEditPromptCategoriesChildrenForm()
+  } = useEditPromptSubCategoriesForm()
 
   return (
     <div className="w-full">

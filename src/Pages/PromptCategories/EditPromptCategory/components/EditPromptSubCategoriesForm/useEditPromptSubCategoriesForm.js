@@ -6,7 +6,7 @@ import {
 } from '../../../api/PromptSubCategoryApi'
 import { useParams } from 'react-router-dom'
 
-export const useEditPromptCategoriesChildrenForm = () => {
+export const useEditPromptSubCategoriesForm = () => {
   const { id } = useParams()
 
   const [newCategoryName, setNewCategoryName] = useState('')

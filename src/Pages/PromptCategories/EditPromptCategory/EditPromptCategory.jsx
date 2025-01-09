@@ -3,7 +3,7 @@ import { ROUTES } from '../../../routes'
 import { TitleWithBackButton } from '../../../Components/TitleWithBackButton/TitleWithBackButton'
 import { EditPromptCategoryForm } from './components/EditPromptCategoryForm/EditPromptCategoryForm'
 import { FormikProvider } from 'formik'
-import { EditPromptCategoriesChildrenForm } from './components/EditPromptCategoriesChildrenForm/EditPromptCategoriesChildrenForm'
+import { EditPromptSubCategoriesForm } from './components/EditPromptSubCategoriesForm/EditPromptSubCategoriesForm'
 import { Divider } from 'antd'
 
 export const EditPromptCategory = () => {
@@ -18,7 +18,7 @@ export const EditPromptCategory = () => {
         {promptCategory?.isQuantitative && (
           <>
             <Divider className="my-6" />
-            <EditPromptCategoriesChildrenForm />
+            <EditPromptSubCategoriesForm />
           </>
         )}
       </TitleWithBackButton>
