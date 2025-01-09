@@ -1,6 +1,5 @@
 import { Form, useFormikContext } from 'formik'
 import { InputText } from '../../../Components/Fields/InputText'
-import { CategoryEditSelect } from './CategoryEditSelect/CategoryEditSelect'
 import { InputTextarea } from '../../../Components/Fields/InputTextarea/InputTextarea'
 import { FileInput } from '../../../Components/Fields/FileInput'
 import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
@@ -9,6 +8,7 @@ import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { PromptOutput } from './PromptOutput'
 import React from 'react'
 import { ExistingFileInput } from '../../../Components/Fields/ExistingFileInput'
+import { CategorySelect } from './CategorySelect/CategorySelect'
 
 export const PromptForm = ({ handleTest, output, edit = false }) => {
   const { submitForm, values } = useFormikContext()
@@ -18,7 +18,7 @@ export const PromptForm = ({ handleTest, output, edit = false }) => {
       <Form className="flex flex-col gap-4 w-full">
         <div className="flex w-full gap-4">
           <InputText name="name" label="Name" />
-          <CategoryEditSelect name="category" />
+          <CategorySelect name="category" />
         </div>
         <InputTextarea name="prompt" label="Prompt" />
         {edit ? (

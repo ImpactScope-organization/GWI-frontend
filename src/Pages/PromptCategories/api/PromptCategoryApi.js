@@ -10,6 +10,10 @@ export const getRootPromptCategories = async () => {
   const response = await axios.get(`${apiUrl}/api/prompt-category/root`)
   return response.data
 }
+export const getGroupedPromptCategories = async () => {
+  const response = await axios.get(`${apiUrl}/api/prompt-category/grouped`)
+  return response.data
+}
 
 export const getPromptCategory = async (id) => {
   const response = await axios.get(`${apiUrl}/api/prompt-category/${id}`)
