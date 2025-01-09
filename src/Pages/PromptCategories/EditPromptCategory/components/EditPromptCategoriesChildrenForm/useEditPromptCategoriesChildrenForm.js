@@ -1,7 +1,9 @@
-import { createPromptCategory } from '../../../api/PromptCategoryApi'
 import { useCallback, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { getSubCategoriesByParentId } from '../../../api/PromptSubCategoryApi'
+import {
+  createPromptSubCategory,
+  getSubCategoriesByParentId
+} from '../../../api/PromptSubCategoryApi'
 import { useParams } from 'react-router-dom'
 
 export const useEditPromptCategoriesChildrenForm = () => {
@@ -26,11 +28,11 @@ export const useEditPromptCategoriesChildrenForm = () => {
   const addSubCategory = useCallback(
     async (e) => {
       e.preventDefault()
-      await createPromptCategory(newCategoryName)
+      await createPromptSubCategory(newCategoryName, id)
       await refetchSubCategories()
       setNewCategoryName('')
     },
-    [newCategoryName, refetchSubCategories]
+    [id, newCategoryName, refetchSubCategories]
   )
 
   return {
