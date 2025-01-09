@@ -16,6 +16,7 @@ import { EditPrompt } from './Pages/Prompts/EditPrompt/EditPrompt'
 import { PromptCategories } from './Pages/PromptCategories/PromptCategories'
 import { EditPromptCategory } from './Pages/PromptCategories/EditPromptCategory/EditPromptCategory'
 import { CreatePromptCategory } from './Pages/PromptCategories/CreatePromptCategory/CreatePromptCategory'
+import { EditPromptPage } from './Pages/Prompts/EditPrompt/EditPromptPage'
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
         <Route path={ROUTES.specificReport.index} element={<SpecificReport />} />
         <Route path={ROUTES.prompts.index} element={<Prompts />} />
         <Route path={ROUTES.prompts.create} element={<CreatePrompt />} />
-        <Route path={ROUTES.prompts.edit} element={<EditPrompt />} />
+        <Route path={ROUTES.prompts.edit} element={<EditPromptPage />} />
         <Route path={ROUTES.promptCategories.index} element={<PromptCategories />} />
         <Route path={ROUTES.promptCategories.edit} element={<EditPromptCategory />} />
         <Route path={ROUTES.promptCategories.create} element={<CreatePromptCategory />} />

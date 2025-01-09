@@ -1,16 +1,16 @@
 import { useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { deletePrompt, getPrompt, testExistingPrompt, updatePrompt } from '../api/PromptApi'
+import { deletePrompt, getPrompt, testExistingPrompt, updatePrompt } from '../../api/PromptApi'
 import { useQuery } from '@tanstack/react-query'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
-import { ROUTES } from '../../../routes'
+import { ROUTES } from '../../../../routes'
 import { Modal } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { useFillFormik } from '../../../Hooks/useFillFormik'
+import { useFillFormik } from '../../../../Hooks/useFillFormik'
 
-export const useEditPrompt = () => {
+export const useEditPromptValues = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [{ confirm }, modalContent] = Modal.useModal()
@@ -93,12 +93,31 @@ export const useEditPrompt = () => {
     })
   }, [confirm, formik?.values.name, id, navigate])
 
+  const handleSetAsCategoryDefault = useCallback(async () => {
+    confirm({
+      title: `Do you want to set "${formik?.values.name}" prompt as category default?`,
+      icon: <ExclamationCircleFilled />,
+      content: 'This action cannot be reverted. The previous category default will be overwritten.',
+      async onOk() {
+        try {
+          // await deletePrompt(id)
+          toast.success('Category default set successfully')
+          refetch()
+        } catch (error) {
+          toast.error('Error setting prompt as category default')
+          console.error('Error setting prompt as category default:', error)
+        }
+      }
+    })
+  }, [confirm, formik?.values.name, refetch])
+
   return {
     output,
     handleTest,
     formik,
     isFormikFilled,
     handleDelete,
-    modalContent
+    modalContent,
+    handleSetAsCategoryDefault
   }
 }
