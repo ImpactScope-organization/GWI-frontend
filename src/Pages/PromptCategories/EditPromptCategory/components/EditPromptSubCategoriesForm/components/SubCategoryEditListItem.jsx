@@ -1,10 +1,12 @@
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { Formik } from 'formik'
 import { useCallback } from 'react'
 import * as Yup from 'yup'
 import { deletePromptCategory, updatePromptCategory } from '../../../../api/PromptCategoryApi'
 import { InputText } from '../../../../../../Components/Fields/InputText'
+import { DangerButton } from '../../../../../../Components/Buttons/DangerButton'
+import { EditButton } from '../../../../../../Components/Buttons/EditButton'
 
 export const SubCategoryEditListItem = ({ item, refetchCategoryItems }) => {
   const [{ confirm }, modalContent] = Modal.useModal()
@@ -47,12 +49,8 @@ export const SubCategoryEditListItem = ({ item, refetchCategoryItems }) => {
             className={`w-full flex gap-2 justify-between ${errors?.updateName && touched?.updateName ? `items-center` : `items-end`}`}
           >
             <InputText name="updateName" label="Category name" />
-            <Button className="hover:text-yellow-400" onClick={() => submitForm()}>
-              Update
-            </Button>
-            <Button className="hover:text-red-400" onClick={() => handleDelete()}>
-              Delete
-            </Button>
+            <EditButton onClick={() => submitForm()}>Update</EditButton>
+            <DangerButton onClick={() => handleDelete()}>Delete</DangerButton>
           </div>
           {modalContent}
         </div>
