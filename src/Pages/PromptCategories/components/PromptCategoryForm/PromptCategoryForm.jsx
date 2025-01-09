@@ -1,11 +1,11 @@
 import { Form, useFormikContext } from 'formik'
-import { InputText } from '../../../../../Components/Fields/InputText'
-import { SuccessButton } from '../../../../../Components/Buttons/SuccessButton'
+import { InputText } from '../../../../Components/Fields/InputText'
+import { SuccessButton } from '../../../../Components/Buttons/SuccessButton'
 import { CheckSquareFilled } from '@ant-design/icons'
 import React from 'react'
-import { QuantitativeToggle } from '../../../../../Components/Fields/QuantitativeToggle'
+import { QuantitativeToggle } from '../../../../Components/Fields/QuantitativeToggle'
 
-export const EditPromptCategoryForm = () => {
+export const PromptCategoryForm = () => {
   const { submitForm } = useFormikContext()
 
   return (

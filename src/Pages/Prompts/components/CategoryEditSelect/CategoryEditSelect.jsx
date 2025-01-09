@@ -34,7 +34,7 @@ export const CategoryEditSelect = ({ name }) => {
   const addCategoryItem = useCallback(
     async (e) => {
       e.preventDefault()
-      await createPromptCategory(newCategoryName)
+      await createPromptCategory({ name: newCategoryName })
       await refetchCategoryItems()
       setNewCategoryName('')
     },

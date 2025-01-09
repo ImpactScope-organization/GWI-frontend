@@ -4,6 +4,8 @@ import { createPrompt, testPrompt } from '../api/PromptApi'
 import { toast } from 'react-toastify'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { getUrlWithParameters } from '../../../utils/route'
+import { ROUTES } from '../../../routes'
 
 export const useCreatePrompt = () => {
   const navigate = useNavigate()
@@ -24,10 +26,12 @@ export const useCreatePrompt = () => {
   const handleSubmit = useCallback(
     async (values) => {
       try {
-        const { result } = await createPrompt(getForm(values))
+        const {
+          result: { id }
+        } = await createPrompt(getForm(values))
 
         toast.success('Prompt saved successfully')
-        navigate(`/prompts/${result.id}/edit`)
+        navigate(getUrlWithParameters(ROUTES.prompts.edit, { id }))
       } catch (error) {
         console.error('Error submitting form:', error)
       }
