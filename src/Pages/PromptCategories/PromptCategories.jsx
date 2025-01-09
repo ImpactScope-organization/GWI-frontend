@@ -40,8 +40,10 @@ export const PromptCategories = () => {
               </CategorizedListItemDate>
               <CategorizedListItemTitle>{promptCategory?.name}</CategorizedListItemTitle>
               <CategorizedListItemCategoryContainer>
-                Numeric:
-                <CategorizedListItemCategory>to be implemented</CategorizedListItemCategory>
+                Quantitative:
+                <CategorizedListItemCategory>
+                  {promptCategory?.isQuantitative ? 'Yes' : 'No'}
+                </CategorizedListItemCategory>
               </CategorizedListItemCategoryContainer>
             </CategorizedListItemLink>
           ))}
