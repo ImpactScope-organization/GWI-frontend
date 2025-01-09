@@ -82,10 +82,18 @@ export const CategorySelect = ({ name }) => {
                   <>
                     <CategorySelectGroupTitle>Qualitative</CategorySelectGroupTitle>
                     {categoryGroups.qualitative.map((category) => (
-                      <CategorySelectGroupItem category={category} onClick={handleClick} />
+                      <CategorySelectGroupItem
+                        key={category.id}
+                        category={category}
+                        onClick={handleClick}
+                      />
                     ))}
                     {categoryGroups.quantitative.map((category) => (
-                      <CategorySelectGroupItem category={category} onClick={handleClick} />
+                      <CategorySelectGroupItem
+                        key={category.id}
+                        category={category}
+                        onClick={handleClick}
+                      />
                     ))}
                   </>
                 )}
