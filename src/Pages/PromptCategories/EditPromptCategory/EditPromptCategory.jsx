@@ -15,8 +15,12 @@ export const EditPromptCategory = () => {
         <FormikProvider value={editPromptCategoryFormik}>
           <EditPromptCategoryForm />
         </FormikProvider>
-        <Divider className="my-6" />
-        <EditPromptCategoriesChildrenForm />
+        {promptCategory?.isQuantitative && (
+          <>
+            <Divider className="my-6" />
+            <EditPromptCategoriesChildrenForm />
+          </>
+        )}
       </TitleWithBackButton>
     </div>
   )
