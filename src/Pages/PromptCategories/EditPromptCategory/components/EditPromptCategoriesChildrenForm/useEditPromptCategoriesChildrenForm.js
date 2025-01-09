@@ -1,13 +1,20 @@
-import { createPromptCategory, getPromptCategories } from '../../../api/PromptCategoryApi'
+import { createPromptCategory } from '../../../api/PromptCategoryApi'
 import { useCallback, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { getSubCategoriesByParentId } from '../../../api/PromptSubCategoryApi'
+import { useParams } from 'react-router-dom'
 
 export const useEditPromptCategoriesChildrenForm = () => {
+  const { id } = useParams()
+
   const [newCategoryName, setNewCategoryName] = useState('')
 
-  const { data: subCategories, refetch: refetchSubCategories } = useQuery({
-    queryKey: ['getPromptCategories'],
-    queryFn: () => getPromptCategories(),
+  const {
+    data: { result: subCategories },
+    refetch: refetchSubCategories
+  } = useQuery({
+    queryKey: ['getSubCategoriesByParentId', id],
+    queryFn: () => getSubCategoriesByParentId(id),
     initialData: []
   })
 
