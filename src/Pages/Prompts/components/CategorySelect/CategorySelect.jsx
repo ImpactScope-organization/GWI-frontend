@@ -3,6 +3,9 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getGroupedPromptCategories } from '../../../PromptCategories/api/PromptCategoryApi'
 import { CaretDownOutlined } from '@ant-design/icons'
+import { CategorySelectOptionItem } from './components/CategorySelectOptionItem'
+import { CategorySelectGroupItem } from './components/CategorySelectGroupItem'
+import { CategorySelectGroupTitle } from './components/CategorySelectGroupTitle'
 
 export const CategorySelect = ({ name }) => {
   const formik = useFormikContext()
@@ -14,17 +17,37 @@ export const CategorySelect = ({ name }) => {
 
   const hasError = formik.touched[name] && formik.errors[name]
 
-  const { data: categoryItems } = useQuery({
+  const { data: categoryGroups } = useQuery({
     queryKey: ['getGroupedPromptCategories'],
     queryFn: () => getGroupedPromptCategories(),
     initialData: []
   })
 
+  const categoryIds = useMemo(() => {
+    if (!categoryGroups?.qualitative || !categoryGroups?.quantitative) {
+      return []
+    }
+
+    const flattenCategories = (categories) => {
+      return categories.reduce((flattenedCategories, { id, name, subCategories }) => {
+        flattenedCategories.push({ id, name })
+        if (subCategories && subCategories.length > 0) {
+          flattenedCategories = flattenedCategories.concat(flattenCategories(subCategories))
+        }
+        return flattenedCategories
+      }, [])
+    }
+
+    return flattenCategories(categoryGroups?.qualitative).concat(
+      flattenCategories(categoryGroups?.quantitative)
+    )
+  }, [categoryGroups])
+
   const value = useMemo(() => {
     return formik.values[name]
-      ? categoryItems.find(({ id }) => id === formik.values[name])?.name
+      ? categoryIds.find(({ id }) => id === formik.values[name])?.name
       : 'Select a category'
-  }, [categoryItems, formik.values, name])
+  }, [categoryIds, formik.values, name])
 
   const handleClick = useCallback(
     async (id) => {
@@ -55,16 +78,17 @@ export const CategorySelect = ({ name }) => {
           {isDropdownVisible && (
             <div className={`w-full bg-white rounded absolute mt-2 z-20 p-4 shadow-lg border`}>
               <div>
-                {categoryItems &&
-                  categoryItems.map((item) => (
-                    <div
-                      key={item.id}
-                      onClick={() => handleClick(item.id)}
-                      className="w-full hover:bg-primary hover:text-white p-2 rounded cursor-pointer"
-                    >
-                      <div>{item.name}</div>
-                    </div>
-                  ))}
+                {categoryGroups && (
+                  <>
+                    <CategorySelectGroupTitle>Qualitative</CategorySelectGroupTitle>
+                    {categoryGroups.qualitative.map((category) => (
+                      <CategorySelectGroupItem category={category} onClick={handleClick} />
+                    ))}
+                    {categoryGroups.quantitative.map((category) => (
+                      <CategorySelectGroupItem category={category} onClick={handleClick} />
+                    ))}
+                  </>
+                )}
               </div>
             </div>
           )}
