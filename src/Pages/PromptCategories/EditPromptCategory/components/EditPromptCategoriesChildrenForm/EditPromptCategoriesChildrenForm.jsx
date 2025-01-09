@@ -1,6 +1,6 @@
 import React from 'react'
 import { PlusOutlined } from '@ant-design/icons'
-import { CategorySelectOptionItem } from '../../../../Prompts/components/CategorySelect/components/CategorySelectOptionItem'
+import { CategoryEditSelectOptionItem } from '../../../../Prompts/components/CategoryEditSelect/components/CategoryEditSelectOptionItem'
 import { Button, Divider, Input } from 'antd'
 import { useEditPromptCategoriesChildrenForm } from './useEditPromptCategoriesChildrenForm'
 
@@ -34,7 +34,7 @@ export const EditPromptCategoriesChildrenForm = () => {
             <div>
               {subCategories &&
                 subCategories.map((item) => (
-                  <CategorySelectOptionItem
+                  <CategoryEditSelectOptionItem
                     key={item.id}
                     item={item}
                     refetchCategoryItems={refetchSubCategories}

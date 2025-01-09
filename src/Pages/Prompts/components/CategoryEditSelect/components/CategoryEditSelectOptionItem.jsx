@@ -10,7 +10,11 @@ import { InputText } from '../../../../../Components/Fields/InputText'
 import { SuccessButton } from '../../../../../Components/Buttons/SuccessButton'
 import * as Yup from 'yup'
 
-export const CategorySelectOptionItem = ({ item, refetchCategoryItems, toggleDropdownVisible }) => {
+export const CategoryEditSelectOptionItem = ({
+  item,
+  refetchCategoryItems,
+  toggleDropdownVisible
+}) => {
   const formik = useFormikContext()
   const [isEdit, setIsEdit] = useState(false)
   const [{ confirm }, modalContent] = Modal.useModal()

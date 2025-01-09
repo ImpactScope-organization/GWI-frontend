@@ -1,6 +1,6 @@
 import { Form, useFormikContext } from 'formik'
 import { InputText } from '../../../Components/Fields/InputText'
-import { CategorySelect } from './CategorySelect/CategorySelect'
+import { CategoryEditSelect } from './CategoryEditSelect/CategoryEditSelect'
 import { InputTextarea } from '../../../Components/Fields/InputTextarea/InputTextarea'
 import { FileInput } from '../../../Components/Fields/FileInput'
 import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
@@ -18,7 +18,7 @@ export const PromptForm = ({ handleTest, output, edit = false }) => {
       <Form className="flex flex-col gap-4 w-full">
         <div className="flex w-full gap-4">
           <InputText name="name" label="Name" />
-          <CategorySelect name="category" />
+          <CategoryEditSelect name="category" />
         </div>
         <InputTextarea name="prompt" label="Prompt" />
         {edit ? (

@@ -6,10 +6,10 @@ import {
   getPromptCategories
 } from '../../../PromptCategories/api/PromptCategoryApi'
 import { useQuery } from '@tanstack/react-query'
-import { CategorySelectOptionItem } from './components/CategorySelectOptionItem'
+import { CategoryEditSelectOptionItem } from './components/CategoryEditSelectOptionItem'
 import { useFormikContext } from 'formik'
 
-export const CategorySelect = ({ name }) => {
+export const CategoryEditSelect = ({ name }) => {
   const formik = useFormikContext()
   const [isDropdownVisible, setDropdownVisible] = useState(false)
 
@@ -66,7 +66,7 @@ export const CategorySelect = ({ name }) => {
               <div>
                 {categoryItems &&
                   categoryItems.map((item) => (
-                    <CategorySelectOptionItem
+                    <CategoryEditSelectOptionItem
                       key={item.id}
                       item={item}
                       refetchCategoryItems={refetchCategoryItems}
