@@ -1,60 +1,19 @@
-import { useFormikContext } from 'formik'
-import React, { useCallback, useMemo, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { getGroupedPromptCategories } from '../../../PromptCategories/api/PromptCategoryApi'
+import React from 'react'
 import { CaretDownOutlined } from '@ant-design/icons'
 import { CategorySelectGroupItem } from './components/CategorySelectGroupItem'
 import { CategorySelectGroupTitle } from './components/CategorySelectGroupTitle'
+import { useCategorySelect } from '../useCategorySelect'
 
 export const CategorySelect = ({ name }) => {
-  const formik = useFormikContext()
-  const [isDropdownVisible, setDropdownVisible] = useState(false)
-
-  const toggleDropdownVisible = useCallback(() => {
-    setDropdownVisible(!isDropdownVisible)
-  }, [isDropdownVisible])
-
-  const hasError = formik.touched[name] && formik.errors[name]
-
-  const { data: groupedPromptCategories } = useQuery({
-    queryKey: ['getGroupedPromptCategories'],
-    queryFn: () => getGroupedPromptCategories(),
-    initialData: []
-  })
-
-  const categoryIds = useMemo(() => {
-    if (!groupedPromptCategories?.qualitative || !groupedPromptCategories?.quantitative) {
-      return []
-    }
-
-    const flattenCategories = (categories) => {
-      return categories.reduce((flattenedCategories, { id, name, subCategories }) => {
-        flattenedCategories.push({ id, name })
-        if (subCategories && subCategories.length > 0) {
-          flattenedCategories = flattenedCategories.concat(flattenCategories(subCategories))
-        }
-        return flattenedCategories
-      }, [])
-    }
-
-    return flattenCategories(groupedPromptCategories?.qualitative).concat(
-      flattenCategories(groupedPromptCategories?.quantitative)
-    )
-  }, [groupedPromptCategories])
-
-  const value = useMemo(() => {
-    return formik.values[name]
-      ? categoryIds.find(({ id }) => id === formik.values[name])?.name
-      : 'Select a category'
-  }, [categoryIds, formik.values, name])
-
-  const handleClick = useCallback(
-    async (id) => {
-      await formik.setFieldValue(name, id)
-      toggleDropdownVisible()
-    },
-    [formik, name, toggleDropdownVisible]
-  )
+  const {
+    hasError,
+    errorMessage,
+    toggleDropdownVisible,
+    value,
+    isDropdownVisible,
+    groupedPromptCategories,
+    handleSelectCategory
+  } = useCategorySelect(name)
 
   return (
     <div className="w-full">
@@ -84,14 +43,14 @@ export const CategorySelect = ({ name }) => {
                       <CategorySelectGroupItem
                         key={category.id}
                         category={category}
-                        onClick={handleClick}
+                        onClick={handleSelectCategory}
                       />
                     ))}
                     {groupedPromptCategories.quantitative.map((category) => (
                       <CategorySelectGroupItem
                         key={category.id}
                         category={category}
-                        onClick={handleClick}
+                        onClick={handleSelectCategory}
                       />
                     ))}
                   </>
@@ -102,9 +61,7 @@ export const CategorySelect = ({ name }) => {
         </div>
       </div>
       <div className="ml-1">
-        {formik.touched[name] && formik.errors[name] ? (
-          <div className="text-[#ff0000]">{formik.errors[name]}</div>
-        ) : null}
+        {hasError ? <div className="text-[#ff0000]">{errorMessage}</div> : null}
       </div>
     </div>
   )
