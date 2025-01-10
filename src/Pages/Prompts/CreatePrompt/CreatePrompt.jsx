@@ -10,7 +10,7 @@ export const CreatePrompt = () => {
 
   return (
     <FormikProvider value={formik}>
-      <TitleWithBackButton title="Add new prompt" to={ROUTES.prompts.index}>
+      <TitleWithBackButton title="Create new prompt" to={ROUTES.prompts.index}>
         <PromptForm output={output} handleTest={handleTest} />
       </TitleWithBackButton>
     </FormikProvider>
