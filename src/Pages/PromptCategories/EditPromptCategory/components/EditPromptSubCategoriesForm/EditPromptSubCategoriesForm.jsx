@@ -30,7 +30,6 @@ export const EditPromptSubCategoriesForm = () => {
               key={item.id}
               item={item}
               refetchCategoryItems={refetchSubCategories}
-              toggleDropdownVisible={() => {}}
             />
           ))}
       </div>
