@@ -26,7 +26,7 @@ export const useEditPromptSubCategoriesForm = () => {
     setSubCategoryName(event.target.value)
   }
 
-  const addSubCategory = useCallback(
+  const createSubCategory = useCallback(
     async (e) => {
       e.preventDefault()
       await createPromptSubCategory(subCategoryName, id)
@@ -40,7 +40,7 @@ export const useEditPromptSubCategoriesForm = () => {
   return {
     subCategoryName,
     onSubCategoryNameChange,
-    addSubCategory,
+    createSubCategory,
     subCategories,
     refetchSubCategories
   }

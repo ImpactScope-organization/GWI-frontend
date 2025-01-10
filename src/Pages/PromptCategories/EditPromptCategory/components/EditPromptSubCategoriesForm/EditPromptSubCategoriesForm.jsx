@@ -9,7 +9,7 @@ export const EditPromptSubCategoriesForm = () => {
   const {
     subCategoryName,
     onSubCategoryNameChange,
-    addSubCategory,
+    createSubCategory,
     subCategories,
     refetchSubCategories
   } = useEditPromptSubCategoriesForm()
@@ -22,7 +22,7 @@ export const EditPromptSubCategoriesForm = () => {
           <Input placeholder="Name" value={subCategoryName} onChange={onSubCategoryNameChange} />
         </div>
         <div className="w-1/5">
-          <SuccessButton icon={<CheckSquareOutlined />} onClick={addSubCategory}>
+          <SuccessButton icon={<CheckSquareOutlined />} onClick={createSubCategory}>
             Create sub category
           </SuccessButton>
         </div>
