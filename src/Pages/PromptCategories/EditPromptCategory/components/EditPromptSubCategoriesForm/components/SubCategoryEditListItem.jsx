@@ -23,7 +23,7 @@ export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubC
 
   const handleDelete = useCallback(async () => {
     confirm({
-      title: `Do you want to delete "${name}" category?`,
+      title: `Do you want to delete "${name}" sub category?`,
       icon: <ExclamationCircleFilled />,
       content: 'This action cannot be reverted',
       async onOk() {
