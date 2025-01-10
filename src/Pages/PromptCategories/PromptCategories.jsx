@@ -22,7 +22,7 @@ export const PromptCategories = () => {
       <PageHeader title="Prompt Categories" subTitle="Overview all of prompt categories here">
         <ButtonLink to={ROUTES.promptCategories.create}>Add new prompt category</ButtonLink>
       </PageHeader>
-      {/* Tabs Container */}
+
       <PageContentContainer>
         <PageTab to={ROUTES.prompts.index}>Prompts</PageTab>
         <PageTab to={ROUTES.promptCategories.index}>Prompt Categories</PageTab>
