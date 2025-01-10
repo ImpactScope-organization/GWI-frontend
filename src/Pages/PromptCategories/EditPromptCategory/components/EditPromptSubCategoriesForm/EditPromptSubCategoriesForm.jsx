@@ -24,7 +24,6 @@ export const EditPromptSubCategoriesForm = () => {
                 placeholder="New category"
                 value={newCategoryName}
                 onChange={onCategoryNameChange}
-                onKeyDown={(e) => e.stopPropagation()}
               />
               <Button type="default" icon={<PlusOutlined />} onClick={addSubCategory}>
                 Add item

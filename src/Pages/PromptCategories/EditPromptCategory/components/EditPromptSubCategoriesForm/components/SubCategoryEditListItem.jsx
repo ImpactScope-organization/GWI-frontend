@@ -7,6 +7,7 @@ import { deletePromptCategory, updatePromptCategory } from '../../../../api/Prom
 import { InputText } from '../../../../../../Components/Fields/InputText'
 import { DangerButton } from '../../../../../../Components/Buttons/DangerButton'
 import { EditButton } from '../../../../../../Components/Buttons/EditButton'
+import { toast } from 'react-toastify'
 
 export const SubCategoryEditListItem = ({ item, refetchCategoryItems }) => {
   const [{ confirm }, modalContent] = Modal.useModal()
@@ -15,6 +16,7 @@ export const SubCategoryEditListItem = ({ item, refetchCategoryItems }) => {
     async (newName) => {
       await updatePromptCategory(item.id, { name: newName })
       await refetchCategoryItems()
+      toast.success('Sub category updated successfully')
     },
     [item.id, refetchCategoryItems]
   )
@@ -27,6 +29,7 @@ export const SubCategoryEditListItem = ({ item, refetchCategoryItems }) => {
       async onOk() {
         await deletePromptCategory(item.id)
         await refetchCategoryItems()
+        toast.success('Sub category deleted successfully')
       }
     })
   }, [item, confirm, refetchCategoryItems])

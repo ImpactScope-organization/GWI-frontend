@@ -5,6 +5,7 @@ import {
   getSubCategoriesByParentId
 } from '../../../api/PromptSubCategoryApi'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export const useEditPromptSubCategoriesForm = () => {
   const { id } = useParams()
@@ -31,6 +32,7 @@ export const useEditPromptSubCategoriesForm = () => {
       await createPromptSubCategory(newCategoryName, id)
       await refetchSubCategories()
       setNewCategoryName('')
+      toast.success('Sub category created successfully')
     },
     [id, newCategoryName, refetchSubCategories]
   )
