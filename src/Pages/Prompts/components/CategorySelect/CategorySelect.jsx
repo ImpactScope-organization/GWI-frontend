@@ -24,7 +24,8 @@ export const CategorySelect = ({ name }) => {
           className={`
             w-full border rounded-md p-4 cursor-pointer flex items-center justify-between
             ${isDisabled ? `text-black/25 bg-black/5 border-[#d9d9d9]` : 'bg-[#f5f4f4] hover:border-primary'}
-            ${hasError ? 'border-[#ff0000]' : 'border-[#d9d9d9]'} `}
+            ${hasError ? 'border-[#ff0000]' : 'border-[#d9d9d9]'} 
+          `}
           onClick={toggleDropdownVisible}
         >
           <span>{value}</span>
