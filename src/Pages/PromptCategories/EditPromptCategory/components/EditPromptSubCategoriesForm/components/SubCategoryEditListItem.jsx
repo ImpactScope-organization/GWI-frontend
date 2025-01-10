@@ -8,6 +8,7 @@ import { InputText } from '../../../../../../Components/Fields/InputText'
 import { DangerButton } from '../../../../../../Components/Buttons/DangerButton'
 import { EditButton } from '../../../../../../Components/Buttons/EditButton'
 import { toast } from 'react-toastify'
+import { InputNumber } from '../../../../../../Components/Fields/InputNumber'
 
 export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubCategories }) => {
   const [{ confirm }, modalContent] = Modal.useModal()
@@ -35,29 +36,41 @@ export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubC
   }, [confirm, id, name, refetchSubCategories])
 
   return (
-    <Formik
-      initialValues={{ updateName: name }}
-      onSubmit={async (values, { resetForm }) => {
-        await handleUpdate(values.updateName)
-        resetForm()
-      }}
-      validationSchema={Yup.object({
-        updateName: Yup.string().required('Name is required')
-      })}
-      enableReinitialize
-    >
-      {({ submitForm, errors, touched }) => (
-        <div className={`flex justify-between gap-2 py-2 hover:bg-green-100`}>
-          <div
-            className={`w-full flex gap-2 justify-between ${errors?.updateName && touched?.updateName ? `items-center` : `items-end`}`}
-          >
-            <InputText name="updateName" />
-            <EditButton onClick={() => submitForm()}>Update</EditButton>
-            <DangerButton onClick={() => handleDelete()}>Delete</DangerButton>
-          </div>
-          {modalContent}
-        </div>
-      )}
-    </Formik>
+    <tr className="hover:bg-green-100">
+      <Formik
+        initialValues={{ updateName: name }}
+        onSubmit={async (values, { resetForm }) => {
+          await handleUpdate(values.updateName)
+          resetForm()
+        }}
+        validationSchema={Yup.object({
+          updateName: Yup.string().required('Name is required')
+        })}
+        enableReinitialize
+      >
+        {({ submitForm }) => (
+          <>
+            <td className="pr-2">
+              <InputText name="updateName" />
+            </td>
+            <td className="pr-2">
+              <InputNumber name="score" />
+            </td>
+            <td className="pr-2">
+              <InputNumber name="weight" />
+            </td>
+            <td className="pr-2">
+              <InputNumber name="divider" />
+            </td>
+            <td className="flex gap-2 py-4 justify-end">
+              <EditButton onClick={() => submitForm()}>Update</EditButton>
+              <DangerButton onClick={() => handleDelete()}>Delete</DangerButton>
+            </td>
+
+            {modalContent}
+          </>
+        )}
+      </Formik>
+    </tr>
   )
 }

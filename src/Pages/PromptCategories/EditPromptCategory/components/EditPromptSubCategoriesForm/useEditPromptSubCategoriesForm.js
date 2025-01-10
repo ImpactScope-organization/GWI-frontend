@@ -1,11 +1,9 @@
 import { useCallback, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import {
-  createPromptSubCategory,
-  getSubCategoriesByParentId
-} from '../../../api/PromptSubCategoryApi'
+import { getSubCategoriesByParentId } from '../../../api/PromptSubCategoryApi'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { createPromptCategory } from '../../../api/PromptCategoryApi'
 
 export const useEditPromptSubCategoriesForm = () => {
   const { id } = useParams()
@@ -26,7 +24,11 @@ export const useEditPromptSubCategoriesForm = () => {
   }
 
   const createSubCategory = useCallback(async () => {
-    await createPromptSubCategory(subCategoryName, id)
+    await createPromptCategory({
+      name: subCategoryName,
+      parentId: id,
+      isQuantitative: true
+    })
     await refetchSubCategories()
     setSubCategoryName('')
     toast.success('Sub category created successfully')
