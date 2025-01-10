@@ -2,14 +2,20 @@ import { useFormikContext } from 'formik'
 import { useCallback, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getGroupedPromptCategories } from '../../PromptCategories/api/PromptCategoryApi'
+import { useEditPrompt } from '../EditPrompt/context/EditPromptContext'
 
 export const useCategorySelect = (name) => {
+  const { prompt } = useEditPrompt()
+
+  const isDisabled = !!prompt?.isDefaultPrompt
   const formik = useFormikContext()
   const [isDropdownVisible, setDropdownVisible] = useState(false)
 
   const toggleDropdownVisible = useCallback(() => {
-    setDropdownVisible(!isDropdownVisible)
-  }, [isDropdownVisible])
+    if (!isDisabled) {
+      setDropdownVisible(!isDropdownVisible)
+    }
+  }, [isDisabled, isDropdownVisible])
 
   const hasError = formik.touched[name] && formik.errors[name]
   const errorMessage = formik.errors[name]
@@ -61,6 +67,7 @@ export const useCategorySelect = (name) => {
     value,
     isDropdownVisible,
     groupedPromptCategories,
-    handleSelectCategory
+    handleSelectCategory,
+    isDisabled
   }
 }

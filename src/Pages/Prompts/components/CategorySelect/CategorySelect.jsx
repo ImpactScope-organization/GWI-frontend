@@ -12,7 +12,8 @@ export const CategorySelect = ({ name }) => {
     value,
     isDropdownVisible,
     groupedPromptCategories,
-    handleSelectCategory
+    handleSelectCategory,
+    isDisabled
   } = useCategorySelect(name)
 
   return (
@@ -20,7 +21,10 @@ export const CategorySelect = ({ name }) => {
       <label className="text-md text-darkBlack mb-1 font-semibold block">Category</label>
       <div>
         <div
-          className={`w-full bg-[#f5f4f4] border ${hasError ? 'border-[#ff0000]' : 'border-[#d9d9d9]'} rounded-md p-4 hover:border-primary cursor-pointer flex items-center justify-between`}
+          className={`
+            w-full border rounded-md p-4 cursor-pointer flex items-center justify-between
+            ${isDisabled ? `text-black/25 bg-black/5 border-[#d9d9d9]` : 'bg-[#f5f4f4] hover:border-primary'}
+            ${hasError ? 'border-[#ff0000]' : 'border-[#d9d9d9]'} `}
           onClick={toggleDropdownVisible}
         >
           <span>{value}</span>
@@ -32,7 +36,7 @@ export const CategorySelect = ({ name }) => {
             onClick={toggleDropdownVisible}
           />
         )}
-        <div className="bg-red-400 relative">
+        <div className="relative">
           {isDropdownVisible && (
             <div className={`w-full bg-white rounded absolute mt-2 z-20 p-4 shadow-lg border`}>
               <div>
