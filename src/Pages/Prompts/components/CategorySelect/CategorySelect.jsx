@@ -3,7 +3,6 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getGroupedPromptCategories } from '../../../PromptCategories/api/PromptCategoryApi'
 import { CaretDownOutlined } from '@ant-design/icons'
-import { CategorySelectOptionItem } from './components/CategorySelectOptionItem'
 import { CategorySelectGroupItem } from './components/CategorySelectGroupItem'
 import { CategorySelectGroupTitle } from './components/CategorySelectGroupTitle'
 
@@ -17,14 +16,14 @@ export const CategorySelect = ({ name }) => {
 
   const hasError = formik.touched[name] && formik.errors[name]
 
-  const { data: categoryGroups } = useQuery({
+  const { data: groupedPromptCategories } = useQuery({
     queryKey: ['getGroupedPromptCategories'],
     queryFn: () => getGroupedPromptCategories(),
     initialData: []
   })
 
   const categoryIds = useMemo(() => {
-    if (!categoryGroups?.qualitative || !categoryGroups?.quantitative) {
+    if (!groupedPromptCategories?.qualitative || !groupedPromptCategories?.quantitative) {
       return []
     }
 
@@ -38,10 +37,10 @@ export const CategorySelect = ({ name }) => {
       }, [])
     }
 
-    return flattenCategories(categoryGroups?.qualitative).concat(
-      flattenCategories(categoryGroups?.quantitative)
+    return flattenCategories(groupedPromptCategories?.qualitative).concat(
+      flattenCategories(groupedPromptCategories?.quantitative)
     )
-  }, [categoryGroups])
+  }, [groupedPromptCategories])
 
   const value = useMemo(() => {
     return formik.values[name]
@@ -78,17 +77,17 @@ export const CategorySelect = ({ name }) => {
           {isDropdownVisible && (
             <div className={`w-full bg-white rounded absolute mt-2 z-20 p-4 shadow-lg border`}>
               <div>
-                {categoryGroups && (
+                {groupedPromptCategories && (
                   <>
                     <CategorySelectGroupTitle>Qualitative</CategorySelectGroupTitle>
-                    {categoryGroups.qualitative.map((category) => (
+                    {groupedPromptCategories.qualitative.map((category) => (
                       <CategorySelectGroupItem
                         key={category.id}
                         category={category}
                         onClick={handleClick}
                       />
                     ))}
-                    {categoryGroups.quantitative.map((category) => (
+                    {groupedPromptCategories.quantitative.map((category) => (
                       <CategorySelectGroupItem
                         key={category.id}
                         category={category}
