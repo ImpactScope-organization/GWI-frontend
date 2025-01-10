@@ -9,7 +9,7 @@ import { ROUTES } from '../../../../routes'
 import { Modal } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { useFillFormik } from '../../../../Hooks/useFillFormik'
-import { setDefaultPrompt } from '../../api/defaultPromptApi'
+import { setDefaultPrompt } from '../../api/DefaultPromptApi'
 
 export const useEditPromptValues = () => {
   const navigate = useNavigate()
