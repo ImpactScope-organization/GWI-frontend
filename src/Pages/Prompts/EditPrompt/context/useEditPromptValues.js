@@ -16,7 +16,7 @@ export const useEditPromptValues = () => {
   const { id } = useParams()
   const [{ confirm }, modalContent] = Modal.useModal()
 
-  const { data: prompt, refetch } = useQuery({
+  const { data: prompt, refetch: refetchPrompt } = useQuery({
     queryKey: ['getPrompt', id],
     queryFn: () => getPrompt(id)
   })
@@ -52,14 +52,14 @@ export const useEditPromptValues = () => {
           prompt,
           file_update
         })
-        await refetch()
+        await refetchPrompt()
         resetFormikFilled()
         toast.success('Prompt saved successfully')
       } catch (error) {
         console.error('Error submitting form:', error)
       }
     },
-    [id, refetch, resetFormikFilled]
+    [id, refetchPrompt, resetFormikFilled]
   )
 
   const handleTest = useCallback(
@@ -103,14 +103,14 @@ export const useEditPromptValues = () => {
         try {
           await setDefaultPrompt({ promptId: prompt.id, promptCategoryId: prompt.category })
           toast.success('Category default set successfully')
-          refetch()
+          await refetchPrompt()
         } catch (error) {
           toast.error('Error setting prompt as category default')
           console.error('Error setting prompt as category default:', error)
         }
       }
     })
-  }, [confirm, formik?.values.name, prompt, refetch])
+  }, [confirm, formik?.values.name, prompt, refetchPrompt])
 
   return {
     prompt,
