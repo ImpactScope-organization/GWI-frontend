@@ -42,7 +42,7 @@ export const useEditPromptCategory = () => {
         await updatePromptCategory(id, promptCategory)
         await refetchPromptCategory()
         resetFormikFilled()
-        toast.success('Prompt saved successfully')
+        toast.success('Category saved successfully')
       } catch (error) {
         console.error('Error submitting form:', error)
       }
