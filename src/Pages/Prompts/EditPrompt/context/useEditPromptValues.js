@@ -9,6 +9,7 @@ import { ROUTES } from '../../../../routes'
 import { Modal } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { useFillFormik } from '../../../../Hooks/useFillFormik'
+import { setDefaultPrompt } from '../../api/defaultPromptApi'
 
 export const useEditPromptValues = () => {
   const navigate = useNavigate()
@@ -100,7 +101,7 @@ export const useEditPromptValues = () => {
       content: 'This action cannot be reverted. The previous category default will be overwritten.',
       async onOk() {
         try {
-          // await deletePrompt(id)
+          await setDefaultPrompt({ promptId: prompt.id, promptCategoryId: prompt.category })
           toast.success('Category default set successfully')
           refetch()
         } catch (error) {
@@ -109,7 +110,7 @@ export const useEditPromptValues = () => {
         }
       }
     })
-  }, [confirm, formik?.values.name, refetch])
+  }, [confirm, formik?.values.name, prompt, refetch])
 
   return {
     output,
