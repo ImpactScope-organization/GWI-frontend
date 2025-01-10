@@ -20,8 +20,8 @@ export const getPromptCategory = async (id) => {
   return response.data
 }
 
-export const createPromptCategory = async (category) => {
-  const response = await axios.post(`${apiUrl}/api/prompt-category/create`, category)
+export const createPromptCategory = async (promptCategory) => {
+  const response = await axios.post(`${apiUrl}/api/prompt-category/create`, promptCategory)
   return response.data
 }
 
