@@ -33,7 +33,7 @@ export const PromptCategories = () => {
           {promptCategories.map((promptCategory) => (
             <CategorizedListItemLink
               to={getRouteWithId(ROUTES.promptCategories.edit, promptCategory?.id)}
-              key={`prompt_list_item_${promptCategory.id}`}
+              key={`prompt_category_list_item_${promptCategory.id}`}
             >
               <CategorizedListItemDate>
                 {handleDateFormat(promptCategory?.updatedAt)}
