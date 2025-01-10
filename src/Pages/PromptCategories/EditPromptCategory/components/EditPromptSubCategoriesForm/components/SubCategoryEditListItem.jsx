@@ -47,11 +47,11 @@ export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubC
       enableReinitialize
     >
       {({ submitForm, errors, touched }) => (
-        <div className={`flex justify-between gap-2 py-2`}>
+        <div className={`flex justify-between gap-2 py-2 hover:bg-green-100`}>
           <div
             className={`w-full flex gap-2 justify-between ${errors?.updateName && touched?.updateName ? `items-center` : `items-end`}`}
           >
-            <InputText name="updateName" label="Category name" />
+            <InputText name="updateName" />
             <EditButton onClick={() => submitForm()}>Update</EditButton>
             <DangerButton onClick={() => handleDelete()}>Delete</DangerButton>
           </div>

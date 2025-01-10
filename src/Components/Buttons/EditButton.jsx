@@ -6,7 +6,7 @@ export const EditButton = ({ onClick, icon = undefined, children, ...props }) =>
     type="default"
     icon={icon}
     onClick={onClick}
-    className="text-yellow-500 border-yellow-500 hover:!bg-yellow-500 hover:!text-white hover:!border-yellow-500"
+    className="text-yellow-500 border-yellow-500 hover:!bg-yellow-500 hover:!text-white hover:!border-yellow-500 bg-white"
     {...props}
   >
     {children}

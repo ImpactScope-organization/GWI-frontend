@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 export const useEditPromptSubCategoriesForm = () => {
   const { id } = useParams()
 
-  const [newCategoryName, setNewCategoryName] = useState('')
+  const [subCategoryName, setSubCategoryName] = useState('')
 
   const {
     data: { result: subCategories },
@@ -23,22 +23,22 @@ export const useEditPromptSubCategoriesForm = () => {
 
   const onCategoryNameChange = (event) => {
     event.preventDefault()
-    setNewCategoryName(event.target.value)
+    setSubCategoryName(event.target.value)
   }
 
   const addSubCategory = useCallback(
     async (e) => {
       e.preventDefault()
-      await createPromptSubCategory(newCategoryName, id)
+      await createPromptSubCategory(subCategoryName, id)
       await refetchSubCategories()
-      setNewCategoryName('')
+      setSubCategoryName('')
       toast.success('Sub category created successfully')
     },
-    [id, newCategoryName, refetchSubCategories]
+    [id, subCategoryName, refetchSubCategories]
   )
 
   return {
-    newCategoryName,
+    subCategoryName,
     onCategoryNameChange,
     addSubCategory,
     subCategories,
