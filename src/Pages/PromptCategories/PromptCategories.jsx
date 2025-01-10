@@ -12,10 +12,10 @@ import { CategorizedListItemTitle } from '../../Components/CategorizedList/Categ
 import { CategorizedListItemCategoryContainer } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
 import { CategorizedListItemCategory } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
 import { PageTab } from '../../Components/Page/PageTab/PageTab'
-import { usePromptCategories } from './usePromptCategories'
+import { useRootPromptCategories } from './useRootPromptCategories'
 
 export const PromptCategories = () => {
-  const { promptCategories } = usePromptCategories()
+  const { rootPromptCategories } = useRootPromptCategories()
 
   return (
     <PageContainer>
@@ -30,19 +30,19 @@ export const PromptCategories = () => {
 
       <PageContentContainer>
         <CategorizedListContainer>
-          {promptCategories.map((promptCategory) => (
+          {rootPromptCategories.map((rootPromptCategory) => (
             <CategorizedListItemLink
-              to={getRouteWithId(ROUTES.promptCategories.edit, promptCategory?.id)}
-              key={`prompt_category_list_item_${promptCategory.id}`}
+              to={getRouteWithId(ROUTES.promptCategories.edit, rootPromptCategory?.id)}
+              key={`prompt_category_list_item_${rootPromptCategory.id}`}
             >
               <CategorizedListItemDate>
-                {handleDateFormat(promptCategory?.updatedAt)}
+                {handleDateFormat(rootPromptCategory?.updatedAt)}
               </CategorizedListItemDate>
-              <CategorizedListItemTitle>{promptCategory?.name}</CategorizedListItemTitle>
+              <CategorizedListItemTitle>{rootPromptCategory?.name}</CategorizedListItemTitle>
               <CategorizedListItemCategoryContainer>
                 Quantitative:
                 <CategorizedListItemCategory>
-                  {promptCategory?.isQuantitative ? 'Yes' : 'No'}
+                  {rootPromptCategory?.isQuantitative ? 'Yes' : 'No'}
                 </CategorizedListItemCategory>
               </CategorizedListItemCategoryContainer>
             </CategorizedListItemLink>
