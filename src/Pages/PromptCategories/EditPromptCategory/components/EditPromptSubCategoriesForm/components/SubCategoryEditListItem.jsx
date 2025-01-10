@@ -9,34 +9,34 @@ import { DangerButton } from '../../../../../../Components/Buttons/DangerButton'
 import { EditButton } from '../../../../../../Components/Buttons/EditButton'
 import { toast } from 'react-toastify'
 
-export const SubCategoryEditListItem = ({ item, refetchCategoryItems }) => {
+export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubCategories }) => {
   const [{ confirm }, modalContent] = Modal.useModal()
 
   const handleUpdate = useCallback(
     async (newName) => {
-      await updatePromptCategory(item.id, { name: newName })
-      await refetchCategoryItems()
+      await updatePromptCategory(id, { name: newName })
+      await refetchSubCategories()
       toast.success('Sub category updated successfully')
     },
-    [item.id, refetchCategoryItems]
+    [id, refetchSubCategories]
   )
 
   const handleDelete = useCallback(async () => {
     confirm({
-      title: `Do you want to delete "${item.name}" category?`,
+      title: `Do you want to delete "${name}" category?`,
       icon: <ExclamationCircleFilled />,
       content: 'This action cannot be reverted',
       async onOk() {
-        await deletePromptCategory(item.id)
-        await refetchCategoryItems()
+        await deletePromptCategory(id)
+        await refetchSubCategories()
         toast.success('Sub category deleted successfully')
       }
     })
-  }, [item, confirm, refetchCategoryItems])
+  }, [confirm, id, name, refetchSubCategories])
 
   return (
     <Formik
-      initialValues={{ updateName: item.name }}
+      initialValues={{ updateName: name }}
       onSubmit={async (values, { resetForm }) => {
         await handleUpdate(values.updateName)
         resetForm()

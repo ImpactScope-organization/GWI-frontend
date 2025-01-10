@@ -25,11 +25,11 @@ export const EditPromptSubCategoriesForm = () => {
       <Divider className="my-2" />
       <div>
         {subCategories &&
-          subCategories.map((item) => (
+          subCategories.map((subCategory) => (
             <SubCategoryEditListItem
-              key={item.id}
-              item={item}
-              refetchCategoryItems={refetchSubCategories}
+              key={subCategory.id}
+              subCategory={subCategory}
+              refetchSubCategories={refetchSubCategories}
             />
           ))}
       </div>
