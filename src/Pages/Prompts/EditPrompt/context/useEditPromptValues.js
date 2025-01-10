@@ -113,6 +113,7 @@ export const useEditPromptValues = () => {
   }, [confirm, formik?.values.name, prompt, refetch])
 
   return {
+    prompt,
     output,
     handleTest,
     formik,

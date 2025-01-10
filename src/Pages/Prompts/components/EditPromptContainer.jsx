@@ -6,9 +6,10 @@ import { CheckSquareOutlined, DeleteOutlined } from '@ant-design/icons'
 import { DangerButton } from '../../../Components/Buttons/DangerButton'
 import { InfoButton } from '../../../Components/Buttons/InfoButton'
 import { useEditPrompt } from '../EditPrompt/context/EditPromptContext'
+import { SetAsCategoryDefaultPromptButton } from './SetAsCategoryDefaultPromptButton/SetAsCategoryDefaultPrompt'
 
 export const EditPromptContainer = ({ children }) => {
-  const { formik, handleDelete, handleSetAsCategoryDefault } = useEditPrompt()
+  const { formik, handleDelete } = useEditPrompt()
 
   return (
     <PageContainer className="pb-10">
@@ -18,11 +19,9 @@ export const EditPromptContainer = ({ children }) => {
           <h2 className="text-darkBlack font-bold text-3xl">{formik.values?.name}</h2>
         </div>
         <div className="flex gap-2">
-          <InfoButton onClick={handleSetAsCategoryDefault}>
-            <CheckSquareOutlined /> Set as category default
-          </InfoButton>
-          <DangerButton onClick={handleDelete}>
-            <DeleteOutlined /> Delete
+          <SetAsCategoryDefaultPromptButton />
+          <DangerButton icon={<DeleteOutlined />} onClick={handleDelete}>
+            Delete
           </DangerButton>
         </div>
       </div>
