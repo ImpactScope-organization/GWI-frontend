@@ -22,20 +22,15 @@ export const useEditPromptSubCategoriesForm = () => {
   })
 
   const onSubCategoryNameChange = (event) => {
-    event.preventDefault()
     setSubCategoryName(event.target.value)
   }
 
-  const createSubCategory = useCallback(
-    async (e) => {
-      e.preventDefault()
-      await createPromptSubCategory(subCategoryName, id)
-      await refetchSubCategories()
-      setSubCategoryName('')
-      toast.success('Sub category created successfully')
-    },
-    [id, subCategoryName, refetchSubCategories]
-  )
+  const createSubCategory = useCallback(async () => {
+    await createPromptSubCategory(subCategoryName, id)
+    await refetchSubCategories()
+    setSubCategoryName('')
+    toast.success('Sub category created successfully')
+  }, [id, subCategoryName, refetchSubCategories])
 
   return {
     subCategoryName,
