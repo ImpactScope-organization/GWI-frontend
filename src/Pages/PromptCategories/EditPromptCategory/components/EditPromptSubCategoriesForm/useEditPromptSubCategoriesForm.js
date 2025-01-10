@@ -21,7 +21,7 @@ export const useEditPromptSubCategoriesForm = () => {
     initialData: []
   })
 
-  const onCategoryNameChange = (event) => {
+  const onSubCategoryNameChange = (event) => {
     event.preventDefault()
     setSubCategoryName(event.target.value)
   }
@@ -39,7 +39,7 @@ export const useEditPromptSubCategoriesForm = () => {
 
   return {
     subCategoryName,
-    onCategoryNameChange,
+    onSubCategoryNameChange,
     addSubCategory,
     subCategories,
     refetchSubCategories
