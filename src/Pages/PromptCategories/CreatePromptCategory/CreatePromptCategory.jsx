@@ -8,12 +8,10 @@ export const CreatePromptCategory = () => {
   const { createPromptCategoryFormik } = useCreatePromptCategory()
 
   return (
-    <div>
-      <TitleWithBackButton title="New Prompt Category" to={ROUTES.promptCategories.index}>
-        <FormikProvider value={createPromptCategoryFormik}>
-          <PromptCategoryForm />
-        </FormikProvider>
-      </TitleWithBackButton>
-    </div>
+    <TitleWithBackButton title="New Prompt Category" to={ROUTES.promptCategories.index}>
+      <FormikProvider value={createPromptCategoryFormik}>
+        <PromptCategoryForm />
+      </FormikProvider>
+    </TitleWithBackButton>
   )
 }

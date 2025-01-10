@@ -10,18 +10,16 @@ export const EditPromptCategory = () => {
   const { promptCategory, editPromptCategoryFormik } = useEditPromptCategory()
 
   return (
-    <div>
-      <TitleWithBackButton title={promptCategory?.name} to={ROUTES.promptCategories.index}>
-        <FormikProvider value={editPromptCategoryFormik}>
-          <PromptCategoryForm />
-        </FormikProvider>
-        {promptCategory?.isQuantitative && (
-          <>
-            <Divider className="my-6" />
-            <EditPromptSubCategoriesForm />
-          </>
-        )}
-      </TitleWithBackButton>
-    </div>
+    <TitleWithBackButton title={promptCategory?.name} to={ROUTES.promptCategories.index}>
+      <FormikProvider value={editPromptCategoryFormik}>
+        <PromptCategoryForm />
+      </FormikProvider>
+      {promptCategory?.isQuantitative && (
+        <>
+          <Divider className="my-6" />
+          <EditPromptSubCategoriesForm />
+        </>
+      )}
+    </TitleWithBackButton>
   )
 }
