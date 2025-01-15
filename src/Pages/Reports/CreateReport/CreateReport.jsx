@@ -26,7 +26,7 @@ const CreateReport = () => {
             {/* File Upload */}
             <FormikProvider value={formik}>
               <div className="mb-4 w-full">
-                <FileInput name="file" accept=".xlsx, .txt" />
+                <FileInput name="file" accept=".xlsx" />
               </div>
               <SuccessButton disabled={!formik.isValid} onClick={formik.submitForm}>
                 Add new company
