@@ -24,6 +24,7 @@ export const useCreateReport = () => {
         console.log(id)
       } catch (error) {
         console.error('Error submitting form:', error)
+        toast.error(`Error submitting form: ${error.response?.data?.message || error.message}`)
       }
     },
     [getForm]
