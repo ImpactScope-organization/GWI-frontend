@@ -19,7 +19,10 @@ const CreateReport = () => {
             <h1 className="text-darkBlack font-bold text-3xl leading-[64px] mb-1">
               Add new company
             </h1>
-            <p className="subtitle-text ">Add the data source file to get started</p>
+            <p className="mb-8">
+              Add the company source file to add the company to the report queue. <br />
+              You will see the processing status after submitting the company.
+            </p>
             {/* File Upload */}
             <FormikProvider value={formik}>
               <div className="mb-4 w-full">

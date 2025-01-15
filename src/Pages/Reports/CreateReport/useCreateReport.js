@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { createReport } from '../api/ReportApi'
+import { createReportQueueItem } from '../api/ReportQueueApi'
 
 export const useCreateReport = () => {
   const getForm = useCallback(({ file }) => {
@@ -18,7 +18,7 @@ export const useCreateReport = () => {
       try {
         const {
           result: { id }
-        } = await createReport(getForm(values))
+        } = await createReportQueueItem(getForm(values))
 
         toast.success('Report saved successfully')
         console.log(id)
