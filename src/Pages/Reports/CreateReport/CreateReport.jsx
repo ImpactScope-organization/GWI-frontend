@@ -5,6 +5,7 @@ import { PageContainer } from '../../../Components/Page/PageContainer/PageContai
 import { FormikProvider } from 'formik'
 import { useCreateReport } from './useCreateReport'
 import { FileInput } from '../../../Components/Fields/FileInput'
+import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
 
 const CreateReport = () => {
   const { formik } = useCreateReport()
@@ -21,7 +22,12 @@ const CreateReport = () => {
             <p className="subtitle-text ">Add the data source file to get started</p>
             {/* File Upload */}
             <FormikProvider value={formik}>
-              <FileInput name="file" accept=".xlsx, .txt" />
+              <div className="mb-4 w-full">
+                <FileInput name="file" accept=".xlsx, .txt" />
+              </div>
+              <SuccessButton disabled={!formik.isValid} onClick={formik.submitForm}>
+                Add new company
+              </SuccessButton>
             </FormikProvider>
           </div>
         </div>

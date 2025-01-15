@@ -1,8 +1,8 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useCallback } from 'react'
-import { createPrompt } from '../../Prompts/api/PromptApi'
 import { toast } from 'react-toastify'
+import { createReport } from '../api/ReportApi'
 
 export const useCreateReport = () => {
   const getForm = useCallback(({ file }) => {
@@ -18,9 +18,9 @@ export const useCreateReport = () => {
       try {
         const {
           result: { id }
-        } = await createPrompt(getForm(values))
+        } = await createReport(getForm(values))
 
-        toast.success('Prompt saved successfully')
+        toast.success('Report saved successfully')
         console.log(id)
       } catch (error) {
         console.error('Error submitting form:', error)
