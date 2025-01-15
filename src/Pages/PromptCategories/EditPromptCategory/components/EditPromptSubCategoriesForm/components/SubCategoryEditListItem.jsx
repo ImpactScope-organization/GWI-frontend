@@ -10,12 +10,15 @@ import { EditButton } from '../../../../../../Components/Buttons/EditButton'
 import { toast } from 'react-toastify'
 import { InputNumber } from '../../../../../../Components/Fields/InputNumber'
 
-export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubCategories }) => {
+export const SubCategoryEditListItem = ({
+  subCategory: { id, name, score, weight, divider },
+  refetchSubCategories
+}) => {
   const [{ confirm }, modalContent] = Modal.useModal()
 
   const handleUpdate = useCallback(
-    async (newName) => {
-      await updatePromptCategory(id, { name: newName })
+    async (values) => {
+      await updatePromptCategory(id, values)
       await refetchSubCategories()
       toast.success('Sub category updated successfully')
     },
@@ -38,13 +41,16 @@ export const SubCategoryEditListItem = ({ subCategory: { id, name }, refetchSubC
   return (
     <tr className="hover:bg-green-100">
       <Formik
-        initialValues={{ updateName: name }}
+        initialValues={{ updateName: name, score, weight, divider }}
         onSubmit={async (values, { resetForm }) => {
-          await handleUpdate(values.updateName)
+          await handleUpdate(values)
           resetForm()
         }}
         validationSchema={Yup.object({
-          updateName: Yup.string().required('Name is required')
+          updateName: Yup.string().required('Name is required'),
+          score: Yup.number().required('Score is required'),
+          weight: Yup.number().required('Weight is required'),
+          divider: Yup.number().required('Divider is required')
         })}
         enableReinitialize
       >
