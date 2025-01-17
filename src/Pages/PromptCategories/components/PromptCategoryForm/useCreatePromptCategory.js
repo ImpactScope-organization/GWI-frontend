@@ -13,10 +13,12 @@ export const useCreatePromptCategory = () => {
   const createPromptCategoryFormik = useFormik({
     initialValues: {
       name: '',
+      reportDatabaseSlug: '',
       isQuantitative: false
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required')
+      name: Yup.string().required('Name is required'),
+      reportDatabaseSlug: Yup.string().required('Report Database Slug is required')
     }),
     onSubmit: async (values) => {
       await handleCreatePromptCategory(values)

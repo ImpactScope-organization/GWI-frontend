@@ -24,10 +24,12 @@ export const useEditPromptCategory = () => {
   const editPromptCategoryFormik = useFormik({
     initialValues: {
       name: '',
+      reportDatabaseSlug: '',
       isQuantitative: false
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required')
+      name: Yup.string().required('Name is required'),
+      reportDatabaseSlug: Yup.string().required('Report Database Slug is required')
     }),
     onSubmit: async (values) => {
       await handleSubmitEditPromptCategory(values)
