@@ -9,7 +9,7 @@ import { ButtonLink } from '../../../Components/ButtonLink/ButtonLink'
 import React from 'react'
 
 export const ProcessingDetailsReport = () => {
-  const { percentage, processText, report } = useProcessingDetailsReport()
+  const { percentage, processText, report, isReportCreated } = useProcessingDetailsReport()
 
   return (
     <PageContainer>
@@ -17,7 +17,7 @@ export const ProcessingDetailsReport = () => {
       <PageHeader title={`Processing ${report?.companyName}`} subTitle={processText} />
       <div className="flex flex-col items-center justify-center h-full gap-4">
         <Progress percent={percentage} format={(percent) => `${percent}%`} />
-        {report && (
+        {isReportCreated && (
           <ButtonLink to={getRouteWithId(ROUTES.specificReport.index, report?.id)}>
             Check out the report
           </ButtonLink>

@@ -35,5 +35,7 @@ export const useProcessingDetailsReport = () => {
     }
   }, [percentage, refetchQueueStatus, refetchReport])
 
-  return { percentage, processText, report }
+  const isReportCreated = !!report?.reportQueueId
+
+  return { percentage, processText, report, isReportCreated }
 }
