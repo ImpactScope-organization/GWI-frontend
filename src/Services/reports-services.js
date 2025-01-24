@@ -6,6 +6,12 @@ class ReportService {
     const { data } = await axios.get(`${apiUrl}/api/company/${companyId}`)
     return data?.result
   }
+  async getReportByReportQueueId(reportQueueId) {
+    const { data } = await axios.get(
+      `${apiUrl}/api/report/getReportByReportQueueId/${reportQueueId}`
+    )
+    return data?.result
+  }
 
   async getAllInitializedReport() {
     const { data } = await axios.get(`${apiUrl}/api/company/all`)

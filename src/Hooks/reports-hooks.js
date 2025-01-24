@@ -8,6 +8,13 @@ export const useGetAllInitializedReports = () => {
   })
 }
 
+export const useGetReportByReportQueueId = (reportQueueId) => {
+  return useQuery({
+    queryKey: ['getReportByReportQueueId', reportQueueId],
+    queryFn: () => ReportService.getReportByReportQueueId(reportQueueId)
+  })
+}
+
 export const useGetAllReportsSentToRegulators = () => {
   return useQuery({
     queryKey: ['getAllReportsSentToRegulators'],

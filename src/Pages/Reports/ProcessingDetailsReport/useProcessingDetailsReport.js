@@ -2,15 +2,18 @@ import { useEffect } from 'react'
 import { fetchReportQueueStatus } from '../api/ReportQueueApi'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useGetReportByReportQueueId } from '../../../Hooks/reports-hooks'
 
 export const useProcessingDetailsReport = () => {
-  const { id: reportQueryId } = useParams()
+  const { id: reportQueueId } = useParams()
+  const { data: report, refetch: refetchReport } = useGetReportByReportQueueId(reportQueueId)
+
   const {
     data: { percentage, processText },
-    refetch
+    refetch: refetchQueueStatus
   } = useQuery({
-    queryKey: ['fetchReportQueueStatus', reportQueryId],
-    queryFn: () => fetchReportQueueStatus(reportQueryId),
+    queryKey: ['fetchReportQueueStatus', reportQueueId],
+    queryFn: () => fetchReportQueueStatus(reportQueueId),
     initialData: {
       percentage: 0,
       processText: 'Creating queue item'
@@ -19,13 +22,18 @@ export const useProcessingDetailsReport = () => {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      await refetch()
+      await refetchQueueStatus()
     }, 700)
+
+    if (percentage === 100) {
+      refetchReport()
+      clearInterval(interval)
+    }
 
     return () => {
       clearInterval(interval)
     }
-  }, [refetch])
+  }, [percentage, refetchQueueStatus, refetchReport])
 
-  return { percentage, processText }
+  return { percentage, processText, report }
 }
