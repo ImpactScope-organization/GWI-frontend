@@ -18,9 +18,13 @@ export const useProcessingDetailsReport = () => {
   })
 
   useEffect(() => {
-    setInterval(async () => {
+    const interval = setInterval(async () => {
       await refetch()
     }, 700)
+
+    return () => {
+      clearInterval(interval)
+    }
   }, [refetch])
 
   return { percentage, processText }
