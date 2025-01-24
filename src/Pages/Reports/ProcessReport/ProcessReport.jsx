@@ -1,8 +1,18 @@
 import { PageContainer } from '../../../Components/Page/PageContainer/PageContainer'
-import { useParams } from 'react-router-dom'
+
+import { useProcessReport } from './useProcessReport'
+import { Progress } from 'antd'
+import { PageHeader } from '../../../Components/Page/PageHeader/PageHeader'
 
 export const ProcessReport = () => {
-  const { id: reportQueryId } = useParams()
+  const { percentage, processText } = useProcessReport()
 
-  return <PageContainer>{reportQueryId}</PageContainer>
+  return (
+    <PageContainer>
+      <PageHeader title="Processing companyName" subTitle={processText} />
+      <div className="flex flex-col items-center justify-center h-full gap-4">
+        <Progress percent={percentage} format={(percent) => `${percent}%`} />
+      </div>
+    </PageContainer>
+  )
 }

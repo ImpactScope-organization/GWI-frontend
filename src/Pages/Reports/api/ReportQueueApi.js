@@ -9,3 +9,8 @@ export const createReportQueueItem = async (data) => {
   })
   return response.data
 }
+
+export const fetchReportQueueStatus = async (id) => {
+  const response = await axios.get(`${apiUrl}/api/report-queue/${id}`)
+  return response.data
+}
