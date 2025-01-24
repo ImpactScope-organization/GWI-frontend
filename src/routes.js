@@ -1,6 +1,5 @@
 export const ROUTES = {
   login: '/login',
-  create: '/create',
   home: '/',
   prompts: {
     index: '/prompts',
@@ -15,7 +14,9 @@ export const ROUTES = {
   reports: {
     internal: '/reports/internal',
     regulator: '/reports/regulator',
-    index: '/reports'
+    index: '/reports',
+    process: '/reports/process/:id',
+    create: '/reports/create'
   },
   specificReport: {
     index: '/specific-report/:id',

@@ -11,7 +11,7 @@ export const ReportContainer = ({ children }) => {
   return (
     <PageContainer>
       <PageHeader title="Companies" subTitle="Overview all of companies here">
-        <ButtonLink to={ROUTES.create}>Add new company</ButtonLink>
+        <ButtonLink to={ROUTES.reports.create}>Add new company</ButtonLink>
       </PageHeader>
 
       {/* Tabs Container */}
