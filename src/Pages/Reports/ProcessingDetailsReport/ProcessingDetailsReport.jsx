@@ -1,11 +1,11 @@
 import { PageContainer } from '../../../Components/Page/PageContainer/PageContainer'
 
-import { useProcessReport } from './useProcessReport'
+import { useProcessingDetailsReport } from './useProcessingDetailsReport'
 import { Progress } from 'antd'
 import { PageHeader } from '../../../Components/Page/PageHeader/PageHeader'
 
-export const ProcessReport = () => {
-  const { percentage, processText } = useProcessReport()
+export const ProcessingDetailsReport = () => {
+  const { percentage, processText } = useProcessingDetailsReport()
 
   return (
     <PageContainer>

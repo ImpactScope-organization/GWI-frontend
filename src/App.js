@@ -16,7 +16,8 @@ import { PromptCategories } from './Pages/PromptCategories/PromptCategories'
 import { EditPromptCategory } from './Pages/PromptCategories/EditPromptCategory/EditPromptCategory'
 import { CreatePromptCategory } from './Pages/PromptCategories/CreatePromptCategory/CreatePromptCategory'
 import { EditPromptPage } from './Pages/Prompts/EditPrompt/EditPromptPage'
-import { ProcessReport } from './Pages/Reports/ProcessReport/ProcessReport'
+import { ProcessingDetailsReport } from './Pages/Reports/ProcessingDetailsReport/ProcessingDetailsReport'
+import { ProcessingReports } from './Pages/Reports/ProcessingReports/ProcessingReports'
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
         <Route path={ROUTES.home} element={<Navigate to={ROUTES.reports.internal} />} />
         <Route path={ROUTES.reports.internal} element={<InternalReport />} />
         <Route path={ROUTES.reports.regulator} element={<RegulatorReport />} />
-        <Route path={ROUTES.reports.process} element={<ProcessReport />} />
+        <Route path={ROUTES.reports.processing} element={<ProcessingReports />} />
+        <Route path={ROUTES.reports.processingDetails} element={<ProcessingDetailsReport />} />
         <Route path={ROUTES.reports.create} element={<CreateReport />} />
         <Route path={ROUTES.specificReport.index} element={<SpecificReport />} />
         <Route path={ROUTES.prompts.index} element={<Prompts />} />

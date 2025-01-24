@@ -14,8 +14,9 @@ export const ROUTES = {
   reports: {
     internal: '/reports/internal',
     regulator: '/reports/regulator',
+    processing: '/reports/processing',
+    processingDetails: '/reports/processing/:id',
     index: '/reports',
-    process: '/reports/process/:id',
     create: '/reports/create'
   },
   specificReport: {

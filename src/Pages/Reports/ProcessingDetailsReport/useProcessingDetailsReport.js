@@ -3,7 +3,7 @@ import { fetchReportQueueStatus } from '../api/ReportQueueApi'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
-export const useProcessReport = () => {
+export const useProcessingDetailsReport = () => {
   const { id: reportQueryId } = useParams()
   const {
     data: { percentage, processText },

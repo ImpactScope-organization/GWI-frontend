@@ -18,6 +18,7 @@ export const ReportContainer = ({ children }) => {
       <PageContentContainer>
         <PageTab to={ROUTES.reports.internal}>Internal reports</PageTab>
         <PageTab to={ROUTES.reports.regulator}>Sent to regulator</PageTab>
+        <PageTab to={ROUTES.reports.processing}>Processing reports</PageTab>
       </PageContentContainer>
 
       {/* Reports Container */}

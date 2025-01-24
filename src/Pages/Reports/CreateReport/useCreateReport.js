@@ -3,8 +3,12 @@ import * as Yup from 'yup'
 import { useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { createReportQueueItem } from '../api/ReportQueueApi'
+import { useNavigate } from 'react-router-dom'
+import { getRouteWithId, ROUTES } from '../../../routes'
 
 export const useCreateReport = () => {
+  const navigate = useNavigate()
+
   const getForm = useCallback(({ file }) => {
     const formData = new FormData()
 
@@ -21,13 +25,15 @@ export const useCreateReport = () => {
         } = await createReportQueueItem(getForm(values))
 
         toast.success('Report saved successfully')
+
+        navigate(getRouteWithId(ROUTES.reports.processingDetails, id))
         console.log(id)
       } catch (error) {
         console.error('Error submitting form:', error)
         toast.error(`Error submitting form: ${error.response?.data?.message || error.message}`)
       }
     },
-    [getForm]
+    [getForm, navigate]
   )
 
   const formik = useFormik({
