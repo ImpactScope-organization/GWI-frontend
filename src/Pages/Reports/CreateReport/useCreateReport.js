@@ -5,9 +5,12 @@ import { toast } from 'react-toastify'
 import { createReportQueueItem } from '../api/ReportQueueApi'
 import { useNavigate } from 'react-router-dom'
 import { getRouteWithId, ROUTES } from '../../../routes'
+import { useLoading } from '../../../Hooks/useLoading'
 
 export const useCreateReport = () => {
   const navigate = useNavigate()
+
+  const { startLoading, finishLoading, isLoading } = useLoading()
 
   const getForm = useCallback(({ file }) => {
     const formData = new FormData()
@@ -19,6 +22,7 @@ export const useCreateReport = () => {
 
   const handleSubmit = useCallback(
     async (values) => {
+      startLoading()
       try {
         const {
           result: { id }
@@ -30,9 +34,11 @@ export const useCreateReport = () => {
       } catch (error) {
         console.error('Error submitting form:', error)
         toast.error(`Error submitting form: ${error.response?.data?.message || error.message}`)
+      } finally {
+        finishLoading()
       }
     },
-    [getForm, navigate]
+    [finishLoading, getForm, navigate, startLoading]
   )
 
   const formik = useFormik({
@@ -47,5 +53,5 @@ export const useCreateReport = () => {
     }
   })
 
-  return { formik }
+  return { formik, isLoading }
 }

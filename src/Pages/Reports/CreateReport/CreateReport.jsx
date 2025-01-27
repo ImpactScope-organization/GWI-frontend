@@ -8,7 +8,7 @@ import { FileInput } from '../../../Components/Fields/FileInput'
 import { SuccessButton } from '../../../Components/Buttons/SuccessButton'
 
 const CreateReport = () => {
-  const { formik } = useCreateReport()
+  const { formik, isLoading } = useCreateReport()
 
   return (
     <PageContainer>
@@ -28,7 +28,11 @@ const CreateReport = () => {
               <div className="mb-4 w-full">
                 <FileInput name="file" accept=".xlsx" />
               </div>
-              <SuccessButton disabled={!formik.isValid} onClick={formik.submitForm}>
+              <SuccessButton
+                isLoading={isLoading}
+                disabled={!formik.isValid}
+                onClick={formik.submitForm}
+              >
                 Add new company
               </SuccessButton>
             </FormikProvider>
