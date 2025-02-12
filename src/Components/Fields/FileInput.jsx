@@ -3,7 +3,7 @@ import { Upload } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import { useFormikContext } from 'formik'
 
-export const FileInput = ({ name, accept = '.txt,.xlsx,.xls,.csv' }) => {
+export const FileInput = ({ name, accept = '.txt,.xlsx,.xls,.csv,.json' }) => {
   const formik = useFormikContext()
   const [fileList, setFileList] = useState([])
   const hasError = formik.touched[name] && formik.errors[name]
