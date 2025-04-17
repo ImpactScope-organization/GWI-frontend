@@ -7,6 +7,8 @@ import { CategorizedListContainer } from '../../../../../Components/CategorizedL
 import { PageTab } from '../../../../../Components/Page/PageTab/PageTab'
 import { useGetCompany } from '../../../api/CompanyApiQuery'
 import { PageHeaderWithBackButton } from '../../../../../Components/Page/PageHeaderWithBackButton/PageHeaderWithBackButton'
+import { ROLES } from '../../../../../utils/roles'
+import { RoleRender } from '../../../../../Components/Restrict/RoleRender/RoleRender'
 
 export const ReportContainer = ({ children }) => {
   const { company, companyId } = useGetCompany()
@@ -19,14 +21,16 @@ export const ReportContainer = ({ children }) => {
         to={ROUTES.companies.index}
       >
         <div className="flex gap-4">
-          <ButtonLink
-            bgColor={'bg-yellow-500'}
-            to={getRouteWithParams(ROUTES.companies.edit, {
-              companyId
-            })}
-          >
-            Edit company
-          </ButtonLink>
+          <RoleRender role={ROLES.ADMIN}>
+            <ButtonLink
+              bgColor={'bg-yellow-500'}
+              to={getRouteWithParams(ROUTES.companies.edit, {
+                companyId
+              })}
+            >
+              Edit company
+            </ButtonLink>
+          </RoleRender>
           <ButtonLink
             to={getRouteWithParams(ROUTES.companies.reports.create, {
               companyId

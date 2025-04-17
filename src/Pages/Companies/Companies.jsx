@@ -11,6 +11,8 @@ import { CategorizedListItemTitle } from '../../Components/CategorizedList/Categ
 import { CategorizedListItemCategoryContainer } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
 import { CategorizedListItemCategory } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
 import { useFetchCompanyList } from './api/CompanyApiQuery'
+import { RoleRender } from '../../Components/Restrict/RoleRender/RoleRender'
+import { ROLES } from '../../utils/roles'
 
 export const Companies = () => {
   const { data } = useFetchCompanyList()
@@ -18,7 +20,9 @@ export const Companies = () => {
   return (
     <PageContainer>
       <PageHeader title="Companies" subTitle="Overview all of companies here">
-        <ButtonLink to={ROUTES.companies.create}>Add new company</ButtonLink>
+        <RoleRender role={ROLES.ADMIN}>
+          <ButtonLink to={ROUTES.companies.create}>Add new company</ButtonLink>
+        </RoleRender>
       </PageHeader>
       <CategorizedListContainer>
         {!data ||

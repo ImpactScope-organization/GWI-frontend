@@ -1,8 +1,9 @@
-import { ConnectWallet } from '@thirdweb-dev/react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../../routes'
 import { HeaderLink } from './HeaderLink'
 import { UserDropdown } from './components/UserDropdown'
+import { RoleRender } from '../../Restrict/RoleRender/RoleRender'
+import { ROLES } from '../../../utils/roles'
 
 export const Header = () => {
   return (
@@ -16,8 +17,10 @@ export const Header = () => {
           <HeaderLink to={ROUTES.companies.index} pathToBeActive={ROUTES.companies.index}>
             Companies
           </HeaderLink>
-          <HeaderLink to={ROUTES.prompts.index}>Prompts</HeaderLink>
-          <HeaderLink to={ROUTES.clients.index}>Clients</HeaderLink>
+          <RoleRender role={ROLES.ADMIN}>
+            <HeaderLink to={ROUTES.prompts.index}>Prompts</HeaderLink>
+            <HeaderLink to={ROUTES.clients.index}>Clients</HeaderLink>
+          </RoleRender>
           <UserDropdown />
         </div>
       </div>

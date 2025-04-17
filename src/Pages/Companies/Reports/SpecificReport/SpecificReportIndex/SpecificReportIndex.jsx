@@ -9,6 +9,8 @@ import { useCurrentCompanyReport } from '../hooks/useCurrentCompanyReport'
 import { ReportDocuments } from '../components/ReportDocuments/ReportDocuments'
 import { ReportVisibility } from './containers/ReportVisibility/ReportVisibility'
 import { useParams } from 'react-router-dom'
+import { RoleRender } from '../../../../../Components/Restrict/RoleRender/RoleRender'
+import { ROLES } from '../../../../../utils/roles'
 
 export const SpecificReportIndex = () => {
   const { companyId } = useParams()
@@ -31,7 +33,9 @@ export const SpecificReportIndex = () => {
         <div>
           <QuantitativeReportDetails />
           <ReportDocuments />
-          <ReportVisibility />
+          <RoleRender role={ROLES.ADMIN}>
+            <ReportVisibility />
+          </RoleRender>
         </div>
       </div>
     </PageContainer>
