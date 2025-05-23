@@ -7,6 +7,7 @@ import React from 'react'
 import { useEditCompany } from './useEditCompany'
 import { useGetCompany } from '../api/CompanyApiQuery'
 import { useAccessContext } from '../../../Context/AccessContext'
+import { InputArrayText } from '../../../Components/Fields/InputArrayText'
 
 export const EditCompany = () => {
   const { companyId, company } = useGetCompany()
@@ -27,6 +28,7 @@ export const EditCompany = () => {
               <div className="flex flex-col w-full gap-4">
                 <InputText name="name" label="Name" />
                 <InputText name="companyId" label="Company Id" />
+                <InputArrayText name="twitterURLs" label="Twitter URLs" />
                 <InputText name="isin" label="ISIN" />
                 <InputText name="jurisdiction" label="Jurisdiction" />
                 <InputText name="sector" label="Sector" />

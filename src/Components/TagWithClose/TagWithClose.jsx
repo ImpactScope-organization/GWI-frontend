@@ -7,6 +7,7 @@ export const TagWithClose = ({ tag, onClose }) => {
       <button
         className="absolute -right-2 -top-2 text-red-400 bg-white text-xl leading-4 w-6 h-6 rounded-full hover:text-red-600"
         onClick={onClose}
+        type="button"
       >
         <CloseCircleOutlined />
       </button>
