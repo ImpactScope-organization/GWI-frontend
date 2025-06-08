@@ -29,6 +29,14 @@ export const CreateReportContainer = ({ children }) => {
         </PageTab>
 
         <PageTab
+          to={getRouteWithParams(ROUTES.companies.reports.create.dynamic, {
+            companyId
+          })}
+        >
+          Dynamic Report
+        </PageTab>
+
+        <PageTab
           to={getRouteWithParams(ROUTES.companies.reports.create.manual, {
             companyId
           })}

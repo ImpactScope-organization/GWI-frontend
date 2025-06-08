@@ -29,6 +29,7 @@ import { RoleRoute } from './Components/Restrict/RoleRoute/RoleRoute'
 import { ROLES } from './utils/roles'
 import { AuthRoute } from './Components/Restrict/AuthRoute/AuthRoute'
 import { CreateDocumentReport } from './Pages/Companies/Reports/CreateReport/CreateDocumentReport/CreateDocumentReport'
+import { CreateDynamicReport } from './Pages/Companies/Reports/CreateReport/CreateDynamicReport/CreateDynamicReport'
 
 export const App = () => {
   return (
@@ -51,6 +52,10 @@ export const App = () => {
             <Route
               path={ROUTES.companies.reports.create.document}
               element={<CreateDocumentReport />}
+            />
+            <Route
+              path={ROUTES.companies.reports.create.dynamic}
+              element={<CreateDynamicReport />}
             />
             <Route path={ROUTES.companies.reports.internal} element={<InternalReport />} />
             <Route path={ROUTES.companies.reports.processing} element={<ProcessingReports />} />

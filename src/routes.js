@@ -23,7 +23,8 @@ export const ROUTES = {
       index: '/companies/:companyId/reports',
       create: {
         manual: '/companies/:companyId/reports/create/manual',
-        document: '/companies/:companyId/reports/create/document'
+        document: '/companies/:companyId/reports/create/document',
+        dynamic: '/companies/:companyId/reports/create/dynamic'
       },
       report: {
         index: '/companies/:companyId/reports/:reportId',

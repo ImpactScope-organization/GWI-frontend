@@ -1,25 +1,25 @@
 import { CreateReportContainer } from '../components/CreateReportContainer'
-import { useCreateDocumentReport } from './useCreateDocumentReport'
-import { CompanyDocumentInput } from '../../components/CompanyDocumentInput/CompanyDocumentInput'
 import { Form, FormikProvider } from 'formik'
 import { InputText } from '../../../../../Components/Fields/InputText'
 import React from 'react'
 import { SuccessButton } from '../../../../../Components/Buttons/SuccessButton'
+import { useCreateDynamicReport } from './useCreateDynamicReport'
+import { CompanyDocumentInput } from '../../components/CompanyDocumentInput/CompanyDocumentInput'
 
-export const CreateDocumentReport = () => {
-  const { createDocumentReportFormik, isLoading } = useCreateDocumentReport()
+export const CreateDynamicReport = () => {
+  const { createDynamicReportFormik, isLoading } = useCreateDynamicReport()
 
   return (
     <CreateReportContainer>
       <div className="pb-10">
-        <FormikProvider value={createDocumentReportFormik}>
+        <FormikProvider value={createDynamicReportFormik}>
           <Form>
             <div className="w-full flex flex-col gap-4">
               <InputText name="title" label="Report title" />
 
               <CompanyDocumentInput name="documents" />
 
-              <SuccessButton isLoading={isLoading} onClick={createDocumentReportFormik.submitForm}>
+              <SuccessButton isLoading={isLoading} onClick={createDynamicReportFormik.submitForm}>
                 Create report
               </SuccessButton>
             </div>

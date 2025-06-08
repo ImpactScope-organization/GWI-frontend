@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik'
-import { useGetCompanyDocuments } from '../../../../../../api/CompanyApiQuery'
+import { useGetCompanyDocuments } from '../../../../api/CompanyApiQuery'
 import { useCallback, useMemo, useState } from 'react'
 
 export const useCompanyDocumentInput = ({ name }) => {

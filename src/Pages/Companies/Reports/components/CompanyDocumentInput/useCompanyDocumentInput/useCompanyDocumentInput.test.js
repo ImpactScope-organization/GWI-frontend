@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { useCompanyDocumentInput } from './useCompanyDocumentInput'
-import { useGetCompanyDocuments } from '../../../../../../api/CompanyApiQuery'
+import { useGetCompanyDocuments } from '../../../../api/CompanyApiQuery'
 
 const mockInputName = 'documents'
 
@@ -23,7 +23,7 @@ jest.mock('formik', () => ({
   })
 }))
 
-jest.mock('../../../../../../api/CompanyApiQuery', () => ({
+jest.mock('../../../../api/CompanyApiQuery', () => ({
   useGetCompanyDocuments: jest.fn()
 }))
 
