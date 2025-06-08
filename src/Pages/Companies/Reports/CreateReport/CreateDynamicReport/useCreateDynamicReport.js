@@ -1,7 +1,10 @@
 import { useGetCompanyDocuments } from '../../../api/CompanyApiQuery'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { createDocumentReportQueueItem } from '../../api/ReportQueueApi'
+import {
+  createDocumentReportQueueItem,
+  createDynamicReportQueueItem
+} from '../../api/ReportQueueApi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getRouteWithParams, ROUTES } from '../../../../../routes'
@@ -30,17 +33,17 @@ export const useCreateDynamicReport = () => {
     async onSubmit(values) {
       console.log(values)
       startLoading()
-      // todo replace with createDynamicReportQueueItem
-      // const {
-      //   result: { id }
-      // } = await createDocumentReportQueueItem({
-      //   ...values,
-      //   companyId
-      // })
+      const {
+        result: { id }
+      } = await createDynamicReportQueueItem({
+        ...values,
+        companyId
+      })
 
       finishLoading()
 
       toast.success('Report saved successfully')
+      // todo handle when backend is ready
       // navigate(
       //   getRouteWithParams(ROUTES.companies.reports.processingDetails, {
       //     companyId,

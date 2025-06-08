@@ -16,6 +16,11 @@ export const createDocumentReportQueueItem = async (data) => {
   return response.data
 }
 
+export const createDynamicReportQueueItem = async (data) => {
+  const response = await (await getApi()).post(`/api/report-queue/create/dynamic`, data)
+  return response.data
+}
+
 export const fetchReportQueueStatus = async (id) => {
   const response = await (await getApi()).get(`/api/report-queue/${id}`)
   return response.data
