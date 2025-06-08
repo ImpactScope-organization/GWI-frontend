@@ -5,7 +5,8 @@ import {
   getCompanyDocuments,
   getCompanyInternalReports,
   getCompanyProcessingReports,
-  getCompanyRegulatorReports
+  getCompanyRegulatorReports,
+  getCompanyTwitterYears
 } from './CompanyApi'
 import { useParams } from 'react-router-dom'
 
@@ -87,5 +88,21 @@ export const useGetCompanyProcessingReports = () => {
 
   return {
     processingReports: data?.results
+  }
+}
+
+export const useGetCompanyTwitterYears = () => {
+  const { companyId } = useParams()
+
+  const { data, refetch: refetchCompanyTwitterYears } = useQuery({
+    queryKey: ['useGetCompanyTwitterYears', companyId],
+    queryFn: () => getCompanyTwitterYears(companyId),
+    staleTime: 60000
+  })
+
+  return {
+    companyId,
+    companyTwitterYears: data?.result,
+    refetchCompanyTwitterYears
   }
 }

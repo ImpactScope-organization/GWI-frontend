@@ -39,3 +39,8 @@ export const getCompanyDocuments = async (companyId) => {
   const response = await (await getApi()).get(`/api/company/${companyId}/documents`)
   return response.data
 }
+
+export const getCompanyTwitterYears = async (companyId) => {
+  const response = await (await getApi()).get(`/api/company/${companyId}/twitter-years`)
+  return response.data
+}

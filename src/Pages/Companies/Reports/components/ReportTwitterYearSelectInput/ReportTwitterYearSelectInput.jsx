@@ -1,16 +1,16 @@
 import { CategorySelectGroupTitle } from '../../../../Prompts/components/CategorySelect/components/CategorySelectGroupTitle'
 import { Select } from 'antd'
 import React from 'react'
-import { useGetReportPlatforms } from '../../api/ReportApiQuery'
 import { useFormikContext } from 'formik'
+import { useGetCompanyTwitterYears } from '../../../api/CompanyApiQuery'
 
-export const ReportPlatformSelectInput = ({ name }) => {
+export const ReportTwitterYearSelectInput = ({ name }) => {
   const formik = useFormikContext()
-  const { reportPlatforms } = useGetReportPlatforms()
+  const { companyTwitterYears } = useGetCompanyTwitterYears()
 
   return (
     <div>
-      <CategorySelectGroupTitle>Select Platforms</CategorySelectGroupTitle>
+      <CategorySelectGroupTitle>Select Twitter Years</CategorySelectGroupTitle>
       <div className="w-full flex gap-4">
         <Select
           className="w-full"
@@ -20,10 +20,10 @@ export const ReportPlatformSelectInput = ({ name }) => {
           }}
           value={formik.values[name] || []}
         >
-          {reportPlatforms &&
-            reportPlatforms.map(({ slug, name }) => (
-              <Select.Option key={`report_platform_${slug}`} value={slug}>
-                {name}
+          {companyTwitterYears &&
+            companyTwitterYears.map((item) => (
+              <Select.Option key={`report_twitter_year_${item}`} value={item}>
+                {item}
               </Select.Option>
             ))}
         </Select>

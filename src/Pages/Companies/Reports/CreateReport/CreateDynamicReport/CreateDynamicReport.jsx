@@ -6,6 +6,7 @@ import { SuccessButton } from '../../../../../Components/Buttons/SuccessButton'
 import { useCreateDynamicReport } from './useCreateDynamicReport'
 import { CompanyDocumentInput } from '../../components/CompanyDocumentInput/CompanyDocumentInput'
 import { ReportPlatformSelectInput } from '../../components/ReportPlatformSelectInput/ReportPlatformSelectInput'
+import { ReportTwitterYearSelectInput } from '../../components/ReportTwitterYearSelectInput/ReportTwitterYearSelectInput'
 
 export const CreateDynamicReport = () => {
   const { createDynamicReportFormik, isLoading, selectedPlatforms } = useCreateDynamicReport()
@@ -20,6 +21,7 @@ export const CreateDynamicReport = () => {
               <ReportPlatformSelectInput name="platforms" />
 
               {selectedPlatforms?.document && <CompanyDocumentInput name="documents" />}
+              {selectedPlatforms?.twitter && <ReportTwitterYearSelectInput name="twitterYears" />}
 
               <SuccessButton isLoading={isLoading} onClick={createDynamicReportFormik.submitForm}>
                 Create report
