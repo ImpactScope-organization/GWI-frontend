@@ -23,8 +23,8 @@ export const useCreateDynamicReport = () => {
     },
     validationSchema: Yup.object({
       title: Yup.string().required(),
-      documents: Yup.array().min(1).required(),
-      twitterYears: Yup.array().min(1).required(),
+      documents: Yup.array().min(1),
+      twitterYears: Yup.array().min(1),
       platforms: Yup.array().min(1).required()
     }),
     async onSubmit(values) {
