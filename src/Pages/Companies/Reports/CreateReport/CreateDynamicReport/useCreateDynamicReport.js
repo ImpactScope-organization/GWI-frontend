@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getRouteWithParams, ROUTES } from '../../../../../routes'
 import { useLoading } from '../../../../../Hooks/useLoading'
+import { useMemo } from 'react'
 
 export const useCreateDynamicReport = () => {
   const { companyDocuments } = useGetCompanyDocuments()
@@ -47,5 +48,14 @@ export const useCreateDynamicReport = () => {
     }
   })
 
-  return { companyDocuments, createDynamicReportFormik, isLoading }
+  // todo platform slugs const
+
+  const selectedPlatforms = useMemo(() => {
+    return createDynamicReportFormik.values.platforms.reduce((acc, platform) => {
+      acc[platform] = true
+      return acc
+    }, {})
+  }, [createDynamicReportFormik.values.platforms])
+
+  return { companyDocuments, createDynamicReportFormik, isLoading, selectedPlatforms }
 }

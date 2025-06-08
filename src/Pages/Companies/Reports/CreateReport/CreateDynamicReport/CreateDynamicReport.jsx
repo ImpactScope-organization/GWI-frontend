@@ -8,7 +8,7 @@ import { CompanyDocumentInput } from '../../components/CompanyDocumentInput/Comp
 import { ReportPlatformSelectInput } from '../../components/ReportPlatformSelectInput/ReportPlatformSelectInput'
 
 export const CreateDynamicReport = () => {
-  const { createDynamicReportFormik, isLoading } = useCreateDynamicReport()
+  const { createDynamicReportFormik, isLoading, selectedPlatforms } = useCreateDynamicReport()
 
   return (
     <CreateReportContainer>
@@ -19,7 +19,7 @@ export const CreateDynamicReport = () => {
               <InputText name="title" label="Report title" />
               <ReportPlatformSelectInput name="platforms" />
 
-              <CompanyDocumentInput name="documents" />
+              {selectedPlatforms?.document && <CompanyDocumentInput name="documents" />}
 
               <SuccessButton isLoading={isLoading} onClick={createDynamicReportFormik.submitForm}>
                 Create report
