@@ -5,6 +5,7 @@ import React from 'react'
 import { SuccessButton } from '../../../../../Components/Buttons/SuccessButton'
 import { useCreateDynamicReport } from './useCreateDynamicReport'
 import { CompanyDocumentInput } from '../../components/CompanyDocumentInput/CompanyDocumentInput'
+import { ReportPlatformSelectInput } from '../../components/ReportPlatformSelectInput/ReportPlatformSelectInput'
 
 export const CreateDynamicReport = () => {
   const { createDynamicReportFormik, isLoading } = useCreateDynamicReport()
@@ -16,6 +17,7 @@ export const CreateDynamicReport = () => {
           <Form>
             <div className="w-full flex flex-col gap-4">
               <InputText name="title" label="Report title" />
+              <ReportPlatformSelectInput name="platforms" />
 
               <CompanyDocumentInput name="documents" />
 

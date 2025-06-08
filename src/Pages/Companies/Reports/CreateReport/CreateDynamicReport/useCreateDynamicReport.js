@@ -16,31 +16,34 @@ export const useCreateDynamicReport = () => {
   const createDynamicReportFormik = useFormik({
     initialValues: {
       title: '',
-      documents: []
+      documents: [],
+      platforms: []
     },
     validationSchema: Yup.object({
       title: Yup.string().required(),
-      documents: Yup.array().min(1).required()
+      documents: Yup.array().min(1).required(),
+      platforms: Yup.array().min(1).required()
     }),
     async onSubmit(values) {
+      console.log(values)
       startLoading()
       // todo replace with createDynamicReportQueueItem
-      const {
-        result: { id }
-      } = await createDocumentReportQueueItem({
-        ...values,
-        companyId
-      })
+      // const {
+      //   result: { id }
+      // } = await createDocumentReportQueueItem({
+      //   ...values,
+      //   companyId
+      // })
 
       finishLoading()
 
       toast.success('Report saved successfully')
-      navigate(
-        getRouteWithParams(ROUTES.companies.reports.processingDetails, {
-          companyId,
-          reportQueueId: id
-        })
-      )
+      // navigate(
+      //   getRouteWithParams(ROUTES.companies.reports.processingDetails, {
+      //     companyId,
+      //     reportQueueId: id
+      //   })
+      // )
     }
   })
 
