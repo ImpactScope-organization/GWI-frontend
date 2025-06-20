@@ -9,6 +9,8 @@ export const useCompanyDocumentInput = ({ name }) => {
   const [year, setYear] = useState()
   const [yearDocument, setYearDocument] = useState()
 
+  console.log(formik.values[name])
+
   const flattenedCompanyDocuments = useMemo(() => {
     return companyDocuments?.reduce((acc, { documents }) => acc.concat(documents), [])
   }, [companyDocuments])
@@ -22,23 +24,29 @@ export const useCompanyDocumentInput = ({ name }) => {
   }, [companyDocuments, year])
 
   const currentCompanyDocuments = useMemo(() => {
-    return (
-      flattenedCompanyDocuments?.filter((document) =>
-        formik.values[name].includes(document.documentId)
-      ) || []
-    )
-  }, [flattenedCompanyDocuments, formik.values, name])
+    return formik.values[name] || []
+  }, [formik.values, name])
 
   const handleAddDocument = useCallback(() => {
-    formik.setFieldValue(name, formik.values[name].concat(yearDocument))
+    const companyDocument = flattenedCompanyDocuments.find(
+      (document) => document.documentId === yearDocument
+    )
+    const documentToAdd = {
+      name: `${companyDocument.year}_${companyDocument.reportType}.xlsx`,
+      type: 'reportDocument',
+      documentId: yearDocument, // todo add this to database
+      s3Path: companyDocument.files.find((file) => file.type === 'scoresFile')?.s3Path
+    }
+
+    formik.setFieldValue(name, formik.values[name].concat(documentToAdd))
     setYearDocument(undefined)
-  }, [formik, name, yearDocument])
+  }, [flattenedCompanyDocuments, formik, name, yearDocument])
 
   const handleRemoveDocument = useCallback(
-    (documentId) => {
+    (documentIdToRemove) => {
       formik.setFieldValue(
         name,
-        formik.values[name].filter((id) => id !== documentId)
+        formik.values[name].filter(({ documentId }) => documentId !== documentIdToRemove)
       )
     },
     [formik, name]

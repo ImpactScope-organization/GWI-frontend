@@ -34,7 +34,8 @@ export const useSpecificReportEditFormik = () => {
       annualRevenue: '',
       noOfEmployees: '',
       GHGEmissions: '',
-      quantitativePercentages: []
+      quantitativePercentages: [],
+      documents: []
     },
     validationSchema: Yup.object({
       contradiction: Yup.string().required(),
@@ -65,7 +66,22 @@ export const useSpecificReportEditFormik = () => {
             )
             .required('Quantitative percentage components are required')
         })
-      )
+      ),
+
+      documents: Yup.array()
+        .of(
+          Yup.object().shape({
+            name: Yup.string().required('Name is required'),
+            type: Yup.string()
+              .oneOf(['manual', 'auto'], 'Type must be "manual" or "auto"')
+              .required('Type is required'),
+            s3Path: Yup.string()
+              .required('S3 path is required')
+              .matches(/.+\.(xlsx|csv|xls)$/, 'Must be an Excel or CSV file'),
+            _id: Yup.string().required('ID is required')
+          })
+        )
+        .min(1, 'At least one document is required')
     }),
     onSubmit: async (values) => {
       await handleUpdateReport(values)

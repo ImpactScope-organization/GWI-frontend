@@ -10,7 +10,7 @@ import { EditQualitativeReportDetails } from './containers/EditQualitativeReport
 import { EditQuantitativeReportDetails } from './containers/EditQuantitativeReportDetails/EditQuantitativeReportDetails'
 import { EditReportNavigation } from './containers/EditReportNavigation/EditReportNavigation'
 import { EditQuantitativeReportComponents } from './containers/EditQuantitativeReportComponents/EditQuantitativeReportComponents'
-import { ReportDocumentsEdit } from './components/ReportDocumentsEdit/ReportDocumentsEdit'
+import { CompanyDocumentInput } from '../../CreateReport/CreateDocumentReport/components/CompanyDocumentInput/CompanyDocumentInput'
 
 export const SpecificReportEdit = () => {
   const { currentCompanyReportIsLoading } = useCurrentCompanyReport()
@@ -56,7 +56,7 @@ export const SpecificReportEdit = () => {
                   }
                 )}
 
-                <ReportDocumentsEdit />
+                <CompanyDocumentInput name="documents" />
               </div>
             </div>
           </div>

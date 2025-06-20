@@ -64,13 +64,10 @@ export const CompanyDocumentInput = ({ name }) => {
         <div className="bg-gray-100 p-4 rounded-lg">
           {hasDocuments ? (
             <div className="flex gap-4">
-              {currentCompanyDocuments.map(({ year, title, documentId }) => {
+              {currentCompanyDocuments.map(({ name, documentId }) => {
                 return (
                   <div key={`company_document_tag_${documentId}`}>
-                    <TagWithClose
-                      tag={`${year} - ${title}`}
-                      onClose={() => handleRemoveDocument(documentId)}
-                    />
+                    <TagWithClose tag={name} onClose={() => handleRemoveDocument(documentId)} />
                   </div>
                 )
               })}
