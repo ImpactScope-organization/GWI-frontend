@@ -3,7 +3,6 @@ import LoadingPage from '../../../../../Components/loading'
 import { BackButtonLink } from '../../../../../Components/BackButtonLink/BackButtonLink'
 import { PageContainer } from '../../../../../Components/Page/PageContainer/PageContainer'
 import { useCurrentCompanyReport } from '../hooks/useCurrentCompanyReport'
-import { ReportDocuments } from '../components/ReportDocuments/ReportDocuments'
 import { useSpecificReportURL } from './hooks/useSpecificReportURL'
 import { useSpecificReportEditFormik } from './hooks/useSpecificReportEditFormik'
 import { Form, FormikProvider } from 'formik'
@@ -11,6 +10,7 @@ import { EditQualitativeReportDetails } from './containers/EditQualitativeReport
 import { EditQuantitativeReportDetails } from './containers/EditQuantitativeReportDetails/EditQuantitativeReportDetails'
 import { EditReportNavigation } from './containers/EditReportNavigation/EditReportNavigation'
 import { EditQuantitativeReportComponents } from './containers/EditQuantitativeReportComponents/EditQuantitativeReportComponents'
+import { ReportDocumentsEdit } from './components/ReportDocumentsEdit/ReportDocumentsEdit'
 
 export const SpecificReportEdit = () => {
   const { currentCompanyReportIsLoading } = useCurrentCompanyReport()
@@ -56,7 +56,7 @@ export const SpecificReportEdit = () => {
                   }
                 )}
 
-                <ReportDocuments />
+                <ReportDocumentsEdit />
               </div>
             </div>
           </div>
