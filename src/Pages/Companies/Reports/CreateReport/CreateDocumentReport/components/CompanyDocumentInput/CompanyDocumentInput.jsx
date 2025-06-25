@@ -14,7 +14,6 @@ export const CompanyDocumentInput = ({ name }) => {
     companyDocuments,
     yearDocuments,
     yearDocument,
-    currentCompanyDocuments,
     setYear,
     setYearDocument,
     handleAddDocument,
@@ -64,7 +63,7 @@ export const CompanyDocumentInput = ({ name }) => {
         <div className="bg-gray-100 p-4 rounded-lg">
           {hasDocuments ? (
             <div className="flex gap-4">
-              {currentCompanyDocuments.map(({ name, documentId }) => {
+              {formik.values[name].map(({ name, documentId }) => {
                 return (
                   <div key={`company_document_tag_${documentId}`}>
                     <TagWithClose tag={name} onClose={() => handleRemoveDocument(documentId)} />

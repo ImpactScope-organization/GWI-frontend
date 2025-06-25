@@ -79,27 +79,17 @@ describe('useCompanyDocumentInput', () => {
     })
   })
 
-  describe('currentCompanyDocuments', () => {
-    it('should list current company documents', () => {
-      mockFormikContextValue.mockReturnValue([
-        mockFlattenedCompanyDocuments[0].documentId,
-        mockFlattenedCompanyDocuments[2].documentId
-      ])
-      const { result } = renderHook(() => useCompanyDocumentInput({ name: mockInputName }))
-
-      expect(result.current.currentCompanyDocuments).toEqual([
-        mockFlattenedCompanyDocuments[0],
-        mockFlattenedCompanyDocuments[2]
-      ])
-    })
-  })
-
   describe('handleAddDocument', () => {
     it('should add a document', () => {
       const { result } = renderHook(() => useCompanyDocumentInput({ name: mockInputName }))
 
       act(() => {
-        result.current.setYearDocument(1)
+        result.current.setYearDocument({
+          documentId: 1,
+          reportType: 'B',
+          year: 2023,
+          files: [{ type: 'scoresFile', s3Path: 'path/to/file' }]
+        })
       })
 
       act(() => {

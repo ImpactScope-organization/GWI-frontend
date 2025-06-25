@@ -23,10 +23,6 @@ export const useCompanyDocumentInput = ({ name }) => {
     )
   }, [companyDocuments, year])
 
-  const currentCompanyDocuments = useMemo(() => {
-    return formik.values[name] || []
-  }, [formik.values, name])
-
   const handleAddDocument = useCallback(() => {
     const companyDocument = flattenedCompanyDocuments.find(
       (document) => document.documentId === yearDocument
@@ -60,7 +56,6 @@ export const useCompanyDocumentInput = ({ name }) => {
     companyDocuments,
     yearDocuments,
     yearDocument,
-    currentCompanyDocuments,
     setYear,
     setYearDocument,
     handleAddDocument,

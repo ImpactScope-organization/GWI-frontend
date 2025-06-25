@@ -24,22 +24,22 @@ export const useCreateDocumentReport = () => {
     }),
     async onSubmit(values) {
       startLoading()
-      const {
-        result: { id }
-      } = await createDocumentReportQueueItem({
-        ...values,
-        companyId
-      })
-
-      finishLoading()
-
-      toast.success('Report saved successfully')
-      navigate(
-        getRouteWithParams(ROUTES.companies.reports.processingDetails, {
-          companyId,
-          reportQueueId: id
-        })
-      )
+      // const {
+      //   result: { id }
+      // } = await createDocumentReportQueueItem({
+      //   ...values,
+      //   companyId
+      // })
+      //
+      // finishLoading()
+      //
+      // toast.success('Report saved successfully')
+      // navigate(
+      //   getRouteWithParams(ROUTES.companies.reports.processingDetails, {
+      //     companyId,
+      //     reportQueueId: id
+      //   })
+      // )
     }
   })
 
