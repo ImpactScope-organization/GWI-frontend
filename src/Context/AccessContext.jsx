@@ -36,6 +36,9 @@ export const AccessContextProvider = ({ children }) => {
 
   const hasRole = useCallback(
     (role) => {
+      if (Array.isArray(role)) {
+        return role.some((r) => roles.includes(r))
+      }
       return roles.includes(role)
     },
     [roles]

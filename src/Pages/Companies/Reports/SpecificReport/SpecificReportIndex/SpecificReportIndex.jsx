@@ -64,7 +64,9 @@ export const SpecificReportIndex = () => {
             <RoleRender role={ROLES.ADMIN}>
               <B2CTierAvailability />
             </RoleRender>
-            <CaseCommentary />
+            <RoleRender role={[ROLES.REGULATOR, ROLES.ADMIN]}>
+              <CaseCommentary />
+            </RoleRender>
           </div>
         </div>
       </div>
