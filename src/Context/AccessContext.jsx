@@ -7,23 +7,26 @@ const AccessContext = createContext({
   userRoles: {
     isAdmin: false,
     isRegulator: false,
-    isDemo: false
+    isDemo: false,
+    isB2C: false
   },
-  isClientAvailable: () => {},
-  hasRole: () => {},
-  getCompanyRouteByRole: () => {}
+  hasRoleForCompany: (company) => false,
+  isClientAvailable: (clientId) => false,
+  hasRole: () => false,
+  getCompanyRouteByRole: (params) => {}
 })
 
 export const AccessContextProvider = ({ children }) => {
   const {
-    userInfo: { roles, clientIds }
+    userInfo: { roles, clientIds, b2cTiers }
   } = useAuthContext()
 
   const userRoles = useMemo(() => {
     return {
       isAdmin: roles.includes(ROLES.ADMIN),
       isRegulator: roles.includes(ROLES.REGULATOR),
-      isDemo: roles.includes(ROLES.DEMO)
+      isDemo: roles.includes(ROLES.DEMO),
+      isB2C: roles.includes(ROLES.B2C_USER)
     }
   }, [roles])
 
@@ -54,9 +57,23 @@ export const AccessContextProvider = ({ children }) => {
     [userRoles.isAdmin]
   )
 
+  const hasRoleForCompany = useCallback(
+    (company) => {
+      if (userRoles.isAdmin) return true
+      if (userRoles.isRegulator && company?.clientIds) {
+        return company.clientIds.some((clientId) => clientIds.includes(clientId))
+      }
+      if (userRoles.isB2C) {
+        return company.b2cTiers.some((tier) => b2cTiers.includes(tier))
+      }
+      return false
+    },
+    [userRoles, clientIds, b2cTiers]
+  )
+
   return (
     <AccessContext.Provider
-      value={{ userRoles, isClientAvailable, hasRole, getCompanyRouteByRole }}
+      value={{ userRoles, isClientAvailable, hasRole, getCompanyRouteByRole, hasRoleForCompany }}
     >
       {children}
     </AccessContext.Provider>
