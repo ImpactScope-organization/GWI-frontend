@@ -4,20 +4,13 @@ import { ROUTES } from '../../routes'
 import { CategorizedListContainer } from '../../Components/CategorizedList/CategorizedListContainer/CategorizedListContainer'
 import React from 'react'
 import { PageContainer } from '../../Components/Page/PageContainer/PageContainer'
-import { CategorizedListItemLink } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemLink'
-import { CategorizedListItemDate } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemDate'
-import { handleDateFormat } from '../../utils/date'
-import { CategorizedListItemTitle } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemTitle'
-import { CategorizedListItemCategoryContainer } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
-import { CategorizedListItemCategory } from '../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
 import { useFetchCompanyList } from './api/CompanyApiQuery'
 import { RoleRender } from '../../Components/Restrict/RoleRender/RoleRender'
 import { ROLES } from '../../utils/roles'
-import { useAccessContext } from '../../Context/AccessContext'
+import { CompanyListItem } from './components/CompanyListItem/CompanyListItem'
 
 export const Companies = () => {
   const { data } = useFetchCompanyList()
-  const { getCompanyRouteByRole } = useAccessContext()
 
   const hasCompanies = data && data?.length > 0
 
@@ -36,21 +29,7 @@ export const Companies = () => {
         )}
         {hasCompanies &&
           data?.map((company) => (
-            <CategorizedListItemLink
-              to={getCompanyRouteByRole({
-                companyId: company?.companyId
-              })}
-              key={`company_list_item_${company?.id}`}
-            >
-              <CategorizedListItemDate>
-                {handleDateFormat(company?.createdAt)}
-              </CategorizedListItemDate>
-              <CategorizedListItemTitle>{company?.name}</CategorizedListItemTitle>
-              <CategorizedListItemCategoryContainer>
-                <div>Jurisdiction:</div>
-                <CategorizedListItemCategory>{company?.jurisdiction}</CategorizedListItemCategory>
-              </CategorizedListItemCategoryContainer>
-            </CategorizedListItemLink>
+            <CompanyListItem key={`company_list_item_${company?.id}`} company={company} />
           ))}
       </CategorizedListContainer>
     </PageContainer>
