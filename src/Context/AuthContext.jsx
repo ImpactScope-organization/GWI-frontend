@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from '../utils/auth'
-import { QueryClient, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 const AuthContext = createContext({
   isAuthenticated: false,
@@ -62,11 +62,12 @@ export const AuthProvider = ({ children }) => {
 
   const userInfo = useMemo(() => {
     if (!!accessToken) {
-      const { roles, clientIds, email, id } = jwtDecode(accessToken)
+      const { roles, clientIds, b2cTiers, email, id } = jwtDecode(accessToken)
 
       return {
         roles,
         clientIds,
+        b2cTiers,
         email,
         id
       }

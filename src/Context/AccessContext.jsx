@@ -21,6 +21,8 @@ export const AccessContextProvider = ({ children }) => {
     userInfo: { roles, clientIds, b2cTiers }
   } = useAuthContext()
 
+  console.log(b2cTiers)
+
   const userRoles = useMemo(() => {
     return {
       isAdmin: roles.includes(ROLES.ADMIN),

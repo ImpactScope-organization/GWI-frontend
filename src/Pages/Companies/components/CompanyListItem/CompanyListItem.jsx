@@ -8,7 +8,9 @@ import React from 'react'
 import { useAccessContext } from '../../../../Context/AccessContext'
 
 export const CompanyListItem = ({ company }) => {
-  const { getCompanyRouteByRole } = useAccessContext()
+  const { getCompanyRouteByRole, hasRoleForCompany } = useAccessContext()
+
+  const isAccessible = hasRoleForCompany(company)
 
   return (
     <CategorizedListItemLink
@@ -16,6 +18,7 @@ export const CompanyListItem = ({ company }) => {
         companyId: company?.companyId
       })}
     >
+      <div>{isAccessible ? 'can be accessed' : 'cannot be accessed'}</div>
       <CategorizedListItemDate>{handleDateFormat(company?.createdAt)}</CategorizedListItemDate>
       <CategorizedListItemTitle>{company?.name}</CategorizedListItemTitle>
       <CategorizedListItemCategoryContainer>
