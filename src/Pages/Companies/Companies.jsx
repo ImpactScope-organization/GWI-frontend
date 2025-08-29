@@ -29,7 +29,7 @@ export const Companies = () => {
         )}
         {hasCompanies &&
           data?.map((company) => (
-            <CompanyListItem key={`company_list_item_${company?.id}`} company={company} />
+            <CompanyListItem key={`company_list_item_${company?._id}`} company={company} />
           ))}
       </CategorizedListContainer>
     </PageContainer>
