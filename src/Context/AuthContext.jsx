@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from '../utils/auth'
-import { QueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 const AuthContext = createContext({
   isAuthenticated: false,
@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [isLocalStorageFetched, setIsLocalStorageFetched] = useState(false)
   const [accessToken, setAccessToken] = useState(undefined)
   const [refreshToken, setRefreshToken] = useState(undefined)
+  const queryClient = useQueryClient()
 
   const setTokens = useCallback((accessTokenToSet, refreshTokenToSet) => {
     setAccessToken(accessTokenToSet)
@@ -40,15 +41,14 @@ export const AuthProvider = ({ children }) => {
     [setTokens]
   )
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY)
     localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY)
 
     setTokens(undefined, undefined)
 
-    const queryClient = new QueryClient()
     queryClient.clear()
-  }, [setTokens])
+  }, [queryClient, setTokens])
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)
@@ -62,11 +62,12 @@ export const AuthProvider = ({ children }) => {
 
   const userInfo = useMemo(() => {
     if (!!accessToken) {
-      const { roles, clientIds, email, id } = jwtDecode(accessToken)
+      const { roles, clientIds, b2cTiers, email, id } = jwtDecode(accessToken)
 
       return {
         roles,
         clientIds,
+        b2cTiers,
         email,
         id
       }
