@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from '../utils/auth'
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient, useQueryClient } from '@tanstack/react-query'
 
 const AuthContext = createContext({
   isAuthenticated: false,
@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [isLocalStorageFetched, setIsLocalStorageFetched] = useState(false)
   const [accessToken, setAccessToken] = useState(undefined)
   const [refreshToken, setRefreshToken] = useState(undefined)
+  const queryClient = useQueryClient()
 
   const setTokens = useCallback((accessTokenToSet, refreshTokenToSet) => {
     setAccessToken(accessTokenToSet)
@@ -46,11 +47,8 @@ export const AuthProvider = ({ children }) => {
 
     setTokens(undefined, undefined)
 
-    const queryClient = new QueryClient()
     queryClient.clear()
-    queryClient.removeQueries()
-    await queryClient.invalidateQueries()
-  }, [setTokens])
+  }, [queryClient, setTokens])
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)
