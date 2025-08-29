@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     [setTokens]
   )
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY)
     localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY)
 
@@ -48,6 +48,8 @@ export const AuthProvider = ({ children }) => {
 
     const queryClient = new QueryClient()
     queryClient.clear()
+    queryClient.removeQueries()
+    await queryClient.invalidateQueries()
   }, [setTokens])
 
   useEffect(() => {
