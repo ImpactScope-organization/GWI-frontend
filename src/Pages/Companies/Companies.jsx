@@ -8,9 +8,11 @@ import { useFetchCompanyList } from './api/CompanyApiQuery'
 import { RoleRender } from '../../Components/Restrict/RoleRender/RoleRender'
 import { ROLES } from '../../utils/roles'
 import { CompanyListItem } from './components/CompanyListItem/CompanyListItem'
-
+import { CompanyListItemPaywall } from './components/CompanyListItemPaywall/CompanyListItemPaywall'
+import { useAccessContext } from '../../Context/AccessContext'
 export const Companies = () => {
   const { data } = useFetchCompanyList()
+  const { hasRoleForCompany } = useAccessContext()
 
   const hasCompanies = data && data?.length > 0
 
@@ -28,9 +30,16 @@ export const Companies = () => {
           </h1>
         )}
         {hasCompanies &&
-          data?.map((company) => (
-            <CompanyListItem key={`company_list_item_${company?._id}`} company={company} />
-          ))}
+          data?.map((company) =>
+            hasRoleForCompany(company) ? (
+              <CompanyListItem key={`company_list_item_${company?._id}`} company={company} />
+            ) : (
+              <CompanyListItemPaywall
+                key={`company_list_item_disabled_${company?._id}`}
+                company={company}
+              />
+            )
+          )}
       </CategorizedListContainer>
     </PageContainer>
   )
