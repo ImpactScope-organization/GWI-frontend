@@ -5,16 +5,14 @@ import { handleDateFormat } from '../../../../utils/date'
 import { CategorizedListItemTitle } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemTitle'
 import { CategorizedListItemCategoryContainer } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
 import { CategorizedListItemCategory } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
-import { useAccessContext } from '../../../../Context/AccessContext'
 import { StarFilled } from '@ant-design/icons'
+import { getRouteWithParams, ROUTES } from '../../../../routes'
 
 export const CompanyListItemPaywall = ({ company }) => {
-  const { getCompanyRouteByRole } = useAccessContext()
-
   return (
     <CategorizedListItemLink
-      to={getCompanyRouteByRole({
-        companyId: company?.companyId
+      to={getRouteWithParams(ROUTES.companies.paywall, {
+        companyId: company._id
       })}
     >
       <div className="relative">
