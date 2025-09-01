@@ -59,16 +59,13 @@ export const AccessContextProvider = ({ children }) => {
 
   const hasRoleForCompany = useCallback(
     (company) => {
-      if (userRoles.isAdmin) return true
-      if (userRoles.isRegulator && company?.clientIds) {
-        return company.clientIds.some((clientId) => clientIds.includes(clientId))
-      }
+      if (userRoles.isAdmin || userRoles.isRegulator) return true
       if (userRoles.isB2C) {
         return company.b2cTiers.some((tier) => b2cTiers.includes(tier))
       }
       return false
     },
-    [userRoles, clientIds, b2cTiers]
+    [userRoles, b2cTiers]
   )
 
   return (
