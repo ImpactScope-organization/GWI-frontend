@@ -18,6 +18,11 @@ export const CompanyPaywall = () => {
       <div className="flex justify-center w-full">
         <div className="w-2/3 mt-12">
           <CompanyListItemPaywall company={company} disabled />
+          <div>
+            hello here comes the card payment and the billing info :) billing later you know it is
+            hard..
+          </div>
+
         </div>
       </div>
     </PageContainer>
