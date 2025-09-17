@@ -33,6 +33,7 @@ import { Register } from './Pages/B2C/Register/Register'
 import { ForgotPassword } from './Pages/ForgotPassword/ForgotPassword'
 import { SetNewPassword } from './Pages/SetNewPassword/SetNewPassword'
 import { VerifyEmail } from './Pages/VerifyEmail/VerifyEmail'
+import { CompanyPaywall } from './Pages/Companies/CompanyPaywall/CompanyPaywall'
 
 export const App = () => {
   return (
@@ -70,6 +71,7 @@ export const App = () => {
             <Route path={ROUTES.companies.reports.report.edit} element={<SpecificReportEdit />} />
           </Route>
           <Route path={ROUTES.companies.reports.report.index} element={<SpecificReportIndex />} />
+          <Route path={ROUTES.companies.paywall} element={<CompanyPaywall />} />
 
           <Route element={<RoleRoute role={ROLES.ADMIN} />}>
             <Route path={ROUTES.clients.index} element={<Clients />} />
