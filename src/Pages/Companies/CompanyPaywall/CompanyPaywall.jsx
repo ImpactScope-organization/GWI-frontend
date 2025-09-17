@@ -22,7 +22,6 @@ export const CompanyPaywall = () => {
             hello here comes the card payment and the billing info :) billing later you know it is
             hard..
           </div>
-
         </div>
       </div>
     </PageContainer>
