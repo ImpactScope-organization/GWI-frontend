@@ -4,19 +4,11 @@ import { CategorizedListItemTitle } from '../../../../Components/CategorizedList
 import { CategorizedListItemCategoryContainer } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
 import { CategorizedListItemCategory } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
 import { StarFilled } from '@ant-design/icons'
-import { getRouteWithParams, ROUTES } from '../../../../routes'
+import { config } from '../../../../config'
 
 export const CompanyListItemPaywall = ({ company, disabled = false }) => {
   return (
-    <CategorizedListItemLink
-      to={
-        !disabled
-          ? getRouteWithParams(ROUTES.companies.paywall, {
-              companyId: company.companyId
-            })
-          : ''
-      }
-    >
+    <CategorizedListItemLink to={!disabled ? config.stripeQuarterlyProductPaymentUrl : ''}>
       <div className="relative">
         <div className="absolute right-0 text-primary">
           <StarFilled />

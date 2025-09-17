@@ -10,6 +10,7 @@ import { ROLES } from '../../utils/roles'
 import { CompanyListItem } from './components/CompanyListItem/CompanyListItem'
 import { CompanyListItemPaywall } from './components/CompanyListItemPaywall/CompanyListItemPaywall'
 import { useAccessContext } from '../../Context/AccessContext'
+
 export const Companies = () => {
   const { data } = useFetchCompanyList()
   const { hasRoleForCompany } = useAccessContext()

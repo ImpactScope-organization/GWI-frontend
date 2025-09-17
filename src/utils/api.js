@@ -2,9 +2,10 @@ import axios from 'axios'
 import apiUrl from './baseURL'
 import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from './auth'
 import { toast } from 'react-toastify'
+import { config } from '../config'
 
 const ApiInstance = axios.create({
-  baseURL: apiUrl,
+  baseURL: config.apiUrl,
   headers: {
     'content-type': 'application/json'
   },
