@@ -12,7 +12,8 @@ const AuthContext = createContext({
   userInfo: {
     roles: [],
     clientIds: [],
-    email: undefined
+    email: undefined,
+    id: undefined
   },
   isUserIdMatching: (userId) => {}
 })
