@@ -8,7 +8,6 @@ import { config } from '../../../../config'
 import { useAuthContext } from '../../../../Context/AuthContext'
 
 export const CompanyListItemPaywall = ({ company, disabled = false }) => {
-  // const paymentLink = https://buy.stripe.com/test_dRm4gy5ZpaYWcEhdAL5EY01?prefilled_email=bereczkybalazs1%40gmail.com&locale=en&client_reference_id=asdf123311s
   const {
     userInfo: { email, id }
   } = useAuthContext()

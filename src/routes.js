@@ -3,6 +3,7 @@ export const ROUTES = {
   verifyEmail: '/verify-email',
   forgotPassword: '/forgot-password',
   setNewPassword: '/set-new-password',
+  confirmPayment: '/confirm-payment',
   b2c: {
     index: '/b2c',
     register: '/b2c/register'

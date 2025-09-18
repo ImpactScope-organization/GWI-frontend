@@ -33,6 +33,7 @@ import { Register } from './Pages/B2C/Register/Register'
 import { ForgotPassword } from './Pages/ForgotPassword/ForgotPassword'
 import { SetNewPassword } from './Pages/SetNewPassword/SetNewPassword'
 import { VerifyEmail } from './Pages/VerifyEmail/VerifyEmail'
+import { ConfirmPayment } from './Pages/ConfirmPayment/ConfirmPayment'
 
 export const App = () => {
   return (
@@ -88,6 +89,7 @@ export const App = () => {
         <Route path={ROUTES.forgotPassword} element={<ForgotPassword />} />
         <Route path={ROUTES.setNewPassword} element={<SetNewPassword />} />
         <Route path={ROUTES.verifyEmail} element={<VerifyEmail />} />
+        <Route path={ROUTES.confirmPayment} element={<ConfirmPayment />} />
         <Route path={ROUTES.notFound} element={<NotFound />} />
       </Routes>
     </div>
