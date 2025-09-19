@@ -18,11 +18,9 @@ export const useConfirmPayment = () => {
   const confirmPayment = useCallback(async () => {
     startLoading()
     try {
-      console.log(`Confirming payment for session: ${sessionId}`)
-
       const { data } = await (await getApi()).post('/api/payment/confirm', { sessionId })
 
-      toast.success('Logged in Successfully! Welcome to GWI Premium')
+      toast.success('Logged in Successfully! Welcome to GWI Premium!')
       login(data)
       navigate(ROUTES.companies.index)
     } catch (err) {
