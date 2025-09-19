@@ -23,7 +23,6 @@ export const ROUTES = {
     index: '/companies',
     create: '/companies/create',
     edit: '/companies/:companyId/edit',
-    paywall: '/companies/:companyId/paywall',
     reports: {
       internal: '/companies/:companyId/reports/internal',
       regulator: '/companies/:companyId/reports/regulator',
