@@ -4,7 +4,6 @@ import { AuthPageContainer } from '../../Components/Page/AuthPageContainer/AuthP
 import { useConfirmPayment } from './useConfirmPayment'
 
 export const ConfirmPayment = () => {
-  // http://localhost:3000/confirm-payment?session=cs_test_a1WVWIhGaBYc2sQMEBqChx95tThiLnpZniBHjzKj615BRnF39nRh4s0UJQ
   const { isLoading } = useConfirmPayment()
 
   return (
