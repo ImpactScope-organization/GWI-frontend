@@ -6,6 +6,8 @@ import { CategorizedListItemCategory } from '../../../../Components/CategorizedL
 import { StarFilled } from '@ant-design/icons'
 import { config } from '../../../../config'
 import { useAuthContext } from '../../../../Context/AuthContext'
+import { CategorizedListItemDate } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemDate'
+import { handleDateFormat } from '../../../../utils/date'
 
 export const CompanyListItemPaywall = ({ company, disabled = false }) => {
   const {
@@ -23,6 +25,7 @@ export const CompanyListItemPaywall = ({ company, disabled = false }) => {
         <div className="absolute right-0 text-primary">
           <StarFilled />
         </div>
+        <CategorizedListItemDate>{handleDateFormat(company?.createdAt)}</CategorizedListItemDate>
         <CategorizedListItemTitle>{company?.name}</CategorizedListItemTitle>
         <CategorizedListItemCategoryContainer>
           <div>Jurisdiction:</div>
