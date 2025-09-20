@@ -10,6 +10,7 @@ import { ROLES } from '../../utils/roles'
 import { CompanyListItem } from './components/CompanyListItem/CompanyListItem'
 import { CompanyListItemPaywall } from './components/CompanyListItemPaywall/CompanyListItemPaywall'
 import { useAccessContext } from '../../Context/AccessContext'
+import { CompanySubscriptionHero } from './components/CompanySubscriptionHero/CompanySubscriptionHero'
 
 export const Companies = () => {
   const { data } = useFetchCompanyList()
@@ -19,6 +20,7 @@ export const Companies = () => {
 
   return (
     <PageContainer>
+      <CompanySubscriptionHero />
       <PageHeader title="Companies" subTitle="Overview all of companies here">
         <RoleRender role={ROLES.ADMIN}>
           <ButtonLink to={ROUTES.companies.create}>Add new company</ButtonLink>
