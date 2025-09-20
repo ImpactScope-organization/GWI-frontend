@@ -2,6 +2,7 @@ import React, { createContext, useContext, useCallback, useMemo } from 'react'
 import { useAuthContext } from './AuthContext'
 import { ROLES } from '../utils/roles'
 import { getRouteWithParams, ROUTES } from '../routes'
+import { B2C_TIERS } from '../utils/tiers'
 
 const AccessContext = createContext({
   userRoles: {
@@ -13,7 +14,8 @@ const AccessContext = createContext({
   hasRoleForCompany: (company) => false,
   isClientAvailable: (clientId) => false,
   hasRole: () => false,
-  getCompanyRouteByRole: (params) => {}
+  getCompanyRouteByRole: (params) => {},
+  isFreeB2CTier: false
 })
 
 export const AccessContextProvider = ({ children }) => {
@@ -68,9 +70,20 @@ export const AccessContextProvider = ({ children }) => {
     [userRoles, b2cTiers]
   )
 
+  const isFreeB2CTier = useMemo(() => {
+    return userRoles.isB2C && !b2cTiers.includes(B2C_TIERS.premium)
+  }, [b2cTiers, userRoles.isB2C])
+
   return (
     <AccessContext.Provider
-      value={{ userRoles, isClientAvailable, hasRole, getCompanyRouteByRole, hasRoleForCompany }}
+      value={{
+        userRoles,
+        isClientAvailable,
+        hasRole,
+        getCompanyRouteByRole,
+        hasRoleForCompany,
+        isFreeB2CTier
+      }}
     >
       {children}
     </AccessContext.Provider>

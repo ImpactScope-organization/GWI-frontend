@@ -1,3 +1,6 @@
+import { useAccessContext } from '../../../../Context/AccessContext'
+
 export const CompanySubscriptionHero = () => {
-  return <div>CompanySubscriptionHero</div>
+  const { isFreeB2CTier } = useAccessContext()
+  return <>{isFreeB2CTier && <div>CompanySubscriptionHero</div>}</>
 }
