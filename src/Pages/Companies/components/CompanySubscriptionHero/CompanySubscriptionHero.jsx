@@ -29,26 +29,21 @@ export const CompanySubscriptionHero = () => {
 
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
                 <ul className="space-y-2 text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-slate-800" />
+                  <li className="relative pl-4 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-slate-800">
                     Get unique greenwashing risk insights for publicly listed companies.
                   </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-slate-800" />
+                  <li className="relative pl-4 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-slate-800">
                     Used by leading regulators and financial institutions.
                   </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-slate-800" />
+                  <li className="relative pl-4 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-slate-800">
                     Coverage across UK, US, EU and more.
                   </li>
                 </ul>
                 <ul className="space-y-2 text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-slate-800" />
+                  <li className="relative pl-4 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-slate-800">
                     New reports updated weekly.
                   </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-slate-800" />
+                  <li className="relative pl-4 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-slate-800">
                     Request any company not yet in our database.
                   </li>
                 </ul>
