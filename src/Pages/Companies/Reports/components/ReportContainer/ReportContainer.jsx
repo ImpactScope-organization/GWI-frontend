@@ -10,6 +10,7 @@ import { PageHeaderWithBackButton } from '../../../../../Components/Page/PageHea
 import { ROLES } from '../../../../../utils/roles'
 import { RoleRender } from '../../../../../Components/Restrict/RoleRender/RoleRender'
 import { useAccessContext } from '../../../../../Context/AccessContext'
+import { CompanySubscriptionHero } from '../../../components/CompanySubscriptionHero/CompanySubscriptionHero'
 
 export const ReportContainer = ({ children }) => {
   const { company, companyId } = useGetCompany()
@@ -17,6 +18,7 @@ export const ReportContainer = ({ children }) => {
 
   return (
     <PageContainer>
+      <CompanySubscriptionHero />
       <PageHeaderWithBackButton
         title={company?.name}
         subTitle={company?.jurisdiction}
