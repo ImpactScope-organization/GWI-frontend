@@ -3,7 +3,6 @@ import { CompanySubscriptionListItem } from './components/CompanySubscriptionLis
 import { FilledSuccessButton } from '../../../../Components/Buttons/FilledSuccessButton'
 import { usePaymentLink } from '../../../../Hooks/usePaymentLink'
 import { Link } from 'react-router-dom'
-import { ButtonLink } from '../../../../Components/ButtonLink/ButtonLink'
 
 export const CompanySubscriptionHero = () => {
   const { isFreeB2CTier } = useAccessContext()
@@ -28,7 +27,7 @@ export const CompanySubscriptionHero = () => {
               </h2>
 
               <p className="mt-3 text-slate-600 max-w-2xl">
-                As a free user you can view sample reports. Premium members get unlimited access to
+                As a free user you can view free reports. Premium members get unlimited access to
                 our entire database and ongoing updates.
               </p>
 
@@ -68,9 +67,9 @@ export const CompanySubscriptionHero = () => {
                       </span>
                     </div>
                   </div>
-                  <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-                    Best for teams
-                  </span>
+                  {/*<span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">*/}
+                  {/*  Best for teams*/}
+                  {/*</span>*/}
                 </div>
 
                 <div className="my-5 h-px w-full bg-slate-200" />
@@ -96,7 +95,6 @@ export const CompanySubscriptionHero = () => {
             </div>
           </div>
 
-          {/* subtle footer bar with social proof / reassurance */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-4">
             <div className="text-sm text-slate-500">
               Free tier includes limited reports. Upgrade anytime for full access.
@@ -104,7 +102,7 @@ export const CompanySubscriptionHero = () => {
             <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
               <span className="inline-flex items-center gap-1">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                Trusted by professionals
+                Trusted by FCA in UK
               </span>
               <span className="h-1 w-1 rounded-full bg-slate-500" />
               <span>Weekly updates</span>
