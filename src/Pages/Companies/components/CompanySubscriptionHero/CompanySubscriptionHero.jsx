@@ -1,9 +1,14 @@
 import { useAccessContext } from '../../../../Context/AccessContext'
-import { SuccessButton } from '../../../../Components/Buttons/SuccessButton'
 import { CompanySubscriptionListItem } from './components/CompanySubscriptionListItem'
+import { FilledSuccessButton } from '../../../../Components/Buttons/FilledSuccessButton'
+import { usePaymentLink } from '../../../../Hooks/usePaymentLink'
+import { Link } from 'react-router-dom'
+import { ButtonLink } from '../../../../Components/ButtonLink/ButtonLink'
 
 export const CompanySubscriptionHero = () => {
   const { isFreeB2CTier } = useAccessContext()
+  const { paymentLink } = usePaymentLink()
+
   if (!isFreeB2CTier) return null
 
   return (
@@ -11,7 +16,6 @@ export const CompanySubscriptionHero = () => {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-6 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-sm shadow-sm p-6 md:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            {/* left: copy */}
             <div className="lg:col-span-3">
               <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
                 Premium access
@@ -80,9 +84,10 @@ export const CompanySubscriptionHero = () => {
                 </ul>
 
                 <div className="mt-6">
-                  <SuccessButton className="w-full h-11 rounded-xl text-base">
-                    Unlock full access
-                  </SuccessButton>
+                  <Link to={paymentLink}>
+                    <FilledSuccessButton>Unlock full access</FilledSuccessButton>
+                  </Link>
+
                   <p className="mt-3 text-center text-xs text-slate-500">
                     Secure checkout. Cancel anytime before the next billing cycle.
                   </p>
@@ -94,17 +99,15 @@ export const CompanySubscriptionHero = () => {
           {/* subtle footer bar with social proof / reassurance */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-4">
             <div className="text-sm text-slate-500">
-              Free tier includes sample reports. Upgrade anytime for full access.
+              Free tier includes limited reports. Upgrade anytime for full access.
             </div>
             <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
               <span className="inline-flex items-center gap-1">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
                 Trusted by professionals
               </span>
-              <span>•</span>
+              <span className="h-1 w-1 rounded-full bg-slate-500" />
               <span>Weekly updates</span>
-              <span>•</span>
-              <span>Priority support</span>
             </div>
           </div>
         </div>

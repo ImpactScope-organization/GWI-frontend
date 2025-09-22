@@ -14,7 +14,7 @@ export const FilledSuccessButton = ({
     icon={icon}
     onClick={onClick}
     htmlType={type}
-    className="w-full flex justify-center items-center text-white bg-primary border-primary hover:bg-white font-bold"
+    className="w-full flex justify-center items-center text-white bg-primary border-primary hover:!bg-white font-bold"
     disabled={!!props?.disabled || isLoading}
     {...props}
   >
