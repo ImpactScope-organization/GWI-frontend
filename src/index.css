@@ -81,3 +81,7 @@ img {
 .ant-btn-primary:not([disabled]):hover {
   background: #1f4ce0 !important;
 }
+
+.ant-modal-confirm-btns .ant-btn-primary:not([disabled]) {
+  background: #4dc601 !important;
+}
