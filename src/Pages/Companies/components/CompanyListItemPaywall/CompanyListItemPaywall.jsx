@@ -15,7 +15,7 @@ export const CompanyListItemPaywall = ({ company }) => {
     <>
       <button onClick={open} className="cursor-pointer text-left">
         <Badge.Ribbon text="Premium">
-          <CategorizedListItemLink>
+          <CategorizedListItemLink to="#">
             <CategorizedListItemDate>
               {handleDateFormat(company?.createdAt)}
             </CategorizedListItemDate>
