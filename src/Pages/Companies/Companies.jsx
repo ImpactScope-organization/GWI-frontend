@@ -8,9 +8,9 @@ import { useFetchCompanyList } from './api/CompanyApiQuery'
 import { RoleRender } from '../../Components/Restrict/RoleRender/RoleRender'
 import { ROLES } from '../../utils/roles'
 import { CompanyListItem } from './components/CompanyListItem/CompanyListItem'
-import { CompanyListItemPaywall } from './components/CompanyListItemPaywall/CompanyListItemPaywall'
+import { CompanyListItemPaywall } from './components/Paywall/CompanyListItemPaywall/CompanyListItemPaywall'
 import { useAccessContext } from '../../Context/AccessContext'
-import { CompanySubscriptionHero } from './components/CompanySubscriptionHero/CompanySubscriptionHero'
+import { CompanySubscriptionHero } from './components/Paywall/CompanySubscriptionHero/CompanySubscriptionHero'
 
 export const Companies = () => {
   const { data } = useFetchCompanyList()

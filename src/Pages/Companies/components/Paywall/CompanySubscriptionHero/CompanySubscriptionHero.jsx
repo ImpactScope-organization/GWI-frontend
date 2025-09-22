@@ -1,8 +1,11 @@
-import { useAccessContext } from '../../../../Context/AccessContext'
+import { useAccessContext } from '../../../../../Context/AccessContext'
 import { CompanySubscriptionListItem } from './components/CompanySubscriptionListItem'
-import { FilledSuccessButton } from '../../../../Components/Buttons/FilledSuccessButton'
-import { usePaymentLink } from '../../../../Hooks/usePaymentLink'
+import { FilledSuccessButton } from '../../../../../Components/Buttons/FilledSuccessButton'
+import { usePaymentLink } from '../../../../../Hooks/usePaymentLink'
 import { Link } from 'react-router-dom'
+import { Divider } from '../components/Divider'
+import { QuarterlyPlan } from '../components/QuarterlyPlan'
+import { SecureCheckout } from '../components/SecureCheckout'
 
 export const CompanySubscriptionHero = () => {
   const { isFreeB2CTier } = useAccessContext()
@@ -58,21 +61,10 @@ export const CompanySubscriptionHero = () => {
             <div className="lg:col-span-2">
               <div className="h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm text-slate-500">Quarterly plan</div>
-                    <div className="mt-1 text-3xl font-semibold tracking-tight text-slate-900">
-                      €500
-                      <span className="ml-2 align-middle text-sm font-normal text-slate-500">
-                        / quarter
-                      </span>
-                    </div>
-                  </div>
-                  {/*<span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">*/}
-                  {/*  Best for teams*/}
-                  {/*</span>*/}
+                  <QuarterlyPlan />
                 </div>
 
-                <div className="my-5 h-px w-full bg-slate-200" />
+                <Divider />
 
                 <ul className="space-y-2 text-sm text-slate-700">
                   <CompanySubscriptionListItem>Unlimited report access</CompanySubscriptionListItem>
@@ -87,9 +79,7 @@ export const CompanySubscriptionHero = () => {
                     <FilledSuccessButton>Unlock full access</FilledSuccessButton>
                   </Link>
 
-                  <p className="mt-3 text-center text-xs text-slate-500">
-                    Secure checkout. Cancel anytime before the next billing cycle.
-                  </p>
+                  <SecureCheckout />
                 </div>
               </div>
             </div>

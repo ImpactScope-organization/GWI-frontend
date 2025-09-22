@@ -16,7 +16,7 @@ import { QuantitativeReportDetails } from './containers/QuantitativeReportDetail
 import { CaseCommentary } from './containers/CaseCommentary/CaseCommentary'
 import { B2CTierAvailability } from './containers/B2CTierAvailability/B2CTierAvailability'
 import { ClientVisibility } from './containers/ClientVisibility/ClientVisibility'
-import { CompanySubscriptionHero } from '../../../components/CompanySubscriptionHero/CompanySubscriptionHero'
+import { CompanySubscriptionHero } from '../../../components/Paywall/CompanySubscriptionHero/CompanySubscriptionHero'
 
 export const SpecificReportIndex = () => {
   const { companyId } = useParams()

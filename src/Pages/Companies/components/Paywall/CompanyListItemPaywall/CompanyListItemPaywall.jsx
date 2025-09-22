@@ -1,11 +1,11 @@
 import React from 'react'
-import { CategorizedListItemLink } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemLink'
-import { CategorizedListItemTitle } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemTitle'
-import { CategorizedListItemCategoryContainer } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
-import { CategorizedListItemCategory } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
+import { CategorizedListItemLink } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemLink'
+import { CategorizedListItemTitle } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemTitle'
+import { CategorizedListItemCategoryContainer } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
+import { CategorizedListItemCategory } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
 import { Badge } from 'antd'
-import { CategorizedListItemDate } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemDate'
-import { handleDateFormat } from '../../../../utils/date'
+import { CategorizedListItemDate } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemDate'
+import { handleDateFormat } from '../../../../../utils/date'
 import { usePaywallModal } from '../PaywallModal/usePaywallModal'
 
 export const CompanyListItemPaywall = ({ company }) => {
