@@ -14,7 +14,9 @@ export const useRegister = () => {
     initialValues: {
       email: '',
       password: '',
-      passwordAgain: ''
+      passwordAgain: '',
+      b2cRole: 'individual',
+      name: ''
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Email is required'),
