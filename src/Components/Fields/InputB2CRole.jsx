@@ -1,11 +1,28 @@
 import { useFormikContext } from 'formik'
 import { Input, Select } from 'antd'
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const definedRoles = ['public_company', 'private_company', 'individual', 'service_provider']
 
 export const InputB2CRole = ({ name, disabled = false }) => {
   const formik = useFormikContext()
+  const [b2cRole, setB2CRole] = useState(undefined)
+
+  useEffect(() => {
+    if (!b2cRole) {
+      setB2CRole(formik.values[name])
+    }
+  }, [b2cRole, formik.values, name])
+
+  const setRole = useCallback(
+    async (value) => {
+      if (definedRoles.includes(value) || value === 'other') {
+        setB2CRole(value)
+      }
+      await formik.setFieldValue(name, value)
+    },
+    [formik, name]
+  )
 
   const roles = [
     { value: 'public_company', label: 'Public company' },
@@ -28,9 +45,9 @@ export const InputB2CRole = ({ name, disabled = false }) => {
       <div className="flex flex-col gap-2">
         <Select
           name={name}
-          onSelect={(selected) => formik.setFieldValue(name, selected)}
+          onSelect={setRole}
           onBlur={formik.handleBlur}
-          value={formik.values[name]}
+          value={b2cRole}
           disabled={disabled}
           className="w-full"
         >
@@ -41,9 +58,7 @@ export const InputB2CRole = ({ name, disabled = false }) => {
           ))}
         </Select>
 
-        {isOtherInputVisible && (
-          <Input onChange={(e) => formik.setFieldValue(name, e.target.value)} />
-        )}
+        {isOtherInputVisible && <Input onChange={(e) => setRole(e.target.value)} />}
       </div>
       <div className="ml-1">
         {formik.touched[name] && formik.errors[name] ? (
