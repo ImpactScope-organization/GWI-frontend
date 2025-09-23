@@ -53,7 +53,7 @@ export const AuthPageContainer = ({ children, subTitle }) => (
               </div>
             </div>
             <h3 className="text-darkblue mt-8 text-2xl sm:text-3xl md:text-4xl font-[700] text-center leading-[48px]">
-              Welcome to GWI Admin
+              Welcome to GWI
             </h3>
 
             <h4 className="font-BalsamiqSans text-center text-reportGrey text-lg mt-3 ">
