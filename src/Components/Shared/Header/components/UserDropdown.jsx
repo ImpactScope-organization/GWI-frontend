@@ -8,7 +8,7 @@ export const UserDropdown = () => {
   const [userDropdownVisible, setUserDropdownVisible] = useState(false)
 
   return (
-    <div className="relative">
+    <div className="relative z-10">
       <button
         onClick={() => {
           setUserDropdownVisible(!userDropdownVisible)
