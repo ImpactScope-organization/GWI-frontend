@@ -1,27 +1,19 @@
 import { useFormikContext } from 'formik'
 import { Input, Select } from 'antd'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  B2C_ROLES,
+  DEFINED_B2C_ROLES_WITH_LABEL,
+  B2C_ROLES_WITH_LABEL_AND_OPTION_OTHER
+} from './b2cRoles'
 
 export const InputB2CRole = ({ name, disabled = false }) => {
   const formik = useFormikContext()
   const [b2cRole, setB2CRole] = useState(undefined)
 
-  const definedRoles = useMemo(
-    () => [
-      { value: 'individual', label: 'Individual' },
-      { value: 'public_company', label: 'Public company' },
-      { value: 'private_company', label: 'Private company' },
-      { value: 'service_provider', label: 'Service provider' }
-    ],
-    []
-  )
-
-  const isDefinedRole = useCallback(
-    (value) => {
-      return definedRoles.some(({ value: roleValue }) => roleValue === value)
-    },
-    [definedRoles]
-  )
+  const isDefinedRole = useCallback((value) => {
+    return DEFINED_B2C_ROLES_WITH_LABEL.some(({ value: roleValue }) => roleValue === value)
+  }, [])
 
   useEffect(() => {
     if (!b2cRole) {
@@ -31,15 +23,13 @@ export const InputB2CRole = ({ name, disabled = false }) => {
 
   const setRole = useCallback(
     async (value) => {
-      if (isDefinedRole(value) || value === 'other') {
+      if (isDefinedRole(value) || value === B2C_ROLES.OTHER) {
         setB2CRole(value)
       }
       await formik.setFieldValue(name, value)
     },
     [formik, isDefinedRole, name]
   )
-
-  const roles = [...definedRoles, { value: 'other', label: 'Other' }]
 
   const isOtherInputVisible = useMemo(
     () => !isDefinedRole(formik.values[name]),
@@ -60,7 +50,7 @@ export const InputB2CRole = ({ name, disabled = false }) => {
           disabled={disabled}
           className="w-full"
         >
-          {roles.map((role) => (
+          {B2C_ROLES_WITH_LABEL_AND_OPTION_OTHER.map((role) => (
             <Select.Option key={`option_${role.value}`} value={role.value}>
               {role.label}
             </Select.Option>

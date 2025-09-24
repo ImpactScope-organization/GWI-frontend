@@ -5,6 +5,7 @@ import { useLoading } from '../../../Hooks/useLoading'
 import { getApi } from '../../../utils/api'
 import { ROUTES } from '../../../routes'
 import { useNavigate } from 'react-router-dom'
+import { B2C_ROLES } from '../../../Components/Fields/InputB2CRole/b2cRoles'
 
 export const useRegister = () => {
   const { isLoading, startLoading, finishLoading } = useLoading()
@@ -15,7 +16,7 @@ export const useRegister = () => {
       email: '',
       password: '',
       passwordAgain: '',
-      b2cRole: 'individual',
+      b2cRole: B2C_ROLES.INDIVIDUAL,
       name: ''
     },
     validationSchema: Yup.object({
@@ -26,6 +27,8 @@ export const useRegister = () => {
         .required('Password is required')
     }),
     onSubmit: async (values) => {
+      console.log(values)
+      return
       try {
         startLoading()
 

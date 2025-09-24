@@ -4,7 +4,7 @@ import { InputText } from '../../../Components/Fields/InputText'
 import { Form, FormikProvider } from 'formik'
 import { InputPassword } from '../../../Components/Fields/InputPassword'
 import { FilledSuccessButton } from '../../../Components/Buttons/FilledSuccessButton'
-import { InputB2CRole } from '../../../Components/Fields/InputB2CRole'
+import { InputB2CRole } from '../../../Components/Fields/InputB2CRole/InputB2CRole'
 
 export const Register = () => {
   const { registerFormik, isLoading } = useRegister()
