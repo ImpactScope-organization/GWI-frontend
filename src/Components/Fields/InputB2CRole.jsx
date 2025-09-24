@@ -2,11 +2,26 @@ import { useFormikContext } from 'formik'
 import { Input, Select } from 'antd'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-const definedRoles = ['public_company', 'private_company', 'individual', 'service_provider']
-
 export const InputB2CRole = ({ name, disabled = false }) => {
   const formik = useFormikContext()
   const [b2cRole, setB2CRole] = useState(undefined)
+
+  const definedRoles = useMemo(
+    () => [
+      { value: 'individual', label: 'Individual' },
+      { value: 'public_company', label: 'Public company' },
+      { value: 'private_company', label: 'Private company' },
+      { value: 'service_provider', label: 'Service provider' }
+    ],
+    []
+  )
+
+  const isDefinedRole = useCallback(
+    (value) => {
+      return definedRoles.some(({ value: roleValue }) => roleValue === value)
+    },
+    [definedRoles]
+  )
 
   useEffect(() => {
     if (!b2cRole) {
@@ -16,25 +31,19 @@ export const InputB2CRole = ({ name, disabled = false }) => {
 
   const setRole = useCallback(
     async (value) => {
-      if (definedRoles.includes(value) || value === 'other') {
+      if (isDefinedRole(value) || value === 'other') {
         setB2CRole(value)
       }
       await formik.setFieldValue(name, value)
     },
-    [formik, name]
+    [formik, isDefinedRole, name]
   )
 
-  const roles = [
-    { value: 'public_company', label: 'Public company' },
-    { value: 'private_company', label: 'Private company' },
-    { value: 'individual', label: 'Individual' },
-    { value: 'service_provider', label: 'Service provider' },
-    { value: 'other', label: 'Other' }
-  ]
+  const roles = [...definedRoles, { value: 'other', label: 'Other' }]
 
   const isOtherInputVisible = useMemo(
-    () => !definedRoles.includes(formik.values[name]),
-    [formik.values, name]
+    () => !isDefinedRole(formik.values[name]),
+    [formik.values, isDefinedRole, name]
   )
 
   return (
