@@ -6,10 +6,12 @@ import { getApi } from '../../../utils/api'
 import { ROUTES } from '../../../routes'
 import { useNavigate } from 'react-router-dom'
 import { B2C_ROLES } from '../../../Components/Fields/InputB2CRole/b2cRoles'
+import { useAuthContext } from '../../../Context/AuthContext'
 
 export const useRegister = () => {
   const { isLoading, startLoading, finishLoading } = useLoading()
   const navigate = useNavigate()
+  const { login } = useAuthContext()
 
   const registerFormik = useFormik({
     initialValues: {
@@ -27,14 +29,14 @@ export const useRegister = () => {
         .required('Password is required')
     }),
     onSubmit: async (values) => {
-      console.log(values)
-      return
       try {
         startLoading()
 
-        await (await getApi()).post(`/api/b2c/register`, values)
+        const { data } = await (await getApi()).post(`/api/b2c/register`, values)
+
         toast.success('User created successfully!')
-        navigate(ROUTES.login)
+        login(data)
+        navigate(ROUTES.companies.index)
       } catch (err) {
         toast.error(err?.response?.data?.message)
       } finally {
