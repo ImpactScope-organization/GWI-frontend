@@ -34,7 +34,9 @@ export const useRegister = () => {
 
         const { data } = await (await getApi()).post(`/api/b2c/register`, values)
 
-        toast.success('User created successfully!')
+        toast.success(
+          'Registration complete! Welcome aboard — you can now start using GWI!'
+        )
         login(data)
         navigate(ROUTES.companies.index)
       } catch (err) {
