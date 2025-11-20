@@ -26,6 +26,8 @@ jobs:
           file: ./Dockerfile
           build-args: |
             BUILD_ENV=development
+            BUILD_API_HOST=https://gwi-api.impactscope.io
+            BUILD_PAYMENT_URL=https://buy.stripe.com/test_dRm4gy5ZpaYWcEhdAL5EY01
           push: true
           tags: |
             ghcr.io/impactscope-organization/gwi-frontend:latest-develop
