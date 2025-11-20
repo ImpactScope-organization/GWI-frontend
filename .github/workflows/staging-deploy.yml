@@ -1,8 +1,8 @@
-name: Build Docker image and push to GHCR
+name: Build Docker image and push to GHCR, staging deploy to Dokploy
 
 on:
   push:
-    branches: ['main']
+    branches: ['develop']
 
 jobs:
   build-and-push:
@@ -26,7 +26,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/impactscope-organization/gwi-frontend-no-insigai:latest
+            ghcr.io/impactscope-organization/gwi-frontend:latest-develop
           platforms: linux/amd64
 
       - name: Trigger Dokploy Deployment
@@ -37,4 +37,4 @@ jobs:
             -H "accept: application/json" \
             -H "x-api-key: ${{ secrets.DOKPLOY_AUTH_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"applicationId\": \"${{ secrets.DOKPLOY_APPLICATION_ID }}\"}"
+            -d "{\"applicationId\": \"${{ secrets.DOKPLOY_STAGING_APPLICATION_ID }}\"}"
