@@ -4,6 +4,7 @@ import { HeaderLink } from './HeaderLink'
 import { UserDropdown } from './components/UserDropdown'
 import { RoleRender } from '../../Restrict/RoleRender/RoleRender'
 import { ROLES } from '../../../utils/roles'
+import { CompanySubscriptionSubscribeButton } from '../../../Pages/Companies/components/Paywall/CompanySubscriptionHero/CompanySubscriptionSubscribeButton'
 
 export const Header = () => {
   return (
@@ -14,6 +15,7 @@ export const Header = () => {
         </Link>
 
         <div className="flex justify-center items-center gap-10">
+          <CompanySubscriptionSubscribeButton />
           <HeaderLink to={ROUTES.companies.index} pathToBeActive={ROUTES.companies.index}>
             Companies
           </HeaderLink>

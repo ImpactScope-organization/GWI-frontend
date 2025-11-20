@@ -16,7 +16,6 @@ import { QuantitativeReportDetails } from './containers/QuantitativeReportDetail
 import { CaseCommentary } from './containers/CaseCommentary/CaseCommentary'
 import { B2CTierAvailability } from './containers/B2CTierAvailability/B2CTierAvailability'
 import { ClientVisibility } from './containers/ClientVisibility/ClientVisibility'
-import { CompanySubscriptionHero } from '../../../components/Paywall/CompanySubscriptionHero/CompanySubscriptionHero'
 
 export const SpecificReportIndex = () => {
   const { companyId } = useParams()
@@ -32,7 +31,6 @@ export const SpecificReportIndex = () => {
   }
   return (
     <PageContainer>
-      <CompanySubscriptionHero />
       <div className="flex justify-between items-center gap-8 mb-8">
         <div className="w-1/3 lg:w-2/3">
           <BackButtonLink
