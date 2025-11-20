@@ -23,7 +23,7 @@ RUN apt-get update \
 COPY package*.json ./
 
 # Install node deps (dev deps required for a build)
-RUN --mount=type=cache,target=/root/.npm npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci --include=dev
 
 # Copy app source
 COPY . .
