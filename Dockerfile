@@ -3,6 +3,9 @@ FROM node:20-bullseye AS build
 
 WORKDIR /app
 
+ARG BUILD_ENV=production
+ENV NODE_ENV=$BUILD_ENV
+
 # Install build dependencies required by node-gyp / native modules
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \

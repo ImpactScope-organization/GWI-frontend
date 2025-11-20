@@ -24,6 +24,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          build-args: |
+            BUILD_ENV=production
           push: true
           tags: |
             ghcr.io/impactscope-organization/gwi-frontend:latest-main
