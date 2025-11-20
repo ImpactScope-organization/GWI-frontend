@@ -3,8 +3,12 @@ FROM node:20-bullseye AS build
 
 WORKDIR /app
 
-ARG BUILD_ENV=production
+ARG BUILD_ENV=production 
+ARG BUILD_API_HOST 
+ARG BUILD_PAYMENT_URL
 ENV NODE_ENV=$BUILD_ENV
+ENV REACT_APP_BASE_URL=$BUILD_API_HOST
+ENV REACT_APP_STRIPE_QUARTERLY_PRODUCT_PAYMENT_URL=$BUILD_PAYMENT_URL
 
 # Install build dependencies required by node-gyp / native modules
 RUN apt-get update \
@@ -27,6 +31,8 @@ RUN --mount=type=cache,target=/root/.npm npm ci --include=dev
 
 # Copy app source
 COPY . .
+# Ensure that there's no .env* files included
+RUN rm -f .env .env.* || true
 
 # Build env / memory and disable CRA eslint as before
 ENV DISABLE_ESLINT_PLUGIN=true
