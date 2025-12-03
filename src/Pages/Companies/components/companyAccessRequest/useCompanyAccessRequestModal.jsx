@@ -12,11 +12,7 @@ export const useCompanyAccessRequestModal = () => {
         </h2>
       ),
       icon: null,
-      content: (
-        <div>
-          <div>If you click yes, one of our representatives will get back to you soon.</div>
-        </div>
-      ),
+      content: <div>If you click yes, one of our representatives will get back to you soon.</div>,
       okText: 'Yes',
       cancelText: 'No'
     })
