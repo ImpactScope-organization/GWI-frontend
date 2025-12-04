@@ -10,6 +10,7 @@ import { ROLES } from '../../utils/roles'
 import { CompanyListItem } from './components/CompanyListItem/CompanyListItem'
 import { CompanyListItemPaywall } from './components/Paywall/CompanyListItemPaywall/CompanyListItemPaywall'
 import { useAccessContext } from '../../Context/AccessContext'
+import { NewCompanyRequestButton } from './NewCompanyRequestButton'
 
 export const Companies = () => {
   const { data } = useFetchCompanyList()
@@ -42,6 +43,15 @@ export const Companies = () => {
             )
           )}
       </CategorizedListContainer>
+      <RoleRender role={ROLES.B2C_USER}>
+        <div className="mt-8 mb-5 h-px w-full bg-slate-200" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 space-y-4 lg:space-y-0 items-center">
+          <p className="col-span-1 lg:col-span-2 subtitle-text text-center lg:text-left align-middle">
+            Can't find the company you're looking for?
+          </p>
+          <NewCompanyRequestButton />
+        </div>
+      </RoleRender>
     </PageContainer>
   )
 }
