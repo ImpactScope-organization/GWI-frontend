@@ -37,7 +37,6 @@ export const useCompanyAccessRequestModal = () => {
         }
       },
       okText: 'Yes',
-      okButtonProps: { className: 'w-full' },
       cancelText: 'No'
     })
   }, [confirm, userInfo.email])
