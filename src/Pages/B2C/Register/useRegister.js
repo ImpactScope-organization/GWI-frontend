@@ -15,14 +15,19 @@ export const useRegister = () => {
 
   const registerFormik = useFormik({
     initialValues: {
+      name: '',
       email: '',
+      companyName: '',
+      companyType: '',
       password: '',
       passwordAgain: '',
-      b2cRole: B2C_ROLES.INDIVIDUAL,
-      name: ''
+      b2cRole: B2C_ROLES.INDIVIDUAL
     },
     validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
       email: Yup.string().email('Invalid email address').required('Email is required'),
+      companyName: Yup.string().required('Company Name is required'),
+      companyType: Yup.string().required('Company Type is required'),
       password: Yup.string().required('Password is required'),
       passwordAgain: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
