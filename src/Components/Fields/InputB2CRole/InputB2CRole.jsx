@@ -8,7 +8,7 @@ export const InputB2CRole = ({ name, disabled = false }) => {
   const { b2cRole, setRole, isOtherInputVisible } = useInputB2CRole({ name })
 
   return (
-    <div className="w-full">
+    <div className="w-full hidden">
       <label className="text-md text-darkBlack mb-1 font-semibold block">
         I am registering on behalf of a
       </label>
