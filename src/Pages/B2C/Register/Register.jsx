@@ -18,6 +18,8 @@ export const Register = () => {
             <InputText name="email" label="E-mail" />
             <InputPassword name="password" label="Password" />
             <InputPassword name="passwordAgain" label="Password Again" />
+            <InputText name="companyName" label="Company Name" />
+            <InputText name="companyType" label="Company Type" />
             <InputB2CRole name="b2cRole" />
             <FilledSuccessButton type="submit" isLoading={isLoading}>
               Sign up
