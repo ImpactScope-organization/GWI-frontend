@@ -16,9 +16,9 @@ export const useCompanyAccessRequestModal = () => {
       ),
       icon: null,
       content: (
-        <div>
+        <div className="mb-4">
           If you click Yes, one of our representatives will get back to you soon via email to{' '}
-          <span className="font-semibold">{userInfo.email}</span>.
+          <span className="font-semibold">{userInfo.email}</span>
         </div>
       ),
       onOk: async () => {
@@ -36,8 +36,9 @@ export const useCompanyAccessRequestModal = () => {
           })
         }
       },
+      okButtonProps: { className: 'w-[80px]' },
       okText: 'Yes',
-      cancelText: 'No'
+      cancelText: 'Maybe later'
     })
   }, [confirm, userInfo.email])
 
