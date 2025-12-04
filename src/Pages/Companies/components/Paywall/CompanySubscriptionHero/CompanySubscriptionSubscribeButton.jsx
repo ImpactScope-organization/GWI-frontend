@@ -1,10 +1,11 @@
 import { useAccessContext } from '../../../../../Context/AccessContext'
 import { FilledSuccessButton } from '../../../../../Components/Buttons/FilledSuccessButton'
-import { usePaywallModal } from '../PaywallModal/usePaywallModal'
+// import { usePaywallModal } from '../PaywallModal/usePaywallModal'
+import { useCompanyAccessRequestModal } from '../../companyAccessRequest/useCompanyAccessRequestModal'
 
 export const CompanySubscriptionSubscribeButton = () => {
   const { isFreeB2CTier } = useAccessContext()
-  const { modalContent, open } = usePaywallModal()
+  const { modalContent, open } = useCompanyAccessRequestModal()
 
   if (!isFreeB2CTier) return null
 

@@ -6,10 +6,10 @@ import { CategorizedListItemCategory } from '../../../../../Components/Categoriz
 import { Badge } from 'antd'
 import { CategorizedListItemDate } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemDate'
 import { handleDateFormat } from '../../../../../utils/date'
-import { usePaywallModal } from '../PaywallModal/usePaywallModal'
+import { useCompanyAccessRequestModal } from '../../companyAccessRequest/useCompanyAccessRequestModal'
 
 export const CompanyListItemPaywall = ({ company }) => {
-  const { modalContent, open } = usePaywallModal()
+  const { modalContent, open } = useCompanyAccessRequestModal()
 
   return (
     <>
