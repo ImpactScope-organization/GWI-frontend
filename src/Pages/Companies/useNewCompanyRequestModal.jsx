@@ -18,8 +18,7 @@ export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
       initialValues={{
         companyName: '',
         companySector: '',
-        companyWebsite: '',
-        reason: ''
+        companyWebsite: ''
       }}
       validationSchema={RequestSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -132,18 +131,18 @@ export const useNewCompanyRequestModal = () => {
               const api = await getApi()
               await api.post('/api/company/request', values)
 
-              console.log('Submitted:', values)
               toast.success('Company request submitted!')
+              modalInstance.destroy()
             } catch (error) {
               console.error(error)
               const errMessage = 'Something went wrong'
               const serverErrMessage = error.response.data.message
               toast.error(serverErrMessage || errMessage)
+              if (!serverErrMessage.includes('fields are required')) {
+                modalInstance.destroy()
+              }
               // Rethrow error so Formik knows to stop the loading spinner
               throw error
-            } finally {
-              // Close the modal on success
-              modalInstance.destroy()
             }
           }}
         />
