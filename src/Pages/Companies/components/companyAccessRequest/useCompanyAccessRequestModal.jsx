@@ -25,14 +25,21 @@ export const useCompanyAccessRequestModal = () => {
         try {
           const api = await getApi()
           await api.post('/api/enquiry')
+
           Modal.success({
             title: 'Request Submitted',
             content: 'Thank you! We will get back to you soon via email.'
           })
         } catch (error) {
+          console.debug('error when making request', error)
+          // 1. Try to get the specific message from the server
+          const serverErrorMessage = error.response?.data?.error
+          console.debug(serverErrorMessage)
+          // 2. Fallback message if server is unreachable or sends a different format
+          const defaultMessage = 'An error occurred while submitting your request.'
           Modal.error({
             title: 'Submission Failed',
-            content: 'You have submitted a request before'
+            content: serverErrorMessage || defaultMessage
           })
         }
       },
