@@ -105,11 +105,15 @@ export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
           </div>
 
           {/* Footer Buttons */}
-          <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-slate-100">
+          <div className="flex justify-end gap-2 mt-4 pt-4">
             <Button onClick={onCancel} disabled={isSubmitting}>
               Maybe later
             </Button>
-            <Button type="primary" htmlType="submit" loading={isSubmitting}>
+            <Button
+              htmlType="submit"
+              loading={isSubmitting}
+              className="flex justify-center items-center text-white bg-primary border-primary hover:!bg-white font-bold"
+            >
               Submit Request
             </Button>
           </div>
