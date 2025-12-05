@@ -123,7 +123,6 @@ export const useNewCompanyRequestModal = () => {
   const [{ confirm }, modalContent] = Modal.useModal()
 
   const open = useCallback(() => {
-    // 1. We capture the modal instance in a variable
     const modalInstance = confirm({
       title: (
         <h2 className="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-slate-900">
@@ -132,40 +131,33 @@ export const useNewCompanyRequestModal = () => {
       ),
       icon: null,
 
-      // 2. CRITICAL: Hide the default AntD buttons because your Form has its own
+      // Hide the default AntD buttons because your Form has its own
       footer: null,
 
       width: 600, // Optional: make it a bit wider for the form
 
-      // 3. Render your Form component inside the content
       content: (
         <NewCompanyRequestForm
-          // A. Handle Cancel: Close the modal
           onCancel={() => {
             modalInstance.destroy()
           }}
-          // B. Handle Submit: Your API logic goes here
           onSubmit={async (values) => {
             try {
-              // --- API CALL START ---
               const api = await getApi()
               await api.post('/api/company/request', values)
 
-              // Simulate API delay for 1 second (remove this in production)
-              await new Promise((resolve) => setTimeout(resolve, 1000))
-
               console.log('Submitted:', values)
-              // --- API CALL END ---
-
               toast.success('Company request submitted!')
-
-              // Close the modal on success
-              modalInstance.destroy()
             } catch (error) {
               console.error(error)
-              toast.error('Something went wrong')
+              const errMessage = 'Something went wrong'
+              const serverErrMessage = error.response.data.message
+              toast.error(serverErrMessage || errMessage)
               // Rethrow error so Formik knows to stop the loading spinner
               throw error
+            } finally {
+              // Close the modal on success
+              modalInstance.destroy()
             }
           }}
         />
