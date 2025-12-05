@@ -8,8 +8,8 @@ import { toast } from 'react-toastify'
 
 const RequestSchema = Yup.object().shape({
   companyName: Yup.string().required('Company name is required'),
-  companySector: Yup.string().required('Sector is required'),
-  companyWebsite: Yup.string().url('Must be a valid URL').required('Website is required')
+  companyWebsite: Yup.string().url('Must be a valid URL').required('Website is required'),
+  comment: Yup.string().max(300).required('Please tell us more about your request')
 })
 
 export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
@@ -17,8 +17,8 @@ export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
     <Formik
       initialValues={{
         companyName: '',
-        companySector: '',
-        companyWebsite: ''
+        companyWebsite: '',
+        comment: ''
       }}
       validationSchema={RequestSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -49,24 +49,6 @@ export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
             />
           </div>
 
-          {/* Company Sector */}
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Sector</label>
-            <Input
-              name="companySector"
-              placeholder="e.g. Technology"
-              value={values.companySector}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              status={touched.companySector && errors.companySector ? 'error' : ''}
-            />
-            <ErrorMessage
-              name="companySector"
-              component="div"
-              className="text-red-500 text-xs mt-1"
-            />
-          </div>
-
           {/* Company Website */}
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Website</label>
@@ -83,6 +65,23 @@ export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
               component="div"
               className="text-red-500 text-xs mt-1"
             />
+          </div>
+
+          {/* Comment */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Comment <span className="opacity-70 font-normal">(Tell us more)</span>
+            </label>
+            <Input.TextArea
+              name="comment"
+              rows={3}
+              placeholder="Anything else you want to tell us about this company or anything that you'd like us to look at?"
+              value={values.comment}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              status={touched.comment && errors.comment ? 'error' : ''}
+            />
+            <ErrorMessage name="comment" component="div" className="text-red-500 text-xs mt-1" />
           </div>
 
           {/* Footer Buttons */}
@@ -136,8 +135,9 @@ export const useNewCompanyRequestModal = () => {
             } catch (error) {
               console.error(error)
               const errMessage = 'Something went wrong'
-              const serverErrMessage = error.response.data.message
-              toast.error(serverErrMessage || errMessage)
+              const serverErrMessage = error?.response?.data?.error
+              const serverErrMessage2 = error?.response?.data?.message
+              toast.error(serverErrMessage || serverErrMessage2 || errMessage)
               if (!serverErrMessage.includes('fields are required')) {
                 modalInstance.destroy()
               }
