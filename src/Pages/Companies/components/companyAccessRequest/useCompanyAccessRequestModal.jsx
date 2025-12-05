@@ -31,10 +31,8 @@ export const useCompanyAccessRequestModal = () => {
             content: 'Thank you! We will get back to you soon via email.'
           })
         } catch (error) {
-          console.debug('error when making request', error)
           // 1. Try to get the specific message from the server
           const serverErrorMessage = error.response?.data?.error
-          console.debug(serverErrorMessage)
           // 2. Fallback message if server is unreachable or sends a different format
           const defaultMessage = 'An error occurred while submitting your request.'
           Modal.error({
