@@ -9,8 +9,7 @@ import { toast } from 'react-toastify'
 const RequestSchema = Yup.object().shape({
   companyName: Yup.string().required('Company name is required'),
   companySector: Yup.string().required('Sector is required'),
-  companyWebsite: Yup.string().url('Must be a valid URL').required('Website is required'),
-  reason: Yup.string().required('Please provide a reason')
+  companyWebsite: Yup.string().url('Must be a valid URL').required('Website is required')
 })
 
 export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
@@ -85,23 +84,6 @@ export const NewCompanyRequestForm = ({ onSubmit, onCancel }) => {
               component="div"
               className="text-red-500 text-xs mt-1"
             />
-          </div>
-
-          {/* Reason */}
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Reason for Request
-            </label>
-            <Input.TextArea
-              name="reason"
-              rows={3}
-              placeholder="Why do we need this company?"
-              value={values.reason}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              status={touched.reason && errors.reason ? 'error' : ''}
-            />
-            <ErrorMessage name="reason" component="div" className="text-red-500 text-xs mt-1" />
           </div>
 
           {/* Footer Buttons */}
