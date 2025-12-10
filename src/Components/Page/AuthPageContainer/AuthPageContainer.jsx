@@ -18,11 +18,11 @@ export const AuthPageContainer = ({ children, subTitle }) => (
 
             <a
               className="flex justify-center items-center px-1 cursor-pointer"
-              href="https://astar.network/solutions"
+              href="https://solana.com/solutions"
               target="_blank"
               rel="noreferrer"
             >
-              <img src="../../assets/AstrLogo.svg" alt="logo" />
+              <img src="../../assets/SolanaLogo.webp" alt="logo" className="max-h-[48px]" />
             </a>
           </div>
           <a

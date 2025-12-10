@@ -10,6 +10,7 @@ import { Select } from 'antd'
 
 export const Register = () => {
   const { registerFormik, isLoading } = useRegister()
+  const { companyType } = registerFormik.values
 
   return (
     <AuthPageContainer subTitle="Sign up and let's get started">
@@ -19,7 +20,7 @@ export const Register = () => {
             <InputText name="name" label="Name" />
             <InputText name="email" label="E-mail" />
             <InputPassword name="password" label="Password" />
-            <InputPassword name="passwordAgain" label="Password Again" />
+            <InputPassword name="confirmPassword" label="Confirm Password" />
             <InputText name="companyName" label="Company Name" />
             <div>
               <label className="text-md text-darkBlack mb-1 font-semibold block">
@@ -60,6 +61,9 @@ export const Register = () => {
                 className="w-full"
               />
             </div>
+            {companyType === 'other' && (
+              <InputText name="customCompanyType" label="Custom Company Type" />
+            )}
             <InputB2CRole name="b2cRole" />
             <FilledSuccessButton type="submit" isLoading={isLoading}>
               Sign up

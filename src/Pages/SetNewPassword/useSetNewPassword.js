@@ -16,11 +16,11 @@ export const useSetNewPassword = () => {
   const setNewPasswordFormik = useFormik({
     initialValues: {
       password: '',
-      passwordAgain: ''
+      confirmPassword: ''
     },
     validationSchema: Yup.object({
       password: Yup.string().required('Password is required'),
-      passwordAgain: Yup.string()
+      confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Password is required')
     }),

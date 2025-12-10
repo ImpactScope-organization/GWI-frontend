@@ -20,7 +20,7 @@ export const useRegister = () => {
       companyName: '',
       companyType: '',
       password: '',
-      passwordAgain: '',
+      confirmPassword: '',
       b2cRole: B2C_ROLES.INDIVIDUAL
     },
     validationSchema: Yup.object({
@@ -28,6 +28,7 @@ export const useRegister = () => {
       email: Yup.string().email('Invalid email address').required('Email is required'),
       companyName: Yup.string().required('Company Name is required'),
       companyType: Yup.string().required('Company Type is required'),
+      customCompanyType: Yup.string().required('Company Type is required'),
       password: Yup.string().required('Password is required'),
       passwordAgain: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
