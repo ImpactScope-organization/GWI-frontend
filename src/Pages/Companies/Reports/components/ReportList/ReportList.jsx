@@ -6,6 +6,8 @@ import { CategorizedListItemDate } from '../../../../../Components/CategorizedLi
 import { CategorizedListItemTitle } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemTitle'
 import { CategorizedListItemCategoryContainer } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategoryContainer'
 import { CategorizedListItemCategory } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemCategory'
+import { RoleRender } from '../../../../../Components/Restrict/RoleRender/RoleRender'
+import { ROLES } from '../../../../../utils/roles'
 
 export const ReportList = ({ data }) => {
   return (
@@ -26,7 +28,11 @@ export const ReportList = ({ data }) => {
             })}
             key={`report_list_item_${report?.id}`}
           >
-            <CategorizedListItemDate>{handleDateFormat(report?.createdAt)}</CategorizedListItemDate>
+            <RoleRender role={ROLES.ADMIN}>
+              <CategorizedListItemDate>
+                {handleDateFormat(report?.createdAt)}
+              </CategorizedListItemDate>
+            </RoleRender>
             <CategorizedListItemTitle>{report?.title}</CategorizedListItemTitle>
             <CategorizedListItemCategoryContainer>
               Jurisdiction:

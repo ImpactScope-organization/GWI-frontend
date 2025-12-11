@@ -20,7 +20,7 @@ export const Companies = () => {
 
   return (
     <PageContainer>
-      <PageHeader title="Companies" subTitle="Overview all of companies here">
+      <PageHeader title="Companies">
         <RoleRender role={ROLES.ADMIN}>
           <ButtonLink to={ROUTES.companies.create}>Add new company</ButtonLink>
         </RoleRender>
