@@ -9,7 +9,7 @@ export const AuthPageContainer = ({ children, subTitle }) => (
           <div className="flex gap-x-4">
             <a
               className="flex justify-center items-center px-1 cursor-pointer"
-              href="https://astar.network/solutions"
+              href="https://impactscope.com/news/impactscopes-ai-blockchain-powered-greenwashing-detection-tool-wins-gfin-techsprint-eureka-award/"
               target="_blank"
               rel="noreferrer"
             >
