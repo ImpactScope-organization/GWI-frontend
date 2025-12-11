@@ -13,7 +13,7 @@ export const SetNewPassword = () => {
         <Form>
           <div className="w-full mt-5 space-y-5">
             <InputPassword name="password" label="Password" />
-            <InputPassword name="passwordAgain" label="Password Again" />
+            <InputPassword name="passwordAgain" label="Confirm Password" />
             <FilledSuccessButton type="submit" isLoading={isLoading}>
               Set New Password
             </FilledSuccessButton>

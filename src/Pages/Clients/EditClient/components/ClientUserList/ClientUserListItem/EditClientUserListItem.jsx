@@ -17,7 +17,7 @@ export const EditClientUserListItem = ({ clientUser }) => {
         <div className="flex flex-row gap-4 mb-4">
           <LabelledText label="E-Mail">{editClientUserListItemFormik.values.email}</LabelledText>
           <InputPassword name="password" label="Password" />
-          <InputPassword name="passwordAgain" label="Password Again" />
+          <InputPassword name="passwordAgain" label="Confirm Password" />
 
           <div className="mt-7 flex gap-4">
             <SuccessButton type="submit">Save</SuccessButton>
