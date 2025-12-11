@@ -6,6 +6,8 @@ import { CategorizedListItemCategory } from '../../../../Components/CategorizedL
 import { CategorizedListItemLink } from '../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemLink'
 import React from 'react'
 import { useAccessContext } from '../../../../Context/AccessContext'
+import { RoleRender } from '../../../../Components/Restrict/RoleRender/RoleRender'
+import { ROLES } from '../../../../utils/roles'
 
 export const CompanyListItem = ({ company }) => {
   const { getCompanyRouteByRole } = useAccessContext()
@@ -16,7 +18,9 @@ export const CompanyListItem = ({ company }) => {
         companyId: company?.companyId
       })}
     >
-      <CategorizedListItemDate>{handleDateFormat(company?.createdAt)}</CategorizedListItemDate>
+      <RoleRender role={ROLES.ADMIN}>
+        <CategorizedListItemDate>{handleDateFormat(company?.createdAt)}</CategorizedListItemDate>
+      </RoleRender>
       <CategorizedListItemTitle>{company?.name}</CategorizedListItemTitle>
       <CategorizedListItemCategoryContainer>
         <div>Jurisdiction:</div>

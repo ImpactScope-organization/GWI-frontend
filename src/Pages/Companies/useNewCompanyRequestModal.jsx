@@ -109,9 +109,14 @@ export const useNewCompanyRequestModal = () => {
   const open = useCallback(() => {
     const modalInstance = confirm({
       title: (
-        <h2 className="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-slate-900">
-          Request a New Company
-        </h2>
+        <>
+          <h2 className="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-slate-900">
+            Request a New Company
+          </h2>
+          <p className="opacity-70 font-normal">
+            (Provide us the full name, including the legal form)
+          </p>
+        </>
       ),
       icon: null,
 
