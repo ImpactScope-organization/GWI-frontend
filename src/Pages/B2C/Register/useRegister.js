@@ -19,6 +19,7 @@ export const useRegister = () => {
       email: '',
       companyName: '',
       companyType: '',
+      customCompanyType: '',
       password: '',
       passwordAgain: '',
       b2cRole: B2C_ROLES.INDIVIDUAL
@@ -28,6 +29,7 @@ export const useRegister = () => {
       email: Yup.string().email('Invalid email address').required('Email is required'),
       companyName: Yup.string().required('Company Name is required'),
       companyType: Yup.string().required('Company Type is required'),
+      customCompanyType: Yup.string().optional(),
       password: Yup.string().required('Password is required'),
       passwordAgain: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
