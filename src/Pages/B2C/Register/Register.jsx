@@ -19,7 +19,7 @@ export const Register = () => {
             <InputText name="name" label="Name" />
             <InputText name="email" label="E-mail" />
             <InputPassword name="password" label="Password" />
-            <InputPassword name="passwordAgain" label="Password Again" />
+            <InputPassword name="passwordAgain" label="Confirm Password" />
             <InputText name="companyName" label="Company Name" />
             <div>
               <label className="text-md text-darkBlack mb-1 font-semibold block">
