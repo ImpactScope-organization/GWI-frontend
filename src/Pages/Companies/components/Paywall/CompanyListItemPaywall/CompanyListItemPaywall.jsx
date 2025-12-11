@@ -7,6 +7,8 @@ import { Badge } from 'antd'
 import { CategorizedListItemDate } from '../../../../../Components/CategorizedList/CategorizedListItemLink/CategorizedListItemDate'
 import { handleDateFormat } from '../../../../../utils/date'
 import { useCompanyAccessRequestModal } from '../../companyAccessRequest/useCompanyAccessRequestModal'
+import { RoleRender } from '../../../../../Components/Restrict/RoleRender/RoleRender'
+import { ROLES } from '../../../../../utils/roles'
 
 export const CompanyListItemPaywall = ({ company }) => {
   const { modalContent, open } = useCompanyAccessRequestModal()
@@ -16,9 +18,11 @@ export const CompanyListItemPaywall = ({ company }) => {
       <button onClick={open} className="cursor-pointer text-left">
         <Badge.Ribbon text="Premium">
           <CategorizedListItemLink to="#">
-            <CategorizedListItemDate>
-              {handleDateFormat(company?.createdAt)}
-            </CategorizedListItemDate>
+            <RoleRender role={ROLES.ADMIN}>
+              <CategorizedListItemDate>
+                {handleDateFormat(company?.createdAt)}
+              </CategorizedListItemDate>
+            </RoleRender>
             <CategorizedListItemTitle>{company?.name}</CategorizedListItemTitle>
             <CategorizedListItemCategoryContainer>
               <div>Jurisdiction:</div>

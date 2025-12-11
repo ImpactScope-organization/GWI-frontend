@@ -57,7 +57,9 @@ export const SpecificReportIndex = () => {
               <QuantitativeReportDetails />
             )}
             <ReportInfo />
-            <ReportDocuments />
+            <RoleRender role={ROLES.ADMIN}>
+              <ReportDocuments />
+            </RoleRender>
             <RoleRender role={ROLES.ADMIN}>
               <ClientVisibility />
             </RoleRender>
