@@ -29,7 +29,13 @@ export const Register = () => {
                 name="companyType"
                 placeholder="Select Company Type"
                 optionFilterProp="label"
-                onChange={(value) => registerFormik.setFieldValue('companyType', value)}
+                onChange={(value) => {
+                  registerFormik.setFieldValue('companyType', value)
+                  // If the user selects anything except 'other', clear the custom field
+                  if (value !== 'other') {
+                    registerFormik.setFieldValue('customCompanyType', '')
+                  }
+                }}
                 status={
                   registerFormik.touched.companyType && registerFormik.errors.companyType
                     ? 'error'
@@ -60,6 +66,12 @@ export const Register = () => {
                 className="w-full"
               />
             </div>
+
+            {/* CONDITIONAL INPUT: Only shows if "other" is selected */}
+            {registerFormik.values.companyType === 'other' && (
+              <InputText name="customCompanyType" label="Please specify" />
+            )}
+
             <InputB2CRole name="b2cRole" />
             <FilledSuccessButton type="submit" isLoading={isLoading}>
               Sign up
