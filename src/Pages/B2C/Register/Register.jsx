@@ -7,6 +7,8 @@ import { FilledSuccessButton } from '../../../Components/Buttons/FilledSuccessBu
 import { InputB2CRole } from '../../../Components/Fields/InputB2CRole/InputB2CRole'
 import React from 'react'
 import { Select } from 'antd'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '../../../routes'
 
 export const Register = () => {
   const { registerFormik, isLoading } = useRegister()
@@ -76,6 +78,12 @@ export const Register = () => {
             <FilledSuccessButton type="submit" isLoading={isLoading}>
               Sign up
             </FilledSuccessButton>
+            <div className="flex items-center justify-center">
+              Already have an account?
+              <Link className="pl-1 text-primary underline" to={ROUTES.login}>
+                Login
+              </Link>
+            </div>
           </div>
         </Form>
       </FormikProvider>

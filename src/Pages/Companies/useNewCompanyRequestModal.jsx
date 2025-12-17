@@ -114,7 +114,8 @@ export const useNewCompanyRequestModal = () => {
             Request a New Company
           </h2>
           <p className="opacity-70 font-normal">
-            (Provide us the full name, including the legal form)
+            (Provide us the full name, including the legal form. We'll get back to you with a
+            quote.)
           </p>
         </>
       ),
