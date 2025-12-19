@@ -18,7 +18,7 @@ export const CompanyListItem = ({ company }) => {
         companyId: company?.companyId
       })}
     >
-      <RoleRender role={ROLES.B2C} hide>
+      <RoleRender role={ROLES.ADMIN}>
         <CategorizedListItemDate>{handleDateFormat(company?.createdAt)}</CategorizedListItemDate>
       </RoleRender>
       <CategorizedListItemTitle>{company?.name}</CategorizedListItemTitle>
